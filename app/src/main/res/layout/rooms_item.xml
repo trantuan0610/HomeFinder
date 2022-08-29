@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
+
+    <ImageView
+        android:id="@+id/imgRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:src="@drawable/room1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:id="@+id/tvRoomPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/blue"
+        android:text="1.5 triệu"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/view"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/ic_location"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgRoom" />
+
+    <TextView
+        android:id="@+id/tvRoomAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:text="122 Định Công Hoàng Mai Hà Nội"
+        app:layout_constraintStart_toEndOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/imgRoom" />
+
+    <TextView
+        android:id="@+id/tvRoomArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="30 m2"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/tvRoomAddress"
+        android:layout_marginTop="2dp"
+        />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/photo_sizel"
+        app:layout_constraintEnd_toStartOf="@+id/tvRoomArea"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        android:layout_marginTop="2dp"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

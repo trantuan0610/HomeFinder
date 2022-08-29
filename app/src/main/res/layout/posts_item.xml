@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<ImageView
+    android:id="@+id/imgPost"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:src="@drawable/home"
+    />
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Người trẻ nên thuê trung cư hay mua nhà"
+        android:textSize="16sp"
+        android:textColor="#6079AE"
+        android:fontFamily="@font/bold"
+
+        />
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:text="trần đình Tuấntrần đình Tuấntrần đình Tuấntrần đình Tuấntrần đình Tuấntrần đình Tuấntrần đình Tuấntrần đình Tuấntrần đình Tuấn"
+        android:fontFamily="@font/bold"
+        />
+</LinearLayout>

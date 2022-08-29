@@ -1,0 +1,8 @@
+typepost:
+1 cho thuê
+2 tìm người ở ghép
+typeroom:
+1 phòng
+2 căn hộ
+3 căn hộ mini
+4 nguyên căn

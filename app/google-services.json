@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "345113421993",
+    "project_id": "homefinder1",
+    "storage_bucket": "homefinder1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:345113421993:android:0d5bae65bc076de7f221b8",
+        "android_client_info": {
+          "package_name": "com.tuantd.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "345113421993-j3rqrn7m1vhrg4thmlquv0dshe8tsjl5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tuantd.myapplication",
+            "certificate_hash": "28d03d6d50c72142d8fed5f74beccb53f1cb09a9"
+          }
+        },
+        {
+          "client_id": "345113421993-rjpmmb1b0iuoiv5ictuv4s5n264aq8eg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRGTh31SqC2VSP5f-PHAEcZmZYnrbroPk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "345113421993-rjpmmb1b0iuoiv5ictuv4s5n264aq8eg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
