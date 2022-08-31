@@ -14,7 +14,7 @@ import com.tuantd.myapplication.mainscreen.posts.PostsFragment
 import com.tuantd.myapplication.mainscreen.search.SearchFragment
 
 class MainActivity : AppCompatActivity() {
-     var email : String ?=null
+      var email : String ?= null
     lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,15 +22,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         preferences = getSharedPreferences("Shared_Pref",Context.MODE_PRIVATE)
+
         val email_pref =preferences.getString("email","")
+         email = intent.getStringExtra("email").toString()
 
-        if(email!=null){
-            email=intent.getStringExtra("email").toString()
+        if(email != null){
+            Log.d("checkEmail", email!!)
         }else{
-
-            email=email_pref
+            email = email_pref
         }
-
 
         val homeFragment = HomeFragment()
         val accountFragment = AccountFragment()

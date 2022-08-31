@@ -8,6 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:src="@drawable/home"
+    android:scaleType="fitXY"
     />
     <TextView
         android:id="@+id/tv_title"
@@ -16,7 +17,6 @@
         android:text="Người trẻ nên thuê trung cư hay mua nhà"
         android:textSize="16sp"
         android:textColor="#6079AE"
-        android:fontFamily="@font/bold"
 
         />
     <TextView
@@ -27,6 +27,5 @@
         android:maxLines="2"
         android:ellipsize="end"
         android:text="trần đình Tuấntrần đình Tuấntrần đình Tuấntrần đình Tuấntrần đình Tuấntrần đình Tuấntrần đình Tuấntrần đình Tuấntrần đình Tuấn"
-        android:fontFamily="@font/bold"
         />
 </LinearLayout>

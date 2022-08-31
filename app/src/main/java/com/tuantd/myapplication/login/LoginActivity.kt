@@ -42,6 +42,7 @@ class LoginActivity : AppCompatActivity() {
         if(auth.currentUser!=null){
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 
@@ -71,6 +72,7 @@ class LoginActivity : AppCompatActivity() {
                         var intent = Intent(this,MainActivity::class.java)
                         intent.putExtra("email",email)
                         startActivity(intent)
+                        finish()
 
                     } else {
                       Toast.makeText(this,"Bạn chưa có tài khoản", Toast.LENGTH_SHORT).show()

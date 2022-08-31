@@ -1,7 +1,10 @@
 package com.tuantd.myapplication.mainscreen.posts
 
-data class Posts(var postId: Int,
+data class Posts(
                  var postTitle: String,
-                 var postImageUrl: Int,
-                 var postContent:String
-                )
+                 var postImageUrl: String,
+                 var postContent:String,
+                 var url : String
+                ){
+    constructor():this("","","","")
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mainscreen.home.AddRoom.AddRoomActivity">
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_margin="10dp"
+            android:id="@+id/edtRoomAddress"
+            android:layout_width="300dp"
+            android:layout_height="55dp"
+            android:hint="Enter Addresss" />
+
+        <EditText
+            android:layout_margin="10dp"
+            android:id="@+id/edtPrice"
+            android:layout_width="300dp"
+            android:layout_height="55dp"
+            android:hint="Enter Price" />
+
+        <EditText
+            android:layout_margin="10dp"
+            android:id="@+id/edtArea"
+            android:layout_width="300dp"
+            android:layout_height="55dp"
+            android:hint="Enter Area" />
+        <EditText
+            android:layout_margin="10dp"
+            android:id="@+id/edtImage"
+            android:layout_width="300dp"
+            android:layout_height="55dp"
+            android:hint="Enter Image" />
+        <EditText
+            android:layout_margin="10dp"
+            android:id="@+id/edtDes"
+            android:layout_width="300dp"
+            android:layout_height="55dp"
+            android:hint="Enter Des" />
+
+        <Button
+            android:layout_margin="10dp"
+            android:id="@+id/btnAddRoom"
+            android:layout_width="300dp"
+            android:layout_height="55dp"
+            android:text="Add Rooms" />
+    </LinearLayout>
+
+</FrameLayout>

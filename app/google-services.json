@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "345113421993",
+    "firebase_url": "https://homefinder1-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "homefinder1",
     "storage_bucket": "homefinder1.appspot.com"
   },

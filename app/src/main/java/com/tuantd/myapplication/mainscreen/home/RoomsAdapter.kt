@@ -1,14 +1,16 @@
 package com.tuantd.myapplication.mainscreen.home
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.tuantd.myapplication.R
 
-class RoomsAdapter(private val roomsList: ArrayList<Room>) : RecyclerView.Adapter<RoomsAdapter.MyViewHolder>() {
+class RoomsAdapter(var context: Context, private val roomsList: ArrayList<Room>) : RecyclerView.Adapter<RoomsAdapter.MyViewHolder>() {
 
 
 
@@ -21,7 +23,10 @@ class RoomsAdapter(private val roomsList: ArrayList<Room>) : RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val room = roomsList[position]
-        holder.roomImage.setImageResource(room.roomImage)
+        Glide.with(context)
+            .load(room.roomImage)
+            .into(holder.roomImage)
+
         holder.price.text = room.price
         holder.roomAddress.text = room.roomAddress
         holder.roomArea.text = room.roomArea
