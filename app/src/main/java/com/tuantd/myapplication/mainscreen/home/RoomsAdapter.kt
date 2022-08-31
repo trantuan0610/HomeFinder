@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tuantd.myapplication.R
 
-class RoomsAdapter(var context: Context, private val roomsList: ArrayList<Room>) : RecyclerView.Adapter<RoomsAdapter.MyViewHolder>() {
+open class RoomsAdapter(var context: Context, private var roomsList: ArrayList<Room>) : RecyclerView.Adapter<RoomsAdapter.MyViewHolder>() {
 
 
 
@@ -39,5 +39,9 @@ class RoomsAdapter(var context: Context, private val roomsList: ArrayList<Room>)
         val price: TextView = itemView.findViewById(R.id.tvRoomPrice)
         val roomAddress: TextView = itemView.findViewById(R.id.tvRoomAddress)
         val roomArea: TextView = itemView.findViewById(R.id.tvRoomArea)
+    }
+    fun addList(mRoomsList: ArrayList<Room>){
+        roomsList=mRoomsList
+        notifyDataSetChanged()
     }
 }

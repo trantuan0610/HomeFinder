@@ -39,36 +39,39 @@ class PostsFragment : Fragment() {
 
         fetchData()
 
-       // newArrayList = arrayListOf<Posts>()
+        // newArrayList = arrayListOf<Posts>()
 
 
     }
 
     private fun fetchData() {
-
+        var post = ArrayList<Posts>()
+        val posts = PostsAdapter(requireContext(), post)
         FirebaseFirestore.getInstance().collection("POSTS")
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    val post = documents.toObjects(Posts::class.java)
+                    post = documents.toObjects(Posts::class.java) as ArrayList<Posts>
 
-                    val posts = PostsAdapter(requireContext(), post)
-                    rcv_post.adapter = posts
-                    posts.onclickItem = {
-                        val intent =
-                            Intent((activity as MainActivity), DetailPostActivity::class.java)
-                        intent.putExtra("url", it)
-                        (activity as MainActivity).startActivity(intent)
-                    }
+
                 }
+                posts.addList(post)
+
 
             }
             .addOnFailureListener {
 
             }
 
-    }
+        rcv_post.adapter = posts
+        posts.onclickItem = {
+            val intent =
+                Intent((activity as MainActivity), DetailPostActivity::class.java)
+            intent.putExtra("url", it)
+            (activity as MainActivity).startActivity(intent)
+        }
 
+    }
 
 
 }

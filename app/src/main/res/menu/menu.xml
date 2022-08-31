@@ -6,7 +6,7 @@
         android:title="Trang Chủ" />
     <item
         android:id="@+id/search"
-        android:icon="@drawable/ic_favorite"
+        android:icon="@drawable/ic_search"
         android:title="Tìm Kiếm" />
     <item
         android:id="@+id/post"

@@ -13,7 +13,7 @@ import com.tuantd.myapplication.DetailPost.DetailPostActivity
 import com.tuantd.myapplication.R
 import com.tuantd.myapplication.mainscreen.MainActivity
 
-class PostsAdapter(private val context: Context, private val postsList: List<Posts>) :
+class PostsAdapter(private val context: Context, private var postsList: List<Posts>) :
     RecyclerView.Adapter<PostsAdapter.MyViewHolder>() {
 
 
@@ -47,5 +47,9 @@ class PostsAdapter(private val context: Context, private val postsList: List<Pos
         val imagePost: ImageView = itemView.findViewById(R.id.imgPost)
         val title: TextView = itemView.findViewById(R.id.tv_title)
         val content: TextView = itemView.findViewById(R.id.tv_content)
+    }
+    fun addList(array: List<Posts>){
+        postsList=array
+        notifyDataSetChanged()
     }
 }
