@@ -49,11 +49,16 @@ class HomeFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 roomList.clear()
                 for (eachRoom in snapshot.children) {
-                    val room = eachRoom.getValue(Room::class.java)
-
-                    if (room != null) {
-                        roomList.add(room)
-                    }
+                    val room = eachRoom.value as? HashMap<String, Any?>
+                    val data = Room(
+                        roomId = room?.get("roomId") as String,
+                        roomAddress = room["roomAddress"] as String,
+                        roomImage = room["roomImage"] as String,
+                        price = room["price"] as String,
+                        roomArea = room["roomArea"] as String,
+                        roomDescription = room["roomDescription"] as String
+                    )
+                    roomList.add(data)
 
                     roomsAdapter = RoomsAdapter(requireContext(), roomList)
                     rcv_room.adapter = roomsAdapter
@@ -61,19 +66,10 @@ class HomeFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.d("abc", "éo có gì")
             }
         })
 
     }
-
-//    private fun getRoomdata() {
-//        for (i in roomImage.indices) {
-//            val room = Room(i, roomAddress[i], roomImage[i], roomPrice[i], roomArea[i])
-//            newArrayList.add(room)
-//        }
-//        rcv_room.adapter = RoomsAdapter(newArrayList)
-//    }
 
 
 }

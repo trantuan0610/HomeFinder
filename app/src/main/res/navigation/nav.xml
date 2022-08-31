@@ -10,13 +10,7 @@
         android:name="com.tuantd.myapplication.mainscreen.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_addRoomFragment"
-            app:destination="@id/addRoomFragment" />
+
     </fragment>
-    <fragment
-        android:id="@+id/addRoomFragment"
-        android:name="com.tuantd.myapplication.mainscreen.home.AddRoom.AddRoomFragment"
-        android:label="fragment_add_room"
-        tools:layout="@layout/fragment_add_room" />
+
 </navigation>
