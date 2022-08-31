@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.tuantd.myapplication.DetailPost.DetailPostActivity
@@ -46,7 +45,7 @@ class PostsFragment : Fragment() {
 
     private fun fetchData() {
         var post = ArrayList<Posts>()
-        val posts = PostsAdapter(requireContext(), post)
+        val postsAdapter = PostsAdapter(requireContext(), post)
         FirebaseFirestore.getInstance().collection("POSTS")
             .get()
             .addOnSuccessListener { documents ->
@@ -55,7 +54,7 @@ class PostsFragment : Fragment() {
 
 
                 }
-                posts.addList(post)
+                postsAdapter.addList(post)
 
 
             }
@@ -63,8 +62,8 @@ class PostsFragment : Fragment() {
 
             }
 
-        rcv_post.adapter = posts
-        posts.onclickItem = {
+        rcv_post.adapter = postsAdapter
+        postsAdapter.onclickItem = {
             val intent =
                 Intent((activity as MainActivity), DetailPostActivity::class.java)
             intent.putExtra("url", it)

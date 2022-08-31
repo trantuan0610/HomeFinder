@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkLogin() {
-        if(auth.currentUser!=null){
+        if(auth.currentUser !=null){
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
             finish()

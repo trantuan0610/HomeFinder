@@ -27,9 +27,9 @@ open class RoomsAdapter(var context: Context, private var roomsList: ArrayList<R
             .load(room.roomImage)
             .into(holder.roomImage)
 
-        holder.price.text = room.price
+        holder.price.text = room.price+ "triệu"
         holder.roomAddress.text = room.roomAddress
-        holder.roomArea.text = room.roomArea
+        holder.roomArea.text = room.roomArea + "m2"
     }
 
     override fun getItemCount(): Int = roomsList.size

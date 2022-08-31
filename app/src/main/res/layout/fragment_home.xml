@@ -6,15 +6,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".mainscreen.home.HomeFragment"
     >
+   <Toolbar
+       android:id="@+id/toolbar"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       >
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
 
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Danh sách phòng cho thuê"
+             android:textColor="@color/blue"
+             android:layout_centerInParent="true"
+             android:fontFamily="@font/bold"
+             android:textSize="20sp"
+             />
+
+
+      </RelativeLayout>
+   </Toolbar>
    <androidx.recyclerview.widget.RecyclerView
-         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-       app:spanCount="2"
        android:id="@+id/rcv_room"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
+       app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+       app:spanCount="2"
        tools:listitem="@layout/rooms_item"
-       />
+       android:layout_below="@+id/toolbar"/>
 
    <com.google.android.material.floatingactionbutton.FloatingActionButton
        android:id="@+id/btn_Add"
@@ -23,7 +44,9 @@
        android:layout_alignParentEnd="true"
        android:layout_alignParentBottom="true"
        android:layout_margin="10dp"
-       />
+       android:src="@drawable/ic_baseline_more_horiz_24"
+       android:backgroundTint="@color/blue"
+        />
 
 
 </RelativeLayout>

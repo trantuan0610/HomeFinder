@@ -23,14 +23,14 @@ class MainActivity : AppCompatActivity() {
 
         preferences = getSharedPreferences("Shared_Pref",Context.MODE_PRIVATE)
 
-        val email_pref =preferences.getString("email","")
+        var email_pref =preferences.getString("email","")
+
          email = intent.getStringExtra("email").toString()
 
-        if(email != null){
-            Log.d("checkEmail", email!!)
-        }else{
+        if(email == "null"){
             email = email_pref
         }
+
 
         val homeFragment = HomeFragment()
         val accountFragment = AccountFragment()

@@ -19,7 +19,8 @@
             app:queryHint="Tìm quận,thành phố..."
                 />
         <androidx.recyclerview.widget.RecyclerView
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
             android:id="@+id/rcv_searchRooms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
