@@ -8,10 +8,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -43,6 +40,7 @@ class AddRoomActivity : AppCompatActivity() {
     lateinit var edtArea: EditText
     lateinit var edtAddress: EditText
     lateinit var choseImg: ImageView
+    lateinit var tvadd: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +52,7 @@ class AddRoomActivity : AppCompatActivity() {
         edtArea = findViewById(R.id.edtArea)
         edtAddress = findViewById(R.id.edtRoomAddress)
         choseImg = findViewById(R.id.imgChose)
+        tvadd = findViewById(R.id.tvPush)
 
 
         registerActivityForResult()
@@ -61,9 +60,10 @@ class AddRoomActivity : AppCompatActivity() {
             chooseImage()
         }
 
-        btnAdd.setOnClickListener {
+        tvadd.setOnClickListener {
             uploadPhoto()
         }
+
 
 
     }

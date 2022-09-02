@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
-import com.tuantd.myapplication.DetailPost.DetailPostActivity
+import com.tuantd.myapplication.mainscreen.posts.DetailPost.DetailPostActivity
 import com.tuantd.myapplication.R
 import com.tuantd.myapplication.mainscreen.MainActivity
 
@@ -63,6 +63,8 @@ class PostsFragment : Fragment() {
             }
 
         rcv_post.adapter = postsAdapter
+
+
         postsAdapter.onclickItem = {
             val intent =
                 Intent((activity as MainActivity), DetailPostActivity::class.java)

@@ -1,10 +1,7 @@
-package com.tuantd.myapplication.DetailPost
+package com.tuantd.myapplication.mainscreen.posts.DetailPost
 
 import android.os.Bundle
 import android.webkit.WebView
-import android.webkit.WebViewClient
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.tuantd.myapplication.R
 

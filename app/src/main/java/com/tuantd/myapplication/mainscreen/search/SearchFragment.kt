@@ -6,7 +6,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
@@ -34,14 +36,6 @@ class SearchFragment : Fragment() {
         rcv_searchRoom = view.findViewById(R.id.rcv_searchRooms)
         searchView = view.findViewById(R.id.searchView)
 
-
-
-
-
-
-
-
-
         return view
     }
 
@@ -52,6 +46,9 @@ class SearchFragment : Fragment() {
         roomsAdapter = RoomsAdapter(requireContext(), arrayList)
         rcv_searchRoom.adapter = roomsAdapter
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+
+
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }
@@ -71,8 +68,8 @@ class SearchFragment : Fragment() {
 
                 } else {
                     arrayList.clear()
-                    arrayList.addAll(roomList)
-                    roomsAdapter?.addList(arrayList)
+//                    arrayList.addAll(roomList)
+//                    roomsAdapter?.addList(arrayList)
                 }
 
                 return true
@@ -97,7 +94,7 @@ class SearchFragment : Fragment() {
                     )
                     roomList.add(data)
                 }
-                roomsAdapter?.addList(roomList)
+                //roomsAdapter?.addList(roomList)
 
             }
 

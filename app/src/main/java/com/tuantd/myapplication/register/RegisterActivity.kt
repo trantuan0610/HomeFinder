@@ -36,7 +36,6 @@ class RegisterActivity : AppCompatActivity() {
         //Register()
 
         btnRegister.setOnClickListener {
-            Toast.makeText(this,"nhấn",Toast.LENGTH_SHORT).show()
             if(checking())
             {
                 var email=edtEmail.text.toString()

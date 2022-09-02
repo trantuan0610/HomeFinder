@@ -20,7 +20,7 @@ open class RoomsAdapter(var context: Context, private var roomsList: ArrayList<R
             LayoutInflater.from(parent.context).inflate(R.layout.rooms_item, parent, false)
         return RoomsAdapter.MyViewHolder(itemView)
     }
-
+    var onclickItem: ((String) -> Unit)? = null
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val room = roomsList[position]
         Glide.with(context)
@@ -30,6 +30,10 @@ open class RoomsAdapter(var context: Context, private var roomsList: ArrayList<R
         holder.price.text = room.price+ "triệu"
         holder.roomAddress.text = room.roomAddress
         holder.roomArea.text = room.roomArea + "m2"
+
+        holder.roomImage.setOnClickListener {
+            onclickItem?.invoke(room.roomId)
+        }
     }
 
     override fun getItemCount(): Int = roomsList.size
