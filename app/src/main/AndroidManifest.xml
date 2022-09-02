@@ -18,6 +18,9 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".RoomFavourite.FavouriteRoomActivity"
+            android:exported="false" />
+        <activity
             android:name=".mainscreen.home.DetailRoom.DetailRoomActivity"
             android:exported="false" />
         <activity

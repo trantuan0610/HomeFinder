@@ -13,9 +13,19 @@
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:queryHint="Tìm theo quận,thành phố..." />
+        <TextView
+            android:id="@+id/tvHiss"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:queryHint="Tìm quận,thành phố..." />
+            android:text="Lịch Sử tìm kiếm: \n Hoàng Mai \n 108 Nghĩa Đô \n Mai Dịch, Hà Nội"
+            android:layout_below="@+id/searchView"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="30dp"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_searchRooms"

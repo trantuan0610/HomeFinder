@@ -1,13 +1,17 @@
 package com.tuantd.myapplication.mainscreen.home.DetailRoom
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.google.firebase.database.*
 import com.tuantd.myapplication.R
+import com.tuantd.myapplication.RoomFavourite.FavouriteRoomActivity
 import com.tuantd.myapplication.mainscreen.home.Room
 
 class DetailRoomActivity : AppCompatActivity() {
@@ -17,8 +21,11 @@ class DetailRoomActivity : AppCompatActivity() {
     lateinit var roomPrice : TextView
     lateinit var roomArea : TextView
     lateinit var roomDes : TextView
+    lateinit var roomName : TextView
     lateinit var roomImg : ImageView
     lateinit var context: Context
+    lateinit var follow: ImageButton
+    lateinit var unfollow: ImageButton
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference: DatabaseReference = database.reference.child("Rooms")
@@ -32,14 +39,23 @@ class DetailRoomActivity : AppCompatActivity() {
         roomArea = findViewById(R.id.tvRoomArea)
         roomDes = findViewById(R.id.tvDetailDes)
         roomImg = findViewById(R.id.imgRoom)
+        roomName = findViewById(R.id.tvName)
+        follow = findViewById(R.id.like)
+        unfollow = findViewById(R.id.dontlike)
 
-        var roomId = intent.getStringExtra("roomId")
+        val roomId = intent.getStringExtra("roomId")
 
         if (roomId != null) {
             retrieveDataFromDatabase(roomId)
         }
-
+            follow.setOnClickListener{
+                follow.visibility = View.GONE
+                unfollow.visibility = View.VISIBLE
+                var intent =Intent(this,FavouriteRoomActivity::class.java)
+                intent.putExtra("roomId",roomId)
+            }
     }
+
 
     private fun retrieveDataFromDatabase(roomID: String) {
         myReference.addValueEventListener(object : ValueEventListener {
@@ -53,7 +69,10 @@ class DetailRoomActivity : AppCompatActivity() {
                         roomImage = room["roomImage"] as String,
                         price = room["price"] as String,
                         roomArea = room["roomArea"] as String,
-                        roomDescription = room["roomDescription"] as String
+                        roomDescription = room["roomDescription"] as String,
+                        name = room["name"] as String,
+                        phone = room["phone"] as String
+
                     )
                     roomList.add(data)
                 }
@@ -63,6 +82,7 @@ class DetailRoomActivity : AppCompatActivity() {
                         roomPrice.text = it.price + "triệu"
                         roomArea.text = it.roomArea+"m2"
                         roomDes.text = it.roomDescription
+                        roomName.text = it.name + "-"+ it.phone
 
                       Glide.with(this@DetailRoomActivity).load(it.roomImage).into(roomImg)
 

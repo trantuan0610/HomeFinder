@@ -58,7 +58,9 @@ class HomeFragment : Fragment() {
                         roomImage = room["roomImage"] as String,
                         price = room["price"] as String,
                         roomArea = room["roomArea"] as String,
-                        roomDescription = room["roomDescription"] as String
+                        roomDescription = room["roomDescription"] as String,
+                        name = room["name"] as String ,
+                        phone = room["phone"] as String
                     )
                     roomList.add(data)
 

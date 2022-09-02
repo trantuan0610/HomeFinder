@@ -39,33 +39,45 @@ class AddRoomActivity : AppCompatActivity() {
     lateinit var edtDes: EditText
     lateinit var edtArea: EditText
     lateinit var edtAddress: EditText
+    lateinit var edtName: EditText
+    lateinit var edtPhone: EditText
     lateinit var choseImg: ImageView
     lateinit var tvadd: TextView
+    lateinit var tvHuy: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_room)
 
-        btnAdd = findViewById(R.id.btnAddRoom)
         edtPrice = findViewById(R.id.edtPrice)
         edtDes = findViewById(R.id.edtDes)
         edtArea = findViewById(R.id.edtArea)
         edtAddress = findViewById(R.id.edtRoomAddress)
         choseImg = findViewById(R.id.imgChose)
+        edtName = findViewById(R.id.edtName)
+        edtPhone = findViewById(R.id.edtPhone)
         tvadd = findViewById(R.id.tvPush)
+        tvHuy = findViewById(R.id.tvHuy)
 
 
         registerActivityForResult()
         choseImg.setOnClickListener {
             chooseImage()
         }
-
-        tvadd.setOnClickListener {
-            uploadPhoto()
+        upNewRoom()
+        tvHuy.setOnClickListener {
+            finish()
         }
 
 
 
+    }
+
+    private fun upNewRoom() {
+        tvadd.setOnClickListener {
+            uploadPhoto()
+        }
     }
 
     private fun chooseImage() {
@@ -85,6 +97,7 @@ class AddRoomActivity : AppCompatActivity() {
             activityResultLauncher.launch(intent)
         }
     }
+
     fun registerActivityForResult() {
         activityResultLauncher =
             registerForActivityResult(
@@ -109,10 +122,12 @@ class AddRoomActivity : AppCompatActivity() {
         val area: String = edtArea.text.toString()
         val price: String = edtPrice.text.toString()
         val des: String = edtDes.text.toString()
+        val name: String = edtName.text.toString()
+        val phone: String = edtPhone.text.toString()
 
         val id: String = myReference.push().key.toString()
 
-        val room = Room(id, address, url, price, area, des)
+        val room = Room(id, address, url, price, area, des, name, phone)
 
         myReference.child(id).setValue(room).addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -133,6 +148,7 @@ class AddRoomActivity : AppCompatActivity() {
             }
         }
     }
+
     fun uploadPhoto() {
 
         //UUID
@@ -144,7 +160,7 @@ class AddRoomActivity : AppCompatActivity() {
 
             imageReference.putFile(uri).addOnSuccessListener {
 
-                Toast.makeText(this,"Image uploaded", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Image uploaded", Toast.LENGTH_LONG).show()
 
                 //download url
                 val myUploadedImageReference = storageReference.child("images").child(imageName)
@@ -159,7 +175,7 @@ class AddRoomActivity : AppCompatActivity() {
 
             }.addOnFailureListener {
 
-                Toast.makeText(this,it.localizedMessage, Toast.LENGTH_LONG).show()
+                Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
             }
         }
     }

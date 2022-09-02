@@ -1,6 +1,7 @@
 package com.tuantd.myapplication.mainscreen
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tuantd.myapplication.R
 import com.tuantd.myapplication.mainscreen.account.AccountFragment
+import com.tuantd.myapplication.mainscreen.home.AddRoom.AddRoomActivity
 import com.tuantd.myapplication.mainscreen.home.HomeFragment
 import com.tuantd.myapplication.mainscreen.posts.PostsFragment
 import com.tuantd.myapplication.mainscreen.search.SearchFragment
@@ -24,10 +26,11 @@ class MainActivity : AppCompatActivity() {
         preferences = getSharedPreferences("Shared_Pref",Context.MODE_PRIVATE)
 
         var email_pref =preferences.getString("email","")
-
+        // lấy từ register
          email = intent.getStringExtra("email").toString()
 
         if(email == "null"){
+            // lấy từ shared preferences
             email = email_pref
         }
 
@@ -52,12 +55,15 @@ class MainActivity : AppCompatActivity() {
     }
     private fun setThatFragment(fragment: Fragment) {
         if (fragment != null){
+            //bắn sang accountFragment
             var bundle = Bundle()
             bundle.putString("email", email)
             fragment.arguments = bundle
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.frame_layout,fragment)
             transaction.commit()
+            var intent = Intent(this,AddRoomActivity::class.java)
+            intent.putExtra("email",email)
         }
     }
 }

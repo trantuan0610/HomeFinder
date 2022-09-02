@@ -4,81 +4,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".mainscreen.home.AddRoom.AddRoomActivity">
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvHuy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:fontFamily="@font/bold"
+                android:text="Huỷ"
+                android:textColor="@color/red"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/bold"
+                android:text="Đăng Tin"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+
+                />
+
+            <TextView
+                android:id="@+id/tvPush"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/bold"
+                android:text="Đăng"
+                android:textColor="@color/blue"
+                android:textSize="15sp" />
+
+
+        </RelativeLayout>
+    </Toolbar>
 
     <LinearLayout
-        android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
-        <Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/tvHuy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Huỷ"
-                    android:layout_alignParentStart="true"
-                    android:textSize="15sp"
-                    android:textColor="@color/red"
-                    android:fontFamily="@font/bold"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Đăng Tin"
-                    android:textColor="@color/blue"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="@font/bold"
-                    android:textSize="20sp"
-
-                    />
-                <TextView
-                    android:id="@+id/tvPush"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Đăng"
-                    android:textSize="15sp"
-                    android:layout_alignParentEnd="true"
-                    android:fontFamily="@font/bold"
-                    android:textColor="@color/blue"
-                    android:layout_marginEnd="15dp"
-                    />
-
-
-            </RelativeLayout>
-        </Toolbar>
-
 
         <ImageView
+
             android:id="@+id/imgChose"
-            android:layout_marginTop="20dp"
             android:layout_width="400dp"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/addimg"/>
+            android:layout_marginTop="60dp"
+            android:src="@drawable/addanh" />
 
         <EditText
-            android:layout_margin="10dp"
             android:id="@+id/edtRoomAddress"
             android:layout_width="300dp"
             android:layout_height="55dp"
             android:hint="Enter Addresss" />
 
         <EditText
-            android:layout_margin="10dp"
             android:id="@+id/edtPrice"
             android:layout_width="300dp"
             android:layout_height="55dp"
             android:hint="Enter Price" />
 
         <EditText
-            android:layout_margin="10dp"
             android:id="@+id/edtArea"
             android:layout_width="300dp"
             android:layout_height="55dp"
@@ -86,18 +83,22 @@
 
 
         <EditText
-            android:layout_margin="10dp"
             android:id="@+id/edtDes"
             android:layout_width="300dp"
             android:layout_height="55dp"
             android:hint="Enter Des" />
 
-        <Button
-            android:layout_margin="10dp"
-            android:id="@+id/btnAddRoom"
+        <EditText
+            android:id="@+id/edtName"
             android:layout_width="300dp"
             android:layout_height="55dp"
-            android:text="Add Rooms" />
-    </LinearLayout>
+            android:hint="Enter Name" />
 
+        <EditText
+            android:id="@+id/edtPhone"
+            android:layout_width="300dp"
+            android:layout_height="55dp"
+            android:hint="Enter Phone" />
+
+    </LinearLayout>
 </FrameLayout>

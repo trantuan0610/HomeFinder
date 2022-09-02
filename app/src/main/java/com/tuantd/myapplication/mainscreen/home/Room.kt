@@ -7,5 +7,8 @@ data class Room(
     var price: String,
     var roomArea: String,
     var roomDescription : String,
-)
+    var name : String,
+    var phone : String
+) {
+}
 

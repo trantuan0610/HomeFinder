@@ -10,10 +10,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.tuantd.myapplication.R
+import com.tuantd.myapplication.RoomFavourite.FavouriteRoomActivity
 import com.tuantd.myapplication.login.LoginActivity
 
 
@@ -23,6 +25,7 @@ class AccountFragment : Fragment() {
     lateinit var tvName: TextView
     lateinit var tvEmail: TextView
     lateinit var tvPhone: TextView
+    lateinit var imgMore: ImageButton
     private lateinit var db: FirebaseFirestore
 
 
@@ -39,9 +42,6 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-
         val data = arguments
         var email = data!!.get("email").toString()
         setText(email)
@@ -52,6 +52,7 @@ class AccountFragment : Fragment() {
         tvName = view.findViewById(R.id.tvName)
         tvEmail = view.findViewById(R.id.tvEmail)
         tvPhone = view.findViewById(R.id.tvPhone)
+        imgMore = view.findViewById(R.id.imgMore)
         btnLogOut.setOnClickListener {
 
             FirebaseAuth.getInstance().signOut()
@@ -60,6 +61,10 @@ class AccountFragment : Fragment() {
             startActivity(intent)
 
         }
+//        imgMore.setOnClickListener {
+//            var intent = Intent(activity,FavouriteRoomActivity::class.java)
+//            startActivity(intent)
+//        }
     }
     private fun setText(email:String?)
     {

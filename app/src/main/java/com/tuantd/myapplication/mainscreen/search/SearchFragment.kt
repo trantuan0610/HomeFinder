@@ -23,6 +23,7 @@ class SearchFragment : Fragment() {
     lateinit var rcv_searchRoom: RecyclerView
     private var roomsAdapter: RoomsAdapter?=null
     lateinit var searchView: SearchView
+    lateinit var tvHistory: TextView
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference: DatabaseReference = database.reference.child("Rooms")
@@ -35,6 +36,7 @@ class SearchFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_search, container, false)
         rcv_searchRoom = view.findViewById(R.id.rcv_searchRooms)
         searchView = view.findViewById(R.id.searchView)
+        tvHistory = view.findViewById(R.id.tvHiss)
 
         return view
     }
@@ -55,6 +57,7 @@ class SearchFragment : Fragment() {
 
             @SuppressLint("NotifyDataSetChanged")
             override fun onQueryTextChange(newText: String?): Boolean {
+                    tvHistory.visibility =View.GONE
                 if (newText!!.isNotEmpty()) {
                     arrayList.clear()
                     val search = newText.toString()
@@ -65,9 +68,9 @@ class SearchFragment : Fragment() {
                         }
                     }
                     roomsAdapter?.addList(arrayList)
-
                 } else {
                     arrayList.clear()
+                    tvHistory.visibility = View.VISIBLE
 //                    arrayList.addAll(roomList)
 //                    roomsAdapter?.addList(arrayList)
                 }
@@ -90,7 +93,9 @@ class SearchFragment : Fragment() {
                         roomImage = room["roomImage"] as String,
                         price = room["price"] as String,
                         roomArea = room["roomArea"] as String,
-                        roomDescription = room["roomDescription"] as String
+                        roomDescription = room["roomDescription"] as String,
+                        name = room["name"] as String,
+                        phone = room["phone"] as String
                     )
                     roomList.add(data)
                 }
