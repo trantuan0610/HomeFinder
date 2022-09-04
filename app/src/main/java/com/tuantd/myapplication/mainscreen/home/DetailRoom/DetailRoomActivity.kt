@@ -26,6 +26,7 @@ class DetailRoomActivity : AppCompatActivity() {
     lateinit var context: Context
     lateinit var follow: ImageButton
     lateinit var unfollow: ImageButton
+    lateinit var back: ImageButton
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference: DatabaseReference = database.reference.child("Rooms")
@@ -42,6 +43,12 @@ class DetailRoomActivity : AppCompatActivity() {
         roomName = findViewById(R.id.tvName)
         follow = findViewById(R.id.like)
         unfollow = findViewById(R.id.dontlike)
+        back = findViewById(R.id.back)
+
+        back.setOnClickListener {
+            onBackPressed()
+        }
+
 
         val roomId = intent.getStringExtra("roomId")
 
@@ -97,4 +104,6 @@ class DetailRoomActivity : AppCompatActivity() {
             }
         })
     }
+
+
 }

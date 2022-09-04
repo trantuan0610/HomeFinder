@@ -24,7 +24,7 @@
             android:id="@+id/tvHiss"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lịch Sử tìm kiếm: \n Hoàng Mai \n 108 Nghĩa Đô \n Mai Dịch, Hà Nội"
+            android:text="Mẹo: \n -Bạn có thể tìm kiếm theo từ khoá oặc địa chỉ cụ thể\n -Bạn cũng có thể tìm kiếm theo phường, quận, thành phố \n -Tìm kiếm thêm xung quanh khu vực bạn cần tìm nếu không tìm được trọ ưng ý nhé! \n -Chủ động liên lạc với chủ trọ trước khi qua xem!.. \n   "
             android:layout_below="@+id/searchView"
             android:textSize="16sp"
             android:textColor="@color/black"
@@ -35,9 +35,9 @@
             android:id="@+id/rcv_searchRooms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/searchView"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            android:layout_below="@+id/searchView"/>
+            app:spanCount="2" />
 
 
     </RelativeLayout>

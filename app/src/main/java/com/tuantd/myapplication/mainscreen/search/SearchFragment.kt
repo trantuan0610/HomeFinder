@@ -63,9 +63,9 @@ class SearchFragment : Fragment() {
                     tvHistory.visibility =View.GONE
                 if (newText!!.isNotEmpty()) {
                     arrayList.clear()
-                    val search = newText.toString()
+                    val search = newText.toString().lowercase()
                     roomList.forEach {
-                        if (it.roomAddress.contains(search)) {
+                        if (it.roomAddress.lowercase().contains(search)) {
                             arrayList.add(it)
 
                         }

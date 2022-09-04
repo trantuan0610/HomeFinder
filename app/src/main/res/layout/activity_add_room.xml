@@ -1,104 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".mainscreen.home.AddRoom.AddRoomActivity">
-    <Toolbar
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tvHuy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/bold"
+            android:text="Huỷ"
+            android:textColor="@color/red"
+            android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/tvHuy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:fontFamily="@font/bold"
-                android:text="Huỷ"
-                android:textColor="@color/red"
-                android:textSize="15sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/bold"
+            android:text="Đăng Tin"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/bold"
-                android:text="Đăng Tin"
-                android:textColor="@color/blue"
-                android:textSize="20sp"
+            />
 
-                />
-
-            <TextView
-                android:id="@+id/tvPush"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="15dp"
-                android:fontFamily="@font/bold"
-                android:text="Đăng"
-                android:textColor="@color/blue"
-                android:textSize="15sp" />
+        <TextView
+            android:id="@+id/tvPush"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:fontFamily="@font/bold"
+            android:text="Đăng"
+            android:textColor="@color/blue"
+            android:textSize="15sp" />
 
 
-        </RelativeLayout>
-    </Toolbar>
+    </RelativeLayout>
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="12dp"
+        android:scrollbars="none">
 
-        <ImageView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-            android:id="@+id/imgChose"
-            android:layout_width="400dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="60dp"
-            android:src="@drawable/addanh" />
+            <ImageView
 
-        <EditText
-            android:id="@+id/edtRoomAddress"
-            android:layout_width="300dp"
-            android:layout_height="55dp"
-            android:hint="Enter Addresss" />
+                android:id="@+id/imgChose"
+                android:layout_width="400dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="60dp"
+                android:src="@drawable/addanh" />
 
-        <EditText
-            android:id="@+id/edtPrice"
-            android:layout_width="300dp"
-            android:layout_height="55dp"
-            android:hint="Enter Price" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Địa Chỉ:"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/edtArea"
-            android:layout_width="300dp"
-            android:layout_height="55dp"
-            android:hint="Enter Area" />
+            <EditText
+                android:id="@+id/edtRoomAddress"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/edt_border"
+                android:hint="Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/TP"
+                android:padding="10dp"
 
+                android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/edtDes"
-            android:layout_width="300dp"
-            android:layout_height="55dp"
-            android:hint="Enter Des" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Giá Phòng(VND):"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/edtName"
-            android:layout_width="300dp"
-            android:layout_height="55dp"
-            android:hint="Enter Name" />
+            <EditText
+                android:id="@+id/edtPrice"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/edt_border"
+                android:hint="3000000"
+                android:padding="10dp"
 
-        <EditText
-            android:id="@+id/edtPhone"
-            android:layout_width="300dp"
-            android:layout_height="55dp"
-            android:hint="Enter Phone" />
+                android:textSize="16sp" />
 
-    </LinearLayout>
-</FrameLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Diện Tích(m2)"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edtArea"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/edt_border"
+                android:hint="30"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Mô tả chi tiết:"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edtDes"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/edt_border"
+                android:gravity="start"
+                android:padding="10dp"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Liên hệ với chủ:"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                />
+            <EditText
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/edt_border"
+                android:padding="10dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Số Điện Thoại(liên lạc):"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/edt_border"
+                android:inputType="phone"
+                android:padding="10dp"
+                android:textSize="16sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>
