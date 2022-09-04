@@ -1,6 +1,7 @@
 package com.tuantd.myapplication.mainscreen.search
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.tuantd.myapplication.R
+import com.tuantd.myapplication.mainscreen.MainActivity
+import com.tuantd.myapplication.mainscreen.home.DetailRoom.DetailRoomActivity
 import com.tuantd.myapplication.mainscreen.home.Room
 import com.tuantd.myapplication.mainscreen.home.RoomsAdapter
 
@@ -68,6 +71,12 @@ class SearchFragment : Fragment() {
                         }
                     }
                     roomsAdapter?.addList(arrayList)
+                    roomsAdapter!!.onclickItem = {
+                        val intent =
+                            Intent((activity as MainActivity), DetailRoomActivity::class.java)
+                        intent.putExtra("roomId", it)
+                        (activity as MainActivity).startActivity(intent)
+                    }
                 } else {
                     arrayList.clear()
                     tvHistory.visibility = View.VISIBLE

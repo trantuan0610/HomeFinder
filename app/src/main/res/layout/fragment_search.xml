@@ -15,7 +15,11 @@
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:queryHint="Tìm theo quận,thành phố..." />
+            app:queryHint="Tìm theo quận,thành phố..."
+            android:background="@drawable/background_search_view"
+            app:iconifiedByDefault="false"
+
+            />
         <TextView
             android:id="@+id/tvHiss"
             android:layout_width="wrap_content"

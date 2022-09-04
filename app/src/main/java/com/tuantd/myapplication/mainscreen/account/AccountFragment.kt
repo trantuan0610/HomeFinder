@@ -26,6 +26,7 @@ class AccountFragment : Fragment() {
     lateinit var tvEmail: TextView
     lateinit var tvPhone: TextView
     lateinit var imgMore: ImageButton
+    lateinit var btnChangePass: Button
     private lateinit var db: FirebaseFirestore
 
 
@@ -53,11 +54,18 @@ class AccountFragment : Fragment() {
         tvEmail = view.findViewById(R.id.tvEmail)
         tvPhone = view.findViewById(R.id.tvPhone)
         imgMore = view.findViewById(R.id.imgMore)
+        btnChangePass = view.findViewById(R.id.btnChangePass)
         btnLogOut.setOnClickListener {
 
             FirebaseAuth.getInstance().signOut()
             var intent: Intent
             intent = Intent(activity, LoginActivity::class.java)
+            startActivity(intent)
+
+        }
+
+        btnChangePass.setOnClickListener {
+            var intent = Intent(requireContext() , ChangePassActivity::class.java)
             startActivity(intent)
 
         }

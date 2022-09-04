@@ -64,9 +64,9 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="50dp"
         android:text="Thông Tin Cá Nhân"
+        android:textAllCaps="false"
         android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textAllCaps="false"/>
+        android:textSize="16sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -78,30 +78,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
             android:text="Họ và Tên: "
             android:textColor="@color/black"
-            android:textSize="14sp"
-            android:layout_marginEnd="10dp"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
             android:layout_toRightOf="@id/tv1"
             android:text=""
             android:textColor="@color/black"
-            android:textSize="14sp"
-            android:layout_marginBottom="5dp"
-            />
+            android:textSize="14sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/grey"
             android:layout_below="@id/tv1"
-            />
+            android:background="@color/grey" />
 
         <TextView
             android:id="@+id/tv2"
@@ -109,11 +107,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv1"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
             android:text="Email: "
             android:textColor="@color/black"
-            android:textSize="14sp"
-            android:layout_marginEnd="10dp"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tvEmail"
@@ -129,12 +127,12 @@
             android:textSize="14sp"
 
             />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/grey"
             android:layout_below="@id/tv2"
-            />
+            android:background="@color/grey" />
 
         <TextView
             android:id="@+id/tv3"
@@ -142,12 +140,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv2"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
             android:text="Số Điện Thoại: "
             android:textColor="@color/black"
-            android:textSize="14sp"
-            android:layout_marginEnd="10dp"
-            />
+            android:textSize="14sp" />
 
 
         <TextView
@@ -163,6 +160,7 @@
             android:textSize="14sp"
 
             />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -170,12 +168,16 @@
             android:background="@color/grey" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="wrap_content"
+            android:id="@+id/btnChangePass"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv3"
-            android:text="Chỉnh sửa thông tin cá nhân"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:background="#3974EF"
+            android:text="Thay đổi mật khẩu"
             android:textAllCaps="false"
-            android:visibility="gone"/>
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 
@@ -185,10 +187,10 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="5dp"
         android:background="#3974EF"
         android:text="Đăng Xuất"
-        android:textColor="@color/white"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false"
+        android:textColor="@color/white" />
 
 </LinearLayout>
