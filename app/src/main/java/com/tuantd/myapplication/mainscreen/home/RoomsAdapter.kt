@@ -23,7 +23,7 @@ open class RoomsAdapter(var context: Context, private var roomsList: ArrayList<R
     var onclickItem: ((String) -> Unit)? = null
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val room = roomsList[position]
-        Glide.with(context)
+        Glide.with(holder.itemView)
             .load(room.roomImage)
             .into(holder.roomImage)
 

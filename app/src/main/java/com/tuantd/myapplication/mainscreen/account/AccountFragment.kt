@@ -61,6 +61,7 @@ class AccountFragment : Fragment() {
             var intent: Intent
             intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
+            (activity)?.finish()
 
         }
 

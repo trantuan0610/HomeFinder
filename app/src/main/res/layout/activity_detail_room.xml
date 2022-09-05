@@ -7,7 +7,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:id="@+id/toolbar"
             >
 
@@ -50,6 +50,12 @@
                 android:layout_centerVertical="true"
                 android:visibility="gone"
                 />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey"
+                android:layout_alignParentBottom="true"
+                />
 
         </RelativeLayout>
 
@@ -64,16 +70,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tvtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Phòng trọ full nội thất giá đep"
         android:layout_below="@+id/imgRoom"
-        android:textColor="@color/blue"
-        android:textSize="18sp"
         android:fontFamily="@font/bold"
-        />
+        android:text="Phòng trọ full nội thất giá đep"
+        android:textColor="@color/blue"
+        android:textSize="18sp" />
     <View
         android:id="@+id/viewAddress"
         android:layout_width="30dp"

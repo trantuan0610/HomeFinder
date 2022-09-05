@@ -131,19 +131,15 @@ class AddRoomActivity : AppCompatActivity() {
 
         myReference.child(id).setValue(room).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(
-                    this,
-                    "The new user has been added to the database",
-                    Toast.LENGTH_LONG
-                ).show()
+                //Toast.makeText(this,"The new user has been added to the database",Toast.LENGTH_LONG).show()
                 finish()
 
             } else {
-                Toast.makeText(
-                    this,
-                    task.exception.toString(),
-                    Toast.LENGTH_LONG
-                ).show()
+//                Toast.makeText(
+//                    this,
+//                    task.exception.toString(),
+//                    Toast.LENGTH_LONG
+//                ).show()
 
             }
         }
@@ -160,7 +156,7 @@ class AddRoomActivity : AppCompatActivity() {
 
             imageReference.putFile(uri).addOnSuccessListener {
 
-                Toast.makeText(this, "Image uploaded", Toast.LENGTH_LONG).show()
+               // Toast.makeText(this, "Image uploaded", Toast.LENGTH_LONG).show()
 
                 //download url
                 val myUploadedImageReference = storageReference.child("images").child(imageName)
@@ -175,7 +171,7 @@ class AddRoomActivity : AppCompatActivity() {
 
             }.addOnFailureListener {
 
-                Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
+               // Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
             }
         }
     }

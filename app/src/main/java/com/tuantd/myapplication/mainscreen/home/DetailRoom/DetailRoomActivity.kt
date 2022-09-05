@@ -1,13 +1,12 @@
 package com.tuantd.myapplication.mainscreen.home.DetailRoom
 
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.database.*
 import com.tuantd.myapplication.R
@@ -23,7 +22,6 @@ class DetailRoomActivity : AppCompatActivity() {
     lateinit var roomDes : TextView
     lateinit var roomName : TextView
     lateinit var roomImg : ImageView
-    lateinit var context: Context
     lateinit var follow: ImageButton
     lateinit var unfollow: ImageButton
     lateinit var back: ImageButton
@@ -85,17 +83,20 @@ class DetailRoomActivity : AppCompatActivity() {
                 }
                 roomList.forEach {
                     if (it.roomId.equals(roomID)){
+
                         roomAddress.text = it.roomAddress
                         roomPrice.text = it.price + "triệu"
                         roomArea.text = it.roomArea+"m2"
                         roomDes.text = it.roomDescription
                         roomName.text = it.name + "-"+ it.phone
 
-                      Glide.with(this@DetailRoomActivity).load(it.roomImage).into(roomImg)
+                      Glide.with(applicationContext).load(it.roomImage).into(roomImg)
 
                     }
 
                 }
+
+
                 //roomsAdapter?.addList(roomList)
 
             }

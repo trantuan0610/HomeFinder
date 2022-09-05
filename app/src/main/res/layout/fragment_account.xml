@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="50dp"
-        android:text="Thông Tin Cá Nhân"
+        android:text="Thông Tin Cá Nhân: "
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="16sp" />
@@ -174,10 +174,11 @@
             android:layout_below="@id/tv3"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            android:background="#3974EF"
+            android:background="@drawable/border_btn"
             android:text="Thay đổi mật khẩu"
             android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            />
 
     </RelativeLayout>
 
@@ -188,7 +189,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:background="#3974EF"
+        android:background="@drawable/border_btn"
         android:text="Đăng Xuất"
         android:textAllCaps="false"
         android:textColor="@color/white" />
