@@ -25,7 +25,7 @@ class FavouriteRoomActivity : AppCompatActivity() {
         retrieveDataFromDatabase(roomId!!)
 
         rcv_room = findViewById(R.id.rcv_favRoom)
-        roomsAdapter = RoomsAdapter(this, roomList2)
+        roomsAdapter = RoomsAdapter()
         rcv_room.adapter = roomsAdapter
 
 

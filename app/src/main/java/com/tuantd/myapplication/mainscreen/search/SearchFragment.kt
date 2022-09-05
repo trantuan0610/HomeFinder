@@ -48,7 +48,7 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         retrieveDataFromDatabase()
-        roomsAdapter = RoomsAdapter(requireContext(), arrayList)
+        roomsAdapter = RoomsAdapter()
         rcv_searchRoom.adapter = roomsAdapter
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 

@@ -18,7 +18,7 @@ class HomeFragment : Fragment() {
 private var loadDone:(() -> Unit)?=null
     private var roomList = ArrayList<Room>()
     lateinit var rcv_room: RecyclerView
-    var roomsAdapter: RoomsAdapter ?= null
+    private val roomsAdapter= RoomsAdapter()
     lateinit var btnAdd: FloatingActionButton
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
@@ -47,11 +47,11 @@ private var loadDone:(() -> Unit)?=null
         retrieveDataFromDatabase()
 
         loadDone={
-            roomsAdapter?.addList(roomList)
+            roomsAdapter.addList(roomList)
         }
         rcv_room.adapter = roomsAdapter
-        roomsAdapter = RoomsAdapter(requireContext(), roomList)
-        roomsAdapter?.onclickItem = {
+
+        roomsAdapter.onclickItem = {
             val intent =
                 Intent((activity as MainActivity), DetailRoomActivity::class.java)
             intent.putExtra("roomId", it)

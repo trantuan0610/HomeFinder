@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tuantd.myapplication.R
 
-open class RoomsAdapter(var context: Context, private var roomsList: ArrayList<Room>) : RecyclerView.Adapter<RoomsAdapter.MyViewHolder>() {
+open class RoomsAdapter( ) : RecyclerView.Adapter<RoomsAdapter.MyViewHolder>() {
 
 
 
-
+    private var roomsList: ArrayList<Room>?=null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.rooms_item, parent, false)
@@ -22,21 +22,21 @@ open class RoomsAdapter(var context: Context, private var roomsList: ArrayList<R
     }
     var onclickItem: ((String) -> Unit)? = null
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val room = roomsList[position]
+        val room = roomsList?.get(position)
         Glide.with(holder.itemView)
-            .load(room.roomImage)
+            .load(room?.roomImage)
             .into(holder.roomImage)
 
-        holder.price.text = room.price+ "triệu"
-        holder.roomAddress.text = room.roomAddress
-        holder.roomArea.text = room.roomArea + "m2"
+        holder.price.text = "${room?.price} triệu"
+        holder.roomAddress.text = room?.roomAddress
+        holder.roomArea.text = room?.roomArea + "m2"
 
         holder.roomImage.setOnClickListener {
-            onclickItem?.invoke(room.roomId)
+            room?.roomId?.let { it1 -> onclickItem?.invoke(it1) }
         }
     }
 
-    override fun getItemCount(): Int = roomsList.size
+    override fun getItemCount(): Int = roomsList?.size?:0
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val roomImage: ImageView = itemView.findViewById(R.id.imgRoom)
