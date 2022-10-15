@@ -27,83 +27,68 @@ class RegisterActivity : AppCompatActivity() {
 
         btnRegister = findViewById(R.id.btn_Register)
         auth = FirebaseAuth.getInstance()
-        db= FirebaseFirestore.getInstance()
+        db = FirebaseFirestore.getInstance()
 
         edtEmail = findViewById(R.id.edtEmail)
         edtPass = findViewById(R.id.edtPass)
         edtName = findViewById(R.id.edtName)
         edtPhone = findViewById(R.id.edtphoneNumber)
-        //Register()
+        Register()
 
         btnRegister.setOnClickListener {
-            if(checking())
-            {
-                var email=edtEmail.text.toString()
-                var password= edtPass.text.toString()
-                var name=edtName.text.toString()
-                var phone=edtPhone.text.toString()
+            if (checking()) {
+                var email = edtEmail.text.toString()
+                var password = edtPass.text.toString()
+                var name = edtName.text.toString()
+                var phone = edtPhone.text.toString()
 
-                val user= hashMapOf(
+                val user = hashMapOf(
                     "Name" to name,
                     "Phone" to phone,
                     "email" to email
                 )
-                val Users=db.collection("USERS")
-                val query =Users.whereEqualTo("email",email).get()
-                    .addOnSuccessListener {
-                            tasks->
-                        if(tasks.isEmpty)
-                        {
-                            auth.createUserWithEmailAndPassword(email,password)
-                                .addOnCompleteListener(this){
-                                        task->
-                                    if(task.isSuccessful)
-                                    {
+
+                val Users = db.collection("USERS")
+                val query = Users.whereEqualTo("email", email).get()
+                    .addOnSuccessListener { tasks ->
+                        if (tasks.isEmpty) {
+                            auth.createUserWithEmailAndPassword(email, password)
+                                .addOnCompleteListener(this) { task ->
+                                    if (task.isSuccessful) {
                                         Users.document(email).set(user)
-                                        val intent=Intent(this,MainActivity::class.java)
-                                        intent.putExtra("email",email)
+                                        val intent = Intent(this, MainActivity::class.java)
                                         startActivity(intent)
-                                        Log.d("email",email)
                                         finish()
-                                    }
-                                    else
-                                    {
-                                        Toast.makeText(this,"Authentication Failed", Toast.LENGTH_LONG).show()
+                                    } else {
+                                        Toast.makeText(
+                                            this,
+                                            "Authentication Failed",
+                                            Toast.LENGTH_LONG
+                                        ).show()
                                     }
                                 }
-                        }
-                        else
-                        {
-                            Toast.makeText(this,"User Already Registered", Toast.LENGTH_LONG).show()
-                            val intent= Intent(this, MainActivity::class.java)
-                            startActivity(intent)
+                        } else {
+                            Toast.makeText(this, "Người dùng đã được đăng ký", Toast.LENGTH_LONG)
+                                .show()
                         }
                     }
-            }
-            else{
-                Toast.makeText(this,"Enter the Details", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Enter the Details", Toast.LENGTH_LONG).show()
             }
         }
 
     }
 
     private fun checking(): Boolean {
-        if(edtName.text.toString().trim{it<=' '}.isNotEmpty()
-            && edtPhone.text.toString().trim{it<=' '}.isNotEmpty()
-            && edtEmail.text.toString().trim{it<=' '}.isNotEmpty()
-            && edtPass.text.toString().trim{it<=' '}.isNotEmpty()
-        )
-        {
+        if (edtName.text.toString().trim { it <= ' ' }.isNotEmpty()
+            && edtPhone.text.toString().trim { it <= ' ' }.isNotEmpty()
+            && edtEmail.text.toString().trim { it <= ' ' }.isNotEmpty()
+            && edtPass.text.toString().trim { it <= ' ' }.isNotEmpty()
+        ) {
             return true
         }
         return false
     }
-
-
-
-
-
-
 
 
     private fun Register() {
@@ -117,11 +102,11 @@ class RegisterActivity : AppCompatActivity() {
                         val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
                     } else {
-                        Toast.makeText(this,it.exception.toString(),Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }
-            }else{
-                Toast.makeText(this,"Thiếu thông tin",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Thiếu thông tin", Toast.LENGTH_SHORT).show()
             }
         }
     }

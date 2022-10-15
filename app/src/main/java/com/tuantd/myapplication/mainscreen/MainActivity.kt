@@ -16,23 +16,10 @@ import com.tuantd.myapplication.mainscreen.posts.PostsFragment
 import com.tuantd.myapplication.mainscreen.search.SearchFragment
 
 class MainActivity : AppCompatActivity() {
-      var email : String ?= null
-    lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        preferences = getSharedPreferences("Shared_Pref",Context.MODE_PRIVATE)
-
-        var email_pref =preferences.getString("email","")
-        // lấy từ register
-         email = intent.getStringExtra("email").toString()
-
-        if(email == "null"){
-            // lấy từ shared preferences
-            email = email_pref
-        }
 
 
         val homeFragment = HomeFragment()
@@ -41,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val searchFragment = SearchFragment()
 
         val bottomNavigationView =findViewById<BottomNavigationView>(R.id.buttonNavigation)
-        setThatFragment(accountFragment)
+        setThatFragment(homeFragment)
         bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.home -> setThatFragment(homeFragment)
@@ -56,14 +43,9 @@ class MainActivity : AppCompatActivity() {
     private fun setThatFragment(fragment: Fragment) {
         if (fragment != null){
             //bắn sang accountFragment
-            var bundle = Bundle()
-            bundle.putString("email", email)
-            fragment.arguments = bundle
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.frame_layout,fragment)
             transaction.commit()
-            var intent = Intent(this,AddRoomActivity::class.java)
-            intent.putExtra("email",email)
         }
     }
 }
