@@ -179,10 +179,285 @@
                 android:inputType="phone"
                 android:padding="10dp"
                 android:textSize="16sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Tiện ích phòng:"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <LinearLayout
+                android:id="@+id/ln1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_TienIch"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/rlt_wifi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_TienIch"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/wifi_on"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/border_btn_tienich"
+                        android:src="@drawable/ic_wifi_on"
+                        android:text="Wifi"
+                        android:textAllCaps="false"
+                        android:textColor="@color/blue" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/wifi_off"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/border_btn_tienich_off"
+                        android:gravity="center"
+                        android:src="@drawable/ic_wifi_off"
+                        android:text="Wifi"
+                        android:textColor="@color/black"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlt_fridge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rlt_wifi"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/fridge_on"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/border_btn_tienich"
+                        android:src="@drawable/ic_tulanh"
+                        android:textAllCaps="false"
+                        android:textColor="@color/blue" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/fridge_off"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/border_btn_tienich_off"
+                        android:gravity="center"
+                        android:src="@drawable/ic_tulanh_off"
+                        android:textColor="@color/black"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlt_kitchen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/kitchen_on"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/border_btn_tienich"
+                        android:src="@drawable/ic_bep"
+                        android:textAllCaps="false"
+                        android:textColor="@color/blue" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/kitchen_off"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/border_btn_tienich_off"
+                        android:gravity="center"
+                        android:src="@drawable/ic_bep_off"
+                        android:textColor="@color/black"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlt_free"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_TienIch"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/rlt_wc"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/free_on"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/border_btn_tienich"
+                        android:src="@drawable/ic_free"
+                        android:textColor="@color/blue" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/free_off"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/border_btn_tienich_off"
+                        android:gravity="center"
+                        android:src="@drawable/ic_free_off"
+                        android:textColor="@color/black"
+                        android:visibility="gone"
+
+                        />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ln1"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/rlt_wc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/wc_on"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/border_btn_tienich"
+                        android:src="@drawable/ic_wc_on"
+                        android:textAllCaps="false"
+                        android:textColor="@color/blue" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/wc_off"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/border_btn_tienich_off"
+                        android:gravity="center"
+                        android:src="@drawable/ic_wc_off"
+                        android:textColor="@color/black"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlt_airConditional"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/airConditional_on"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/border_btn_tienich"
+                        android:text="Điều \nhoà"
+                        android:textAllCaps="false"
+                        android:textColor="@color/blue"
+                        android:src="@drawable/ic_dieuhoa"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/airConditional_off"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/border_btn_tienich_off"
+                        android:gravity="center"
+                        android:text="Wifi"
+                        android:textColor="@color/black"
+                        android:visibility="gone"
+                        android:src="@drawable/ic_dieuhoa_off"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlt_washingMachine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/washingMachine_on"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/border_btn_tienich"
+                        android:src="@drawable/ic_may_giat"
+                        android:textAllCaps="false"
+                        android:textColor="@color/blue" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/washingMachine_off"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/border_btn_tienich_off"
+                        android:gravity="center"
+                        android:src="@drawable/ic_may_giat_off"
+                        android:textColor="@color/black"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlt_parking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/parking_on"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/border_btn_tienich"
+                        android:src="@drawable/ic_giuxe"
+                        android:textAllCaps="false"
+                        android:textColor="@color/blue" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/parking_off"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/border_btn_tienich_off"
+                        android:gravity="center"
+                        android:src="@drawable/ic_giuxe_off"
+                        android:textColor="@color/black"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 />
+
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

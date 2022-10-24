@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/wifi_on"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/border_btn_tienich"
+        android:text="Wifi"
+        android:textColor="@color/blue" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/wifi_off"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/border_btn_tienich_off"
+        android:text="Wifi"
+        android:textColor="@color/black"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/free_off"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@+id/wifi_on"
+        android:background="@drawable/border_btn_tienich_off"
+        android:text="Tự do"
+        android:textColor="@color/black"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/free_on"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@+id/wifi_on"
+        android:background="@drawable/border_btn_tienich"
+        android:text="Tự do"
+        android:textColor="@color/blue"
+        android:visibility="visible" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/dieuhoa_off"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@+id/free_on"
+        android:background="@drawable/border_btn_tienich_off"
+        android:text="Tự do"
+        android:textColor="@color/black"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/dieuhoa_on"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@+id/free_on"
+        android:background="@drawable/border_btn_tienich"
+        android:text="Điều Hoà"
+        android:textColor="@color/blue"
+        android:visibility="visible" />
+
+
+</RelativeLayout>
