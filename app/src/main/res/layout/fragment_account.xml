@@ -23,17 +23,8 @@
                 android:textColor="@color/blue"
                 android:textSize="20sp" />
 
-            <ImageButton
-                android:id="@+id/imgMore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="5dp"
-                android:backgroundTint="@color/white"
-                android:src="@drawable/more"
-
-                />
         </RelativeLayout>
+
     </Toolbar>
 
     <View
@@ -43,7 +34,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imgLogo"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_gravity="center"
@@ -59,139 +50,45 @@
         android:textSize="30sp" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
-        android:text="Thông Tin Cá Nhân: "
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp">
-
-        <TextView
-            android:id="@+id/tv1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
-            android:text="Họ và Tên: "
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
-            android:layout_toRightOf="@id/tv1"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/tv1"
-            android:background="@color/grey" />
-
-        <TextView
-            android:id="@+id/tv2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv1"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
-            android:text="Email: "
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/tvEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv1"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
-            android:layout_toRightOf="@id/tv2"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="14sp"
-
-            />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/tv2"
-            android:background="@color/grey" />
-
-        <TextView
-            android:id="@+id/tv3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv2"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
-            android:text="Số Điện Thoại: "
-            android:textColor="@color/black"
-            android:textSize="14sp" />
+        style="@style/NavigationMenu"
+        android:id="@+id/tv_Profile"
+        android:text="Thông tin cá nhân"
+        />
 
 
-        <TextView
-            android:id="@+id/tvPhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv2"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/tv3"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="14sp"
+    <TextView
+        android:id="@+id/tv_aboutUs"
+        style="@style/NavigationMenu"
+        android:text="Về chúng tôi"
+       />
 
-            />
+    <TextView
+        style="@style/NavigationMenu"
+        android:id="@+id/tv_Term"
+        android:text="Điều khoản và chính sách sử dụng"
+        />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/tv3"
-            android:background="@color/grey" />
+    <TextView
+        android:id="@+id/tv_myRoom"
+        style="@style/NavigationMenu"
+        android:text="Phòng đã đăng"
+    />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnChangePass"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv3"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/border_btn"
-            android:text="Thay đổi mật khẩu"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            />
-
-    </RelativeLayout>
-
+    <TextView
+        android:id="@+id/tv_myFavRoom"
+        android:text="Đã lưu"
+        style="@style/NavigationMenu"
+      />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogOut"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:background="@drawable/border_btn"
+        style="@style/OrangeButton"
         android:text="Đăng Xuất"
         android:textAllCaps="false"
         android:textColor="@color/white" />
+
 
 </LinearLayout>

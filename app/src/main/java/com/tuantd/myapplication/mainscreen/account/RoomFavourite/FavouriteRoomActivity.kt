@@ -1,4 +1,4 @@
-package com.tuantd.myapplication.RoomFavourite
+package com.tuantd.myapplication.mainscreen.account.RoomFavourite
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,8 +21,6 @@ class FavouriteRoomActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favourite_room)
-        var roomId = intent.getStringExtra("roomId")
-        retrieveDataFromDatabase(roomId!!)
 
         rcv_room = findViewById(R.id.rcv_favRoom)
         roomsAdapter = RoomsAdapter()
@@ -40,6 +38,7 @@ class FavouriteRoomActivity : AppCompatActivity() {
                     val room = eachRoom.value as? HashMap<String, Any?>
                     val data = Room(
                         roomId = room?.get("roomId") as String,
+                        email = room?.get("email")as String,
                         roomAddress = room["roomAddress"] as String,
                         roomImage = room["roomImage"] as String,
                         price = room["price"] as String,

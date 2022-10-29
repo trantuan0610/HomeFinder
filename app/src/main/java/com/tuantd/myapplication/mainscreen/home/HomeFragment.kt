@@ -15,7 +15,7 @@ import com.tuantd.myapplication.mainscreen.home.AddRoom.AddRoomActivity
 import com.tuantd.myapplication.mainscreen.home.DetailRoom.DetailRoomActivity
 
 class HomeFragment : Fragment() {
-private var loadDone:(() -> Unit)?=null
+    private var loadDone:(() -> Unit)?=null
     private var roomList = ArrayList<Room>()
     lateinit var rcv_room: RecyclerView
     private val roomsAdapter= RoomsAdapter()
@@ -67,6 +67,7 @@ private var loadDone:(() -> Unit)?=null
                     val room = eachRoom.value as? HashMap<*, *>
                     val data = Room(
                         roomId = room?.get("roomId") as String,
+                        email = room["email"] as String,
                         roomAddress = room["roomAddress"] as String,
                         roomImage = room["roomImage"] as String,
                         price = room["price"] as String,

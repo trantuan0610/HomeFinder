@@ -50,14 +50,11 @@ class SearchFragment : Fragment() {
         retrieveDataFromDatabase()
         roomsAdapter = RoomsAdapter()
         rcv_searchRoom.adapter = roomsAdapter
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-
-
-
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }
-
             @SuppressLint("NotifyDataSetChanged")
             override fun onQueryTextChange(newText: String?): Boolean {
                     tvHistory.visibility =View.GONE
@@ -98,6 +95,7 @@ class SearchFragment : Fragment() {
                     val room = eachRoom.value as? HashMap<String, Any?>
                     val data = Room(
                         roomId = room?.get("roomId") as String,
+                        email = room?.get("email") as String,
                         roomAddress = room["roomAddress"] as String,
                         roomImage = room["roomImage"] as String,
                         price = room["price"] as String,

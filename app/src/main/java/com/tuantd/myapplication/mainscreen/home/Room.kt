@@ -2,6 +2,7 @@ package com.tuantd.myapplication.mainscreen.home
 
 data class Room(
     var roomId: String,
+    var email : String,
     var roomAddress: String,
     var roomImage: String,
     var price: String,
@@ -17,7 +18,6 @@ data class Room(
     var washingMachine: String,
     var parking: String,
     var kitchen: String
-
     ) {
 }
 

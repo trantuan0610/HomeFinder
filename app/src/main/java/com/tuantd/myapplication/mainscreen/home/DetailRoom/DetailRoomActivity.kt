@@ -1,111 +1,63 @@
 package com.tuantd.myapplication.mainscreen.home.DetailRoom
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.database.*
-import com.tuantd.myapplication.R
-import com.tuantd.myapplication.RoomFavourite.FavouriteRoomActivity
+import com.tuantd.myapplication.databinding.ActivityDetailRoomBinding
 import com.tuantd.myapplication.mainscreen.home.Room
 
 class DetailRoomActivity : AppCompatActivity() {
 
+    lateinit var binding: ActivityDetailRoomBinding
     private var roomList = ArrayList<Room>()
-    lateinit var roomAddress: TextView
-    lateinit var roomPrice: TextView
-    lateinit var roomArea: TextView
-    lateinit var roomDes: TextView
-    lateinit var roomName: TextView
-    lateinit var roomImg: ImageView
-    lateinit var follow: ImageButton
-    lateinit var unfollow: ImageButton
-    lateinit var back: ImageButton
-
-    lateinit var btn_wifiOn: ImageButton
-    lateinit var btn_wifiOf: ImageButton
-    lateinit var btn_vesinhOn: ImageButton
-    lateinit var btn_vesinhOf: ImageButton
-    lateinit var btn_dieuhoaOn: ImageButton
-    lateinit var btn_dieuhoaOf: ImageButton
-    lateinit var btn_maygiatOn: ImageButton
-    lateinit var btn_maygiatOf: ImageButton
-    lateinit var btn_tudoOf: ImageButton
-    lateinit var btn_tudoOn: ImageButton
-    lateinit var btn_giuxeOf: ImageButton
-    lateinit var btn_giuxeOn: ImageButton
-    lateinit var btn_bepOf: ImageButton
-    lateinit var btn_bepOn: ImageButton
-    lateinit var btn_tulanhOn: ImageButton
-    lateinit var btn_tulanhOf: ImageButton
-
+    private var roomFavList = ArrayList<FavouriteRoom>()
+    private var roomDetail: Room? = null
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference: DatabaseReference = database.reference.child("Rooms")
+    private val myFavouriteReferene : DatabaseReference = database.reference.child("MyFavouriteRoom")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_room)
+        binding = ActivityDetailRoomBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        roomAddress = findViewById(R.id.tvRoomAddress)
-        roomPrice = findViewById(R.id.tvPrice)
-        roomArea = findViewById(R.id.tvRoomArea)
-        roomDes = findViewById(R.id.tvDetailDes)
-        roomImg = findViewById(R.id.imgRoom)
-        roomName = findViewById(R.id.tvName)
-        follow = findViewById(R.id.like)
-        unfollow = findViewById(R.id.dontlike)
-        back = findViewById(R.id.back)
-
-        btn_wifiOn = findViewById(R.id.wifi_on)
-        btn_wifiOf = findViewById(R.id.wifi_off)
-        btn_vesinhOn = findViewById(R.id.wc_on)
-        btn_vesinhOf = findViewById(R.id.wc_off)
-        btn_dieuhoaOn = findViewById(R.id.airConditional_on)
-        btn_dieuhoaOf = findViewById(R.id.airConditional_off)
-        btn_maygiatOn = findViewById(R.id.washingMachine_on)
-        btn_maygiatOf = findViewById(R.id.washingMachine_off)
-        btn_tudoOf = findViewById(R.id.free_off)
-        btn_tudoOn = findViewById(R.id.free_on)
-        btn_giuxeOf = findViewById(R.id.parking_off)
-        btn_giuxeOn = findViewById(R.id.parking_on)
-        btn_bepOf = findViewById(R.id.kitchen_off)
-        btn_bepOn = findViewById(R.id.kitchen_on)
-        btn_tulanhOf = findViewById(R.id.fridge_off)
-        btn_tulanhOn = findViewById(R.id.fridge_on)
-
-        back.setOnClickListener {
+        binding.back.setOnClickListener {
             onBackPressed()
         }
 
-
         val roomId = intent.getStringExtra("roomId")
-
         if (roomId != null) {
             retrieveDataFromDatabase(roomId)
         }
-        follow.setOnClickListener {
-            follow.visibility = View.GONE
-            unfollow.visibility = View.VISIBLE
-            var intent = Intent(this, FavouriteRoomActivity::class.java)
-            intent.putExtra("roomId", roomId)
+        getFavouriteRoomLike()
+        binding.like.setOnClickListener {
+            pushRoomToListFav()
+
+        }
+
+        binding.dontlike.setOnClickListener {
+            binding.like.visibility = View.VISIBLE
+            binding.dontlike.visibility = View.GONE
+            myFavouriteReferene.child(roomDetail?.roomId.toString()).removeValue()
+
         }
     }
 
-
+    // get data ve va luu data vao roomlist
     private fun retrieveDataFromDatabase(roomID: String) {
         myReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 roomList.clear()
                 for (eachRoom in snapshot.children) {
-                    val room = eachRoom.value as? HashMap<String, Any?>
+                    val room = eachRoom.value as? HashMap<*, *>
                     val data = Room(
                         roomId = room?.get("roomId") as String,
+                        email = room["email"] as String,
                         roomAddress = room["roomAddress"] as String,
                         roomImage = room["roomImage"] as String,
                         price = room["price"] as String,
@@ -126,87 +78,83 @@ class DetailRoomActivity : AppCompatActivity() {
                 }
                 roomList.forEach {
                     if (it.roomId.equals(roomID)) {
+                        roomDetail = it
+                        binding.tvRoomAddress.text = it.roomAddress
+                        binding.tvPrice.text = it.price + "triệu"
+                        binding.tvRoomArea.text = it.roomArea + "m2"
+                        binding.tvdes.text = it.roomDescription
+                        binding.tvName.text = it.name + "-" + it.phone
 
-                        roomAddress.text = it.roomAddress
-                        roomPrice.text = it.price + "triệu"
-                        roomArea.text = it.roomArea + "m2"
-                        roomDes.text = it.roomDescription
-                        roomName.text = it.name + "-" + it.phone
+                        Glide.with(applicationContext).load(it.roomImage).into(binding.imgRoom)
 
-                        Glide.with(applicationContext).load(it.roomImage).into(roomImg)
-
-                        if(it.wifi == "1"){
-                            btn_wifiOn.visibility = View.VISIBLE
-                            btn_wifiOf.visibility = View.GONE
-                        }else{
-                            btn_wifiOf.visibility = View.VISIBLE
-                            btn_wifiOn.visibility = View.GONE
-
-                        }
-                        if(it.wc == "1"){
-                            btn_vesinhOn.visibility = View.VISIBLE
-                            btn_vesinhOf.visibility = View.GONE
-                        }else{
-                            btn_vesinhOn.visibility = View.GONE
-                            btn_vesinhOf.visibility = View.VISIBLE
+                        if (it.wifi == "1") {
+                            binding.wifiOn.visibility = View.VISIBLE
+                            binding.wifiOff.visibility = View.GONE
+                        } else {
+                            binding.wifiOff.visibility = View.VISIBLE
+                            binding.wifiOn.visibility = View.GONE
 
                         }
-                        if(it.kitchen == "1"){
-                            btn_bepOn.visibility = View.VISIBLE
-                            btn_bepOf.visibility = View.GONE
-                        }else{
-                            btn_bepOf.visibility = View.VISIBLE
-                            btn_bepOn.visibility = View.GONE
+                        if (it.wc == "1") {
+                            binding.wcOn.visibility = View.VISIBLE
+                            binding.wcOff.visibility = View.GONE
+                        } else {
+                            binding.wcOn.visibility = View.GONE
+                            binding.wcOff.visibility = View.VISIBLE
 
                         }
-                        if(it.parking == "1"){
-                            btn_giuxeOn.visibility = View.VISIBLE
-                            btn_giuxeOf.visibility = View.GONE
-                        }else{
-                            btn_giuxeOf.visibility = View.VISIBLE
-                            btn_giuxeOn.visibility = View.GONE
+                        if (it.kitchen == "1") {
+                            binding.kitchenOn.visibility = View.VISIBLE
+                            binding.kitchenOff.visibility = View.GONE
+                        } else {
+                            binding.kitchenOff.visibility = View.VISIBLE
+                            binding.kitchenOn.visibility = View.GONE
 
                         }
-                        if(it.airConditional == "1"){
-                            btn_dieuhoaOn.visibility = View.VISIBLE
-                            btn_dieuhoaOf.visibility = View.GONE
-                        }else{
-                            btn_dieuhoaOf.visibility = View.VISIBLE
-                            btn_dieuhoaOn.visibility = View.GONE
+                        if (it.parking == "1") {
+                            binding.parkingOn.visibility = View.VISIBLE
+                            binding.parkingOff.visibility = View.GONE
+                        } else {
+                            binding.parkingOff.visibility = View.VISIBLE
+                            binding.parkingOn.visibility = View.GONE
 
                         }
-                        if(it.fridge == "1"){
-                            btn_tulanhOn.visibility = View.VISIBLE
-                            btn_tulanhOf.visibility = View.GONE
-                        }else{
-                            btn_tulanhOf.visibility = View.VISIBLE
-                            btn_tulanhOn.visibility = View.GONE
+                        if (it.airConditional == "1") {
+                            binding.airConditionalOn.visibility = View.VISIBLE
+                            binding.airConditionalOff.visibility = View.GONE
+                        } else {
+                            binding.airConditionalOff.visibility = View.VISIBLE
+                            binding.airConditionalOn.visibility = View.GONE
 
                         }
-                        if(it.free == "1"){
-                            btn_tudoOn.visibility = View.VISIBLE
-                            btn_tudoOf.visibility = View.GONE
-                        }else{
-                            btn_tudoOf.visibility = View.VISIBLE
-                            btn_tudoOn.visibility = View.GONE
+                        if (it.fridge == "1") {
+                            binding.fridgeOn.visibility = View.VISIBLE
+                            binding.fridgeOff.visibility = View.GONE
+                        } else {
+                            binding.fridgeOff.visibility = View.VISIBLE
+                            binding.fridgeOn.visibility = View.GONE
 
                         }
-                        if(it.washingMachine == "1"){
-                            btn_maygiatOn.visibility = View.VISIBLE
-                            btn_maygiatOf.visibility = View.GONE
-                        }else{
-                            btn_maygiatOf.visibility = View.VISIBLE
-                            btn_maygiatOn.visibility = View.GONE
+                        if (it.free == "1") {
+                            binding.freeOn.visibility = View.VISIBLE
+                            binding.freeOff.visibility = View.GONE
+                        } else {
+                            binding.freeOff.visibility = View.VISIBLE
+                            binding.freeOn.visibility = View.GONE
 
                         }
+                        if (it.washingMachine == "1") {
+                            binding.washingMachineOn.visibility = View.VISIBLE
+                            binding.washingMachineOff.visibility = View.GONE
+                        } else {
+                            binding.washingMachineOff.visibility = View.VISIBLE
+                            binding.washingMachineOn.visibility = View.GONE
 
+                        }
 
                     }
 
                 }
-
-
-                //roomsAdapter?.addList(roomList)
 
             }
 
@@ -215,5 +163,51 @@ class DetailRoomActivity : AppCompatActivity() {
         })
     }
 
+    private fun pushRoomToListFav() {
+        binding.like.visibility = View.GONE
+        binding.dontlike.visibility = View.VISIBLE
+        val id = myFavouriteReferene.push().key.toString()
+        val favouriteRoom = FavouriteRoom(id, roomDetail!!.email , roomDetail!!.roomId)
+        myFavouriteReferene.child(id).setValue(favouriteRoom).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(this, "Xong", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Cuts", Toast.LENGTH_SHORT).show()
+
+            }
+        }
+
+    }
+
+    private fun getFavouriteRoomLike(){
+        myFavouriteReferene.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                roomFavList.clear()
+                for (favRoom in snapshot.children) {
+                    val room = favRoom.value as? HashMap<*, *>
+                    val data = FavouriteRoom(
+                        favouriteRoomID = room?.get("favouriteRoomID") as String,
+                        emailPerson = room["emailPerson"] as String,
+                        idRoom = room["idRoom"] as String
+                    )
+                    roomFavList.add(data)
+                }
+                roomFavList.forEach {
+                    if (it.idRoom.equals(roomDetail?.roomId)) {
+                        binding.like.visibility = View.GONE
+                        binding.dontlike.visibility = View.VISIBLE
+                    }else {
+                        binding.like.visibility = View.VISIBLE
+                        binding.dontlike.visibility = View.GONE
+                    }
+
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
 
 }

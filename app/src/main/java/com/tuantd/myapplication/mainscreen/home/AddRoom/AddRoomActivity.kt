@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -35,51 +36,16 @@ class AddRoomActivity : AppCompatActivity() {
     private lateinit var addRoomBinding: ActivityAddRoomBinding
     lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
     var imageUri: Uri? = null
-
     val firebaseStorage: FirebaseStorage = FirebaseStorage.getInstance()
     val storageReference: StorageReference = firebaseStorage.reference
-
-//    lateinit var edtPrice: EditText
-//    lateinit var edtDes: EditText
-//    lateinit var edtArea: EditText
-//    lateinit var edtAddress: EditText
-//    lateinit var edtName: EditText
-//    lateinit var edtPhone: EditText
-//    lateinit var choseImg: ImageView
-//    lateinit var tvadd: TextView
-//    lateinit var tvHuy: TextView
-//
-//    lateinit var btn_wifiOn: ImageButton
-//    lateinit var btn_wifiOf: ImageButton
-    var wifi = 0
-
-//    lateinit var btn_vesinhOn: ImageButton
-//    lateinit var btn_vesinhOf: ImageButton
-    var vesinh = 0
-
-//    lateinit var btn_dieuhoaOn: ImageButton
-//    lateinit var btn_dieuhoaOf: ImageButton
-    var dieuhoa = 0
-
-//    lateinit var btn_maygiatOn: ImageButton
-//    lateinit var btn_maygiatOf: ImageButton
-    var maygiat = 0
-
-//    lateinit var btn_tudoOf: ImageButton
-//    lateinit var btn_tudoOn: ImageButton
-    var tudo = 0
-
-//    lateinit var btn_giuxeOf: ImageButton
-//    lateinit var btn_giuxeOn: ImageButton
-    var giuxe = 0
-
-//    lateinit var btn_bepOf: ImageButton
-//    lateinit var btn_bepOn: ImageButton
-    var bep = 0
-
-//    lateinit var btn_tulanhOn: ImageButton
-//    lateinit var btn_tulanhOf: ImageButton
-    var tulanh = 0
+    var wifi = 1
+    var vesinh = 1
+    var dieuhoa = 1
+    var maygiat = 1
+    var tudo = 1
+    var giuxe = 1
+    var bep = 1
+    var tulanh = 1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,35 +54,7 @@ class AddRoomActivity : AppCompatActivity() {
         addRoomBinding = ActivityAddRoomBinding.inflate(layoutInflater)
         setContentView(addRoomBinding.root)
 
-//        edtPrice = findViewById(R.id.edtPrice)
-//        edtDes = findViewById(R.id.edtDes)
-//        edtArea = findViewById(R.id.edtArea)
-//        edtAddress = findViewById(R.id.edtRoomAddress)
-//        choseImg = findViewById(R.id.imgChose)
-//        edtName = findViewById(R.id.edtName)
-//        edtPhone = findViewById(R.id.edtPhone)
-//        tvadd = findViewById(R.id.tvPush)
-//        tvHuy = findViewById(R.id.tvHuy)
-//
-//        btn_wifiOn = findViewById(R.id.wifi_on)
-//        btn_wifiOf = findViewById(R.id.wifi_off)
-//        btn_vesinhOn = findViewById(R.id.wc_on)
-//        btn_vesinhOf = findViewById(R.id.wc_off)
-//        btn_dieuhoaOn = findViewById(R.id.airConditional_on)
-//        btn_dieuhoaOf = findViewById(R.id.airConditional_off)
-//        btn_maygiatOn = findViewById(R.id.washingMachine_on)
-//        btn_maygiatOf = findViewById(R.id.washingMachine_off)
-//        btn_tudoOf = findViewById(R.id.free_off)
-//        btn_tudoOn = findViewById(R.id.free_on)
-//        btn_giuxeOf = findViewById(R.id.parking_off)
-//        btn_giuxeOn = findViewById(R.id.parking_on)
-//        btn_bepOf = findViewById(R.id.kitchen_off)
-//        btn_bepOn = findViewById(R.id.kitchen_on)
-//        btn_tulanhOf = findViewById(R.id.fridge_off)
-//        btn_tulanhOn = findViewById(R.id.fridge_on)
-
         registerActivityForResult()
-
         addRoomBinding.imgChose.setOnClickListener {
             chooseImage()
         }
@@ -142,12 +80,11 @@ class AddRoomActivity : AppCompatActivity() {
 
 
         }
-
+        //wifi
         addRoomBinding.wifiOn.setOnClickListener {
             wifi = 0
             addRoomBinding.wifiOn.visibility = View.GONE
             addRoomBinding.wifiOff.visibility = View.VISIBLE
-            Log.e("Tuan","1")
         }
 
         addRoomBinding.wifiOff.setOnClickListener {
@@ -156,6 +93,7 @@ class AddRoomActivity : AppCompatActivity() {
             addRoomBinding.wifiOff.visibility = View.GONE
         }
 
+        //wc
         addRoomBinding.wcOn.setOnClickListener {
             vesinh = 0
             addRoomBinding.wcOn.visibility = View.GONE
@@ -168,6 +106,7 @@ class AddRoomActivity : AppCompatActivity() {
             addRoomBinding.wcOn.visibility = View.VISIBLE
         }
 
+        //tulanh
         addRoomBinding.fridgeOn.setOnClickListener {
             tulanh = 0
             addRoomBinding.fridgeOn.visibility = View.GONE
@@ -180,6 +119,7 @@ class AddRoomActivity : AppCompatActivity() {
             addRoomBinding.fridgeOff.visibility = View.GONE
         }
 
+        //bep
         addRoomBinding.kitchenOn.setOnClickListener {
             bep = 0
             addRoomBinding.kitchenOff.visibility = View.VISIBLE
@@ -193,6 +133,7 @@ class AddRoomActivity : AppCompatActivity() {
             addRoomBinding.kitchenOn.visibility = View.VISIBLE
         }
 
+        //giuxe
         addRoomBinding.parkingOff.setOnClickListener {
             giuxe = 1
             addRoomBinding.parkingOff.visibility = View.GONE
@@ -205,6 +146,7 @@ class AddRoomActivity : AppCompatActivity() {
             addRoomBinding.parkingOn.visibility = View.GONE
         }
 
+        //tudo
         addRoomBinding.freeOn.setOnClickListener {
             tudo = 0
             addRoomBinding.freeOff.visibility = View.VISIBLE
@@ -217,12 +159,7 @@ class AddRoomActivity : AppCompatActivity() {
             addRoomBinding.freeOff.visibility = View.GONE
         }
 
-        addRoomBinding.fridgeOff.setOnClickListener {
-            tudo = 1
-            addRoomBinding.fridgeOff.visibility = View.GONE
-            addRoomBinding.fridgeOn.visibility = View.VISIBLE
-        }
-
+        //maygiat
         addRoomBinding.washingMachineOff.setOnClickListener {
             maygiat = 1
             addRoomBinding.washingMachineOff.visibility = View.GONE
@@ -235,6 +172,7 @@ class AddRoomActivity : AppCompatActivity() {
             addRoomBinding.washingMachineOff.visibility = View.VISIBLE
         }
 
+        //dieuhoa
         addRoomBinding.airConditionalOff.setOnClickListener {
             dieuhoa = 1
             addRoomBinding.airConditionalOff.visibility = View.GONE
@@ -295,12 +233,14 @@ class AddRoomActivity : AppCompatActivity() {
         val des = addRoomBinding.edtDes.text.toString()
         val name =addRoomBinding.edtName.text.toString()
         val phone = addRoomBinding.edtPhone.text.toString()
+        val email = FirebaseAuth.getInstance().currentUser?.email
 
 
         val id: String = myReference.push().key.toString()
 
         val room = Room(
             id,
+            email!!,
             address,
             url,
             price,
@@ -320,9 +260,7 @@ class AddRoomActivity : AppCompatActivity() {
 
         myReference.child(id).setValue(room).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                //Toast.makeText(this,"The new user has been added to the database",Toast.LENGTH_LONG).show()
                 finish()
-
             } else {
 //                Toast.makeText(
 //                    this,
@@ -335,9 +273,6 @@ class AddRoomActivity : AppCompatActivity() {
     }
 
     fun uploadPhoto() {
-
-        //UUID
-
         val imageName = UUID.randomUUID().toString()
         val imageReference = storageReference.child("images").child(imageName)
 

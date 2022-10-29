@@ -18,11 +18,9 @@
     <TextView
         android:id="@+id/tvRoomPrice"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:layout_alignBottom="@+id/imgRoom"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="2dp"
-        android:layout_marginBottom="3dp"
         android:background="@color/blue"
 
         android:text="1.5 triệu"
