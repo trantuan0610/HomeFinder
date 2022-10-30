@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.tuantd.myapplication.R
+import com.tuantd.myapplication.databinding.ActivityFavouriteRoomBinding
 import com.tuantd.myapplication.mainscreen.home.Room
 import com.tuantd.myapplication.mainscreen.home.RoomsAdapter
 
@@ -15,16 +17,17 @@ class FavouriteRoomActivity : AppCompatActivity() {
     private var roomList2 = ArrayList<Room>()
     lateinit var rcv_room: RecyclerView
     lateinit var roomsAdapter: RoomsAdapter
-
+    lateinit var binding : ActivityFavouriteRoomBinding
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    private val myReference: DatabaseReference = database.reference.child("Rooms")
+    private val myReference: DatabaseReference = database.reference.child("MyFavouriteRoom")
+    private val auth = FirebaseAuth.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_favourite_room)
 
-        rcv_room = findViewById(R.id.rcv_favRoom)
-        roomsAdapter = RoomsAdapter()
-        rcv_room.adapter = roomsAdapter
+        binding = ActivityFavouriteRoomBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
 
 
 
@@ -63,7 +66,6 @@ class FavouriteRoomActivity : AppCompatActivity() {
                     }
 
                 }
-                //roomsAdapter?.addList(roomList)
 
             }
 

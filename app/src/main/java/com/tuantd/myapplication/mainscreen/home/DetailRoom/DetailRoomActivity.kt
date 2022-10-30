@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.tuantd.myapplication.databinding.ActivityDetailRoomBinding
 import com.tuantd.myapplication.mainscreen.home.Room
@@ -15,11 +16,13 @@ class DetailRoomActivity : AppCompatActivity() {
     lateinit var binding: ActivityDetailRoomBinding
     private var roomList = ArrayList<Room>()
     private var roomFavList = ArrayList<FavouriteRoom>()
+    private var likeList = ArrayList<FavouriteRoom>()
     private var roomDetail: Room? = null
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference: DatabaseReference = database.reference.child("Rooms")
-    private val myFavouriteReferene : DatabaseReference = database.reference.child("MyFavouriteRoom")
+    private val myFavouriteReferene: DatabaseReference = database.reference.child("MyFavouriteRoom")
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,18 +36,16 @@ class DetailRoomActivity : AppCompatActivity() {
         val roomId = intent.getStringExtra("roomId")
         if (roomId != null) {
             retrieveDataFromDatabase(roomId)
+            getFavouriteRoomLike()
         }
-        getFavouriteRoomLike()
-        binding.like.setOnClickListener {
-            pushRoomToListFav()
 
+
+        binding.like.setOnClickListener {
+            actionLike()
         }
 
         binding.dontlike.setOnClickListener {
-            binding.like.visibility = View.VISIBLE
-            binding.dontlike.visibility = View.GONE
-            myFavouriteReferene.child(roomDetail?.roomId.toString()).removeValue()
-
+            actionDontLike()
         }
     }
 
@@ -84,9 +85,7 @@ class DetailRoomActivity : AppCompatActivity() {
                         binding.tvRoomArea.text = it.roomArea + "m2"
                         binding.tvdes.text = it.roomDescription
                         binding.tvName.text = it.name + "-" + it.phone
-
                         Glide.with(applicationContext).load(it.roomImage).into(binding.imgRoom)
-
                         if (it.wifi == "1") {
                             binding.wifiOn.visibility = View.VISIBLE
                             binding.wifiOff.visibility = View.GONE
@@ -163,26 +162,11 @@ class DetailRoomActivity : AppCompatActivity() {
         })
     }
 
-    private fun pushRoomToListFav() {
-        binding.like.visibility = View.GONE
-        binding.dontlike.visibility = View.VISIBLE
-        val id = myFavouriteReferene.push().key.toString()
-        val favouriteRoom = FavouriteRoom(id, roomDetail!!.email , roomDetail!!.roomId)
-        myFavouriteReferene.child(id).setValue(favouriteRoom).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Toast.makeText(this, "Xong", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Cuts", Toast.LENGTH_SHORT).show()
-
-            }
-        }
-
-    }
-
-    private fun getFavouriteRoomLike(){
+    private fun getFavouriteRoomLike() {
         myFavouriteReferene.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 roomFavList.clear()
+                likeList.clear()
                 for (favRoom in snapshot.children) {
                     val room = favRoom.value as? HashMap<*, *>
                     val data = FavouriteRoom(
@@ -192,17 +176,14 @@ class DetailRoomActivity : AppCompatActivity() {
                     )
                     roomFavList.add(data)
                 }
+                Log.e("AAAAA", "room fav list" + roomFavList.size.toString())
                 roomFavList.forEach {
-                    if (it.idRoom.equals(roomDetail?.roomId)) {
-                        binding.like.visibility = View.GONE
-                        binding.dontlike.visibility = View.VISIBLE
-                    }else {
-                        binding.like.visibility = View.VISIBLE
-                        binding.dontlike.visibility = View.GONE
+                    if (it.emailPerson == auth.currentUser?.email) {
+                        likeList.add(it)
                     }
-
                 }
-
+                Log.e("AAAAA", "Like list" + likeList.size.toString())
+                setLike_DontLike(likeList)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -210,4 +191,55 @@ class DetailRoomActivity : AppCompatActivity() {
         })
     }
 
+    private fun setLike_DontLike(listFav: ArrayList<FavouriteRoom>) {
+        var roomNow : FavouriteRoom ?= null
+        listFav.forEach {
+            if (it.idRoom.equals(roomDetail?.roomId)) {
+             roomNow = it
+            }
+            if (roomNow!= null){
+                binding.dontlike.visibility = View.VISIBLE
+                binding.like.visibility =View.GONE
+            }else{
+                binding.dontlike.visibility = View.GONE
+                binding.like.visibility = View.VISIBLE
+            }
+
+        }
+    }
+
+    // like room (done)
+    private fun actionLike() {
+        binding.like.visibility = View.GONE
+        binding.dontlike.visibility = View.VISIBLE
+        val id = myFavouriteReferene.push().key.toString()
+        val favouriteRoom = FavouriteRoom(id, auth.currentUser?.email.toString(), roomDetail!!.roomId)
+        myFavouriteReferene.child(id).setValue(favouriteRoom).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(this, "Xong", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Cuts", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
+
+    //done
+    private fun actionDontLike() {
+        likeList.forEach {
+            if (it.idRoom.equals(roomDetail?.roomId)) {
+                binding.like.visibility = View.VISIBLE
+                binding.dontlike.visibility = View.GONE
+                myFavouriteReferene.child(it.favouriteRoomID).removeValue()
+                Toast.makeText(this, "Xoa Thanh Cong", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.like.visibility = View.GONE
+                binding.dontlike.visibility = View.VISIBLE
+                Toast.makeText(this, "Xoa That bai", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+    }
 }
+

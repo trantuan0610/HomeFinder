@@ -1,20 +1,23 @@
 package com.tuantd.myapplication.mainscreen.account.myRoom
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.tuantd.myapplication.databinding.ActivityMyRoomBinding
+import com.tuantd.myapplication.mainscreen.home.DetailRoom.DetailRoomActivity
 import com.tuantd.myapplication.mainscreen.home.Room
 import com.tuantd.myapplication.mainscreen.home.RoomsAdapter
 
 class MyRoomActivity : AppCompatActivity() {
-    lateinit var binding : ActivityMyRoomBinding
+    lateinit var binding: ActivityMyRoomBinding
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference: DatabaseReference = database.reference.child("Rooms")
     private var roomList = ArrayList<Room>()
     private var arrayList = ArrayList<Room>()
-    private var roomsAdapter: RoomsAdapter?=null
+    private var roomsAdapter = RoomsAdapter()
+    private var loadDone:(() -> Unit)?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,14 +25,19 @@ class MyRoomActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         retrieveDataFromDatabase(FirebaseAuth.getInstance().currentUser!!.email.toString())
-        roomsAdapter = RoomsAdapter()
+        loadDone={
+            roomsAdapter?.addList(arrayList)
+        }
         binding.rcvRoom.adapter = roomsAdapter
-  //      fillDataFromFireBase(FirebaseAuth.getInstance().currentUser!!.email.toString())
-
-
+        roomsAdapter.onclickItem = {
+            val intent =
+                Intent(this, DetailRoomActivity::class.java)
+            intent.putExtra("roomId", it)
+            startActivity(intent)
+        }
     }
 
-    private fun retrieveDataFromDatabase(email : String) {
+    private fun retrieveDataFromDatabase(email: String) {
         myReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 roomList.clear()
@@ -45,7 +53,7 @@ class MyRoomActivity : AppCompatActivity() {
                         roomDescription = room["roomDescription"] as String,
                         name = room["name"] as String,
                         phone = room["phone"] as String,
-                        wifi = room["phone"] as String ,
+                        wifi = room["phone"] as String,
                         wc = room["phone"] as String,
                         free = room["phone"] as String,
                         fridge = room["phone"] as String,
@@ -57,6 +65,7 @@ class MyRoomActivity : AppCompatActivity() {
                     roomList.add(data)
                 }
                 fillDataFromFireBase(email)
+                loadDone?.invoke()
                 //roomsAdapter?.addList(roomList)
             }
 
@@ -64,15 +73,14 @@ class MyRoomActivity : AppCompatActivity() {
             }
         })
     }
-    private fun fillDataFromFireBase(email:String){
-        roomList.forEach{
-            if (it.email == email){
+
+    private fun fillDataFromFireBase(email: String) {
+        roomList.forEach {
+            if (it.email == email) {
                 arrayList.add(it)
             }
         }
         roomsAdapter?.addList(arrayList)
-        roomsAdapter!!.onclickItem={
 
-        }
     }
 }
