@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
 import com.tuantd.myapplication.databinding.ActivityDetailRoomBinding
 import com.tuantd.myapplication.mainscreen.home.Room
 
@@ -168,11 +169,27 @@ class DetailRoomActivity : AppCompatActivity() {
                 roomFavList.clear()
                 likeList.clear()
                 for (favRoom in snapshot.children) {
-                    val room = favRoom.value as? HashMap<*, *>
+                    val favRoom = favRoom.value as? HashMap<*, *>
                     val data = FavouriteRoom(
-                        favouriteRoomID = room?.get("favouriteRoomID") as String,
-                        emailPerson = room["emailPerson"] as String,
-                        idRoom = room["idRoom"] as String
+                        favouriteRoomID = favRoom?.get("favouriteRoomID") as String,
+                        emailPerson = favRoom["emailPerson"] as String,
+                        idRoom = favRoom["idRoom"] as String,
+                        emailFav = favRoom["emailFav"] as String,
+                        roomAddressFav = favRoom["roomAddressFav"] as String,
+                        roomImageFav = favRoom["roomImageFav"] as String,
+                        priceFav = favRoom["priceFav"] as String,
+                        roomAreaFav = favRoom["roomAreaFav"] as String,
+                        roomDescriptionFav = favRoom["roomDescriptionFav"] as String,
+                        nameFav = favRoom["nameFav"] as String ,
+                        phoneFav = favRoom["phoneFav"] as String,
+                        wifiFav = favRoom["phoneFav"] as String ,
+                        wcFav = favRoom["wcFav"] as String,
+                        freeFav = favRoom["freeFav"] as String,
+                        fridgeFav = favRoom["fridgeFav"] as String,
+                        airConditionalFav = favRoom["airConditionalFav"] as String,
+                        washingMachineFav = favRoom["washingMachineFav"] as String,
+                        parkingFav = favRoom["parkingFav"] as String,
+                        kitchenFav = favRoom["kitchenFav"] as String
                     )
                     roomFavList.add(data)
                 }
@@ -213,7 +230,28 @@ class DetailRoomActivity : AppCompatActivity() {
         binding.like.visibility = View.GONE
         binding.dontlike.visibility = View.VISIBLE
         val id = myFavouriteReferene.push().key.toString()
-        val favouriteRoom = FavouriteRoom(id, auth.currentUser?.email.toString(), roomDetail!!.roomId)
+        val favouriteRoom = FavouriteRoom(
+            id,
+            auth.currentUser?.email.toString(),
+            roomDetail!!.roomId,
+            roomDetail!!.email,
+            roomDetail!!.roomAddress,
+            roomDetail!!.roomImage,
+            roomDetail!!.price,
+            roomDetail!!.roomArea,
+            roomDetail!!.roomDescription,
+            roomDetail!!.name,
+            roomDetail!!.phone,
+            roomDetail!!.wifi,
+            roomDetail!!.wc,
+            roomDetail!!.free,
+            roomDetail!!.fridge,
+            roomDetail!!.airConditional,
+            roomDetail!!.washingMachine,
+            roomDetail!!.parking,
+            roomDetail!!.kitchen
+
+        )
         myFavouriteReferene.child(id).setValue(favouriteRoom).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(this, "Xong", Toast.LENGTH_SHORT).show()

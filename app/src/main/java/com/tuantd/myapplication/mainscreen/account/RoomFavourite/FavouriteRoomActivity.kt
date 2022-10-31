@@ -2,21 +2,23 @@ package com.tuantd.myapplication.mainscreen.account.RoomFavourite
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.tuantd.myapplication.R
 import com.tuantd.myapplication.databinding.ActivityFavouriteRoomBinding
+import com.tuantd.myapplication.mainscreen.home.DetailRoom.FavouriteRoom
 import com.tuantd.myapplication.mainscreen.home.Room
 import com.tuantd.myapplication.mainscreen.home.RoomsAdapter
 
 class FavouriteRoomActivity : AppCompatActivity() {
 
-    private var roomList = ArrayList<Room>()
-    private var roomList2 = ArrayList<Room>()
-    lateinit var rcv_room: RecyclerView
-    lateinit var roomsAdapter: RoomsAdapter
+    private var loadDone:(() -> Unit)?=null
+    private var favroomList = ArrayList<FavouriteRoom>()
+    private var favroomList2 = ArrayList<FavouriteRoom>()
+     var roomsFavAdapter= FavouriteRoomAdapter()
     lateinit var binding : ActivityFavouriteRoomBinding
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference: DatabaseReference = database.reference.child("MyFavouriteRoom")
@@ -24,51 +26,57 @@ class FavouriteRoomActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityFavouriteRoomBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
+        retrieveFavRoomFromDatabase()
 
+        loadDone={
+            roomsFavAdapter.addList(favroomList2)
+            Log.e("TUAN",favroomList2.size.toString())
+        }
 
-
+        binding.rcvFavRoom.adapter = roomsFavAdapter
     }
-    private fun retrieveDataFromDatabase(roomID: String) {
+    private fun retrieveFavRoomFromDatabase() {
         myReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                roomList.clear()
-                for (eachRoom in snapshot.children) {
-                    val room = eachRoom.value as? HashMap<String, Any?>
-                    val data = Room(
-                        roomId = room?.get("roomId") as String,
-                        email = room?.get("email")as String,
-                        roomAddress = room["roomAddress"] as String,
-                        roomImage = room["roomImage"] as String,
-                        price = room["price"] as String,
-                        roomArea = room["roomArea"] as String,
-                        roomDescription = room["roomDescription"] as String,
-                        name = room["name"] as String,
-                        phone = room["phone"] as String,
-                        wifi = room["phone"] as String ,
-                        wc = room["phone"] as String,
-                        free = room["phone"] as String,
-                        fridge = room["phone"] as String,
-                        airConditional = room["phone"] as String,
-                        washingMachine = room["phone"] as String,
-                        parking = room["parking"] as String,
-                        kitchen = room["kitchen"] as String
+                favroomList.clear()
+                favroomList2.clear()
+                for (favRoom in snapshot.children) {
+                    val favRoom = favRoom.value as? HashMap<*, *>
+                    val data = FavouriteRoom(
+                        favouriteRoomID = favRoom?.get("favouriteRoomID") as String,
+                        emailPerson = favRoom["emailPerson"] as String,
+                        idRoom = favRoom["idRoom"] as String,
+                        emailFav = favRoom["emailFav"] as String,
+                        roomAddressFav = favRoom["roomAddressFav"] as String,
+                        roomImageFav = favRoom["roomImageFav"] as String,
+                        priceFav = favRoom["priceFav"] as String,
+                        roomAreaFav = favRoom["roomAreaFav"] as String,
+                        roomDescriptionFav = favRoom["roomDescriptionFav"] as String,
+                        nameFav = favRoom["nameFav"] as String ,
+                        phoneFav = favRoom["phoneFav"] as String,
+                        wifiFav = favRoom["phoneFav"] as String ,
+                        wcFav = favRoom["wcFav"] as String,
+                        freeFav = favRoom["freeFav"] as String,
+                        fridgeFav = favRoom["fridgeFav"] as String,
+                        airConditionalFav = favRoom["airConditionalFav"] as String,
+                        washingMachineFav = favRoom["washingMachineFav"] as String,
+                        parkingFav = favRoom["parkingFav"] as String,
+                        kitchenFav = favRoom["kitchenFav"] as String
                     )
-                    roomList.add(data)
+                    favroomList.add(data)
                 }
-                roomList.forEach {
-                    if (it.roomId.equals(roomID)){
-                    roomList2.add(it)
+                favroomList.forEach {
+                    if (it.emailPerson == auth.currentUser?.email) {
+                        favroomList2.add(it)
                     }
-
                 }
+                loadDone?.invoke()
 
             }
-
             override fun onCancelled(error: DatabaseError) {
             }
         })

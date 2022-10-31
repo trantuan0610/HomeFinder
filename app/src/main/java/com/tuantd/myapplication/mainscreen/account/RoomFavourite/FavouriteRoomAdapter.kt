@@ -1,6 +1,5 @@
-package com.tuantd.myapplication.mainscreen.home
+package com.tuantd.myapplication.mainscreen.account.RoomFavourite
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,43 +8,42 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tuantd.myapplication.R
+import com.tuantd.myapplication.mainscreen.home.DetailRoom.FavouriteRoom
 
-open class RoomsAdapter() : RecyclerView.Adapter<RoomsAdapter.MyViewHolder>() {
+open class FavouriteRoomAdapter() : RecyclerView.Adapter<FavouriteRoomAdapter.MyViewHolder>() {
+    private var roomsFavList: ArrayList<FavouriteRoom>?=null
 
-
-
-    private var roomsList: ArrayList<Room>?=null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.rooms_item, parent, false)
-        return RoomsAdapter.MyViewHolder(itemView)
+        return FavouriteRoomAdapter.MyViewHolder(itemView)
     }
-    var onclickItem: ((String) -> Unit)? = null
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val room = roomsList?.get(position)
+        val roomFav = roomsFavList?.get(position)
         Glide.with(holder.itemView)
-            .load(room?.roomImage)
+            .load(roomFav?.roomImageFav)
             .into(holder.roomImage)
 
-        holder.price.text = "${room?.price} triệu"
-        holder.roomAddress.text = room?.roomAddress
-        holder.roomArea.text = room?.roomArea + "m2"
+        holder.price.text = "${roomFav?.priceFav} triệu"
+        holder.roomAddress.text = roomFav?.roomAddressFav
+        holder.roomArea.text = roomFav?.roomAreaFav + "m2"
 
         holder.roomImage.setOnClickListener {
-            room?.roomId?.let { it1 -> onclickItem?.invoke(it1) }
+            roomFav?.idRoom?.let { it1 -> onclickItem?.invoke(it1) }
         }
     }
 
-    override fun getItemCount(): Int = roomsList?.size?:0
-
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    override fun getItemCount(): Int = roomsFavList?.size?:0
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
         val roomImage: ImageView = itemView.findViewById(R.id.imgRoom)
         val price: TextView = itemView.findViewById(R.id.tvRoomPrice)
         val roomAddress: TextView = itemView.findViewById(R.id.tvRoomAddress)
         val roomArea: TextView = itemView.findViewById(R.id.tvRoomArea)
     }
-    fun addList(mRoomsList: ArrayList<Room>){
-        roomsList=mRoomsList
+    fun addList(mRoomsList: ArrayList<FavouriteRoom>){
+        roomsFavList=mRoomsList
         notifyDataSetChanged()
     }
+    var onclickItem: ((String) -> Unit)? = null
 }

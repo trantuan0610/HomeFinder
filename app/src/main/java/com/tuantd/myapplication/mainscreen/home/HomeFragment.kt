@@ -13,6 +13,7 @@ import com.tuantd.myapplication.R
 import com.tuantd.myapplication.mainscreen.MainActivity
 import com.tuantd.myapplication.mainscreen.home.AddRoom.AddRoomActivity
 import com.tuantd.myapplication.mainscreen.home.DetailRoom.DetailRoomActivity
+import com.tuantd.myapplication.mainscreen.posts.DetailPost.Test
 
 class HomeFragment : Fragment() {
     private var loadDone:(() -> Unit)?=null
@@ -30,8 +31,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
-
-
         return view
     }
 
