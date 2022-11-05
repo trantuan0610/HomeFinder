@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+    >
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/toolbar"
@@ -20,10 +24,9 @@
                 android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:backgroundTint="@color/white"
-                android:src="@drawable/ic_baseline_arrow_back_24"
                 android:layout_centerVertical="true"
-                />
+                android:backgroundTint="@color/white"
+                android:src="@drawable/ic_baseline_arrow_back_24" />
 
             <TextView
                 android:id="@+id/tvPrice"
@@ -320,7 +323,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ln1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/ln2">
 
             <RelativeLayout
                 android:id="@+id/rlt_wc"
@@ -366,11 +370,10 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:background="@drawable/border_btn_tienich"
+                    android:src="@drawable/ic_dieuhoa"
                     android:text="Điều \nhoà"
                     android:textAllCaps="false"
-                    android:textColor="@color/blue"
-                    android:src="@drawable/ic_dieuhoa"
-                    />
+                    android:textColor="@color/blue" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/airConditional_off"
@@ -378,10 +381,10 @@
                     android:layout_height="60dp"
                     android:background="@drawable/border_btn_tienich_off"
                     android:gravity="center"
+                    android:src="@drawable/ic_dieuhoa_off"
                     android:text="Wifi"
                     android:textColor="@color/black"
-                    android:visibility="gone"
-                    android:src="@drawable/ic_dieuhoa_off"/>
+                    android:visibility="gone" />
 
             </RelativeLayout>
 
@@ -446,7 +449,26 @@
             </RelativeLayout>
 
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/ln2"
+            />
 
 
-    </RelativeLayout>
+
+</RelativeLayout>
 </ScrollView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/blue"
+        android:src="@drawable/ic_more" />
+</RelativeLayout>

@@ -23,5 +23,15 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
+    <style name="DividerLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/gray_btn_bg_color</item>
+    </style>
+    <style name="OrangeBorderButton" parent="OrangeButton">
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:background">@drawable/bg_finished_task</item>
+    </style>
+
 
 </resources>

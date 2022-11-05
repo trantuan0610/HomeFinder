@@ -1,9 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainscreen.account.term.TermActivity">
+    tools:context=".mainscreen.account.term.TermActivity"
+    android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Điều khoản sử dụng tại HomeFinder"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A. Quy định chung"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-Không được đăng ký tài khoản và khai báo những thông tin giả mạo; nick gây hiểu nhầm với những thành viên khác; nick trùng tên với tên của các chính trị gia;…\n
+-Không được phép đăng tin liên quan đến các vấn đề mà Pháp luật Việt Nam không cho phép;\n
+-Không được đăng những bài viết, thông tin có nội dung vi phạm pháp luật, đả kích, bôi nhọ, chỉ trích hay bàn luận về chính trị, tôn giáo, phản động, kỳ thị văn hóa, dân tộc, cũng như vi phạm khác liên quan đến thuần phong mỹ tục của dân tộc Việt Nam;\n
+-Không được xâm phạm quyền lợi, uy tín, đời tư của các cá nhân hay thành viên khác, không được dùng ngôn từ tục tĩu, thóa mạ trong các thông tin tham gia;\n
+-Không được lợi dụng website để tuyên truyền, đề xướng, lôi kéo với những nội dung không lành mạnh;\n
+-Phải dùng ngôn từ trong sáng, rõ ràng, đúng chính tả, nghiêm cấm mọi hình thức viết nhịu, viết tắt theo hình thức chat, ngôn ngữ tối nghĩa;"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B. Quy định về bài viết"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-Đăng tin phải đăng đúng chuyên mục. Bản quyền tin đăng thuộc về chính Khách hàng.\n
+-Những bài viết vi phạm các điều sau sẽ bị chỉnh sửa, biên tập lại nội dung hoặc xoá ngay mà không cần phải thông báo:\n
++Bài viết có nội dung không phù hợp với chuyên mục;\n
++Bài viết dùng tiếng Việt không có dấu, hoặc bài viết toàn bằng chữ HOA, có quá nhiều ký tự đặc biệt;\n
++Những bài viết trùng lặp trong một hoặc nhiều chuyên mục;\n
++Bài viết gửi sai chuyên mục;\n
++Bài viết sử dụng những từ ngữ thô tục hoặc sử dụng nhiều từ cố ý viết sai chính tả;\n
++Các bài viết không có nội dung hoặc nội dung không liên quan đến chuyên mục. Những bài viết này sẽ bị xóa hoặc chuyển sang chuyên mục có nội dung phù hợp hơn.\n
+-Tin đăng phải có địa chỉ liên lạc cụ thể.\n
+-Bài viết được kèm theo ảnh minh họa và phải ghi rõ nguồn gốc của ảnh.\n
+-Tiêu đề phải cụ thể và ngắn gọn để người đọc biết ngay bạn muốn nói gì trước khi xem tin. Không gửi các bài viết có tiêu đề không mô tả được nội dung bài viết, tiêu đề quá dài. Tùy mức độ vi phạm mà chúng tôi có thể chỉnh sữa hoặc xóa bỏ ngay lập tức.\n
+Bạn được phép gửi các bài viết, tin tức sưu tầm từ các nơi khác nhưng phải ghi rõ xuất xứ, nguồn gốc.
+Không gửi bài viết bằng tiếng Việt không có dấu hoặc có dấu nhưng không rõ ràng.\n
+Những bài đăng tin mới nếu gửi quá 2 bài cùng nội dung hoặc nội dung tương tự trong 1 hoặc nhiều chuyên mục sẽ bị xóa bỏ mà không cần báo trước."
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="C - Quy định đăng tin nhà đất"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. Tin đăng bằng tiếng Việt, có dấu, chữ thường, chỉ viết hoa đầu câu và danh từ riêng, đúng chính tả; không chứa các từ ngữ dung tục, nhạy cảm, không phù hợp với thuần phong mỹ tục hay các từ ngữ liên quan đến tôn giáo, chính trị; không chèn các ký tự đặc biệt, không cần thiết vào nội dung tin đăng.\n
+2. Tin đăng phải đúng phân loại, phân mục và địa chỉ bất động sản (BĐS) rao bán/cho thuê.\n
+3. Giữa các đoạn văn cách nhau không quá 1 hàng ký tự; không để khoảng trống dưới nội dung tin đăng.\n
+4. Chỉ được phép đăng tin với mục đích rao bán/cho thuê BĐS. Không được đăng các tin chỉ với mục đích quảng cáo, tiếp thị đơn thuần (nghĩa là không cung cấp bất kỳ BĐS cụ thể nào, không thể hiện nhu cầu giao dịch bất động sản).\n
+5. Không đăng tin trùng lặp dưới bất kỳ hình thức tin đăng nào. Các tin trùng sẽ bị hạ.\n
+6. Tin rao bán/cho thuê BĐS cần điền đầy đủ các thông tin tại các trường bắt buộc điền thông tin có dấu (*) tại giao diện đăng tin. Các trường thông tin liên quan khác cũng cần điền đầy đủ nếu BĐS rao bán/cho thuê có thông tin.\n
+7. Nếu tin rao thuộc dự án, cần ghi rõ tên dự án BĐS rao bán/cho thuê.\n
+8. Quý khách tuyệt đối không sao chép nội dung quảng cáo từ các nhà quảng cáo khác. Trong trường hợp thuenhatro360.com nhận được khiếu nại của khách hàng và xác định được tin rao của Quý khách sao chép nội dung, tin rao của Quý khách có thể bị xóa hoặc chỉnh sửa lại nội dung mà không cần thông báo trước."
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

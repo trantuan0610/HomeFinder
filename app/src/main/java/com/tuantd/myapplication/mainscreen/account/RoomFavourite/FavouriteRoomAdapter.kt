@@ -18,7 +18,7 @@ open class FavouriteRoomAdapter() : RecyclerView.Adapter<FavouriteRoomAdapter.My
             LayoutInflater.from(parent.context).inflate(R.layout.rooms_item, parent, false)
         return FavouriteRoomAdapter.MyViewHolder(itemView)
     }
-
+    var onclickItem: ((String) -> Unit)? = null
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val roomFav = roomsFavList?.get(position)
         Glide.with(holder.itemView)
@@ -30,7 +30,7 @@ open class FavouriteRoomAdapter() : RecyclerView.Adapter<FavouriteRoomAdapter.My
         holder.roomArea.text = roomFav?.roomAreaFav + "m2"
 
         holder.roomImage.setOnClickListener {
-            roomFav?.idRoom?.let { it1 -> onclickItem?.invoke(it1) }
+            roomFav?.favouriteRoomID?.let { it1 -> onclickItem?.invoke(it1) }
         }
     }
 
@@ -45,5 +45,5 @@ open class FavouriteRoomAdapter() : RecyclerView.Adapter<FavouriteRoomAdapter.My
         roomsFavList=mRoomsList
         notifyDataSetChanged()
     }
-    var onclickItem: ((String) -> Unit)? = null
+
 }

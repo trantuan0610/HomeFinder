@@ -1,5 +1,6 @@
 package com.tuantd.myapplication.mainscreen.account.RoomFavourite
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.tuantd.myapplication.R
 import com.tuantd.myapplication.databinding.ActivityFavouriteRoomBinding
+import com.tuantd.myapplication.mainscreen.home.DetailRoom.DetailRoomActivity
 import com.tuantd.myapplication.mainscreen.home.DetailRoom.FavouriteRoom
 import com.tuantd.myapplication.mainscreen.home.Room
 import com.tuantd.myapplication.mainscreen.home.RoomsAdapter
@@ -38,6 +40,12 @@ class FavouriteRoomActivity : AppCompatActivity() {
         }
 
         binding.rcvFavRoom.adapter = roomsFavAdapter
+        roomsFavAdapter.onclickItem = {
+            val intent =
+                Intent(this, DetailFavouriteRoomActivity::class.java)
+            intent.putExtra("roomFavId", it)
+            startActivity(intent)
+        }
     }
     private fun retrieveFavRoomFromDatabase() {
         myReference.addValueEventListener(object : ValueEventListener {
@@ -58,7 +66,7 @@ class FavouriteRoomActivity : AppCompatActivity() {
                         roomDescriptionFav = favRoom["roomDescriptionFav"] as String,
                         nameFav = favRoom["nameFav"] as String ,
                         phoneFav = favRoom["phoneFav"] as String,
-                        wifiFav = favRoom["phoneFav"] as String ,
+                        wifiFav = favRoom["wifiFav"] as String ,
                         wcFav = favRoom["wcFav"] as String,
                         freeFav = favRoom["freeFav"] as String,
                         fridgeFav = favRoom["fridgeFav"] as String,

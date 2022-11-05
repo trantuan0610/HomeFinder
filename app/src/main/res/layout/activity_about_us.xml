@@ -1,9 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainscreen.account.aboutUs.AboutUsActivity">
+    tools:context=".mainscreen.account.aboutUs.AboutUsActivity"
+    android:orientation="vertical">
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About Us"
+            android:layout_gravity="center"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+    </Toolbar>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/ad"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tran Dinh Tuan"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Android Developer"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/introduct"
+        android:textColor="@color/black"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact Us"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_contact"
+        android:textColor="@color/black"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="Contact"
+        android:layout_gravity="center"
+        android:drawableEnd="@drawable/ic_send"
+        android:paddingHorizontal="12dp"
+        android:textColor="@color/white"
+        android:background="@drawable/border_btn"
+        android:layout_marginTop="10dp"
+        android:gravity="start|center_vertical"
+        />
+
+
+
+
+<!--    <com.denzcoskun.imageslider.ImageSlider-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_width="wrap_content"-->
+
+<!--    />-->
+
+</LinearLayout>

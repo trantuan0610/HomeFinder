@@ -1,5 +1,7 @@
 package com.tuantd.myapplication.mainscreen.home.DetailRoom
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
 import com.tuantd.myapplication.databinding.ActivityDetailRoomBinding
+import com.tuantd.myapplication.dialog.DialogSelectContact
 import com.tuantd.myapplication.mainscreen.home.Room
 
 class DetailRoomActivity : AppCompatActivity() {
@@ -19,7 +21,6 @@ class DetailRoomActivity : AppCompatActivity() {
     private var roomFavList = ArrayList<FavouriteRoom>()
     private var likeList = ArrayList<FavouriteRoom>()
     private var roomDetail: Room? = null
-
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference: DatabaseReference = database.reference.child("Rooms")
     private val myFavouriteReferene: DatabaseReference = database.reference.child("MyFavouriteRoom")
@@ -47,6 +48,21 @@ class DetailRoomActivity : AppCompatActivity() {
 
         binding.dontlike.setOnClickListener {
             actionDontLike()
+        }
+        binding.btnMore.setOnClickListener {
+            DialogSelectContact(onSubmitClickListener = { it ->
+                if(it ==1){
+                    val intent = Intent(Intent.ACTION_DIAL)
+                    intent.data = Uri.parse("tel:${roomDetail?.phone}")
+                    startActivity(intent)
+                }else{
+                    val n = Intent(Intent.ACTION_VIEW)
+                    n.type = "vnd.android-dir/mms-sms"
+                    n.putExtra("address", roomDetail?.phone)
+                    n.putExtra("sms_body", "Xin chào, Tôi muốn thuê phòng trọ của bạn!!!")
+                    startActivity(n)
+                }
+            }).show(supportFragmentManager,"tag")
         }
     }
 
@@ -84,7 +100,7 @@ class DetailRoomActivity : AppCompatActivity() {
                         binding.tvRoomAddress.text = it.roomAddress
                         binding.tvPrice.text = it.price + "triệu"
                         binding.tvRoomArea.text = it.roomArea + "m2"
-                        binding.tvdes.text = it.roomDescription
+                        binding.tvDetailDes.text = it.roomDescription
                         binding.tvName.text = it.name + "-" + it.phone
                         Glide.with(applicationContext).load(it.roomImage).into(binding.imgRoom)
                         if (it.wifi == "1") {

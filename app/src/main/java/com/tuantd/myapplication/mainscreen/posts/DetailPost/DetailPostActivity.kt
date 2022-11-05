@@ -1,16 +1,11 @@
 package com.tuantd.myapplication.mainscreen.posts.DetailPost
 
-import android.media.Image
-import android.net.Uri
 import android.os.Bundle
 import android.webkit.WebView
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager.widget.ViewPager
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.tuantd.myapplication.R
-import com.tuantd.myapplication.mainscreen.home.Room
 
 class DetailPostActivity : AppCompatActivity() {
     lateinit var webView: WebView
@@ -24,35 +19,35 @@ class DetailPostActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail_post)
 
 
-//        webView=  findViewById(R.id.webView)
-//        intent.getStringExtra("url")?.let { webView.loadUrl(it) }
+        webView=  findViewById(R.id.webView)
+        intent.getStringExtra("url")?.let { webView.loadUrl(it) }
 
-        addRoomToDatabase()
+//        addRoomToDatabase()
 
     }
 
-    private fun addRoomToDatabase() {
-        val id: String = myReference.push().key.toString()
-
-        val test = Test(
-            id,
-            "Test",
-            Room("1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1")
-        )
-
-        myReference.child(id).setValue(test).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                finish()
-            } else {
-//                Toast.makeText(
-//                    this,
-//                    task.exception.toString(),
-//                    Toast.LENGTH_LONG
-//                ).show()
-
-            }
-        }
-    }
+//    private fun addRoomToDatabase() {
+//        val id: String = myReference.push().key.toString()
+//
+//        val test = Test(
+//            id,
+//            "Test",
+//            Room("1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1")
+//        )
+//
+//        myReference.child(id).setValue(test).addOnCompleteListener { task ->
+//            if (task.isSuccessful) {
+//                finish()
+//            } else {
+////                Toast.makeText(
+////                    this,
+////                    task.exception.toString(),
+////                    Toast.LENGTH_LONG
+////                ).show()
+//
+//            }
+//        }
+//    }
 
 }
 

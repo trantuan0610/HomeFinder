@@ -1,12 +1,17 @@
 package com.tuantd.myapplication.mainscreen.account.term
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.tuantd.myapplication.R
+import androidx.appcompat.app.AppCompatActivity
+import com.tuantd.myapplication.databinding.ActivityTermBinding
 
 class TermActivity : AppCompatActivity() {
+    lateinit var binding : ActivityTermBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_term)
+        binding= ActivityTermBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
     }
+
 }
