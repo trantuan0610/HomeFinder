@@ -3,6 +3,7 @@ package com.tuantd.myapplication.mainscreen.account.RoomFavourite
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -15,8 +16,6 @@ import com.tuantd.myapplication.mainscreen.home.Room
 class DetailFavouriteRoomActivity : AppCompatActivity() {
     lateinit var binding: ActivityDetailFavouriteRoomBinding
     private var roomList = ArrayList<FavouriteRoom>()
-    private var roomFavList = ArrayList<FavouriteRoom>()
-    private var likeList = ArrayList<FavouriteRoom>()
     private var roomDetail: FavouriteRoom? = null
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
@@ -35,8 +34,67 @@ class DetailFavouriteRoomActivity : AppCompatActivity() {
         if (roomFavId != null) {
             retrieveDataFromDatabase(roomFavId)
         }
+        binding.like.setOnClickListener {
+            actionLike()
+        }
+
+        binding.dontlike.setOnClickListener {
+            actionDontLike()
+        }
 
 
+    }
+
+    private fun actionDontLike() {
+        roomList.forEach {
+            if (it.idRoom.equals(roomDetail?.idRoom)) {
+                binding.like.visibility = View.VISIBLE
+                binding.dontlike.visibility = View.GONE
+                myFavouriteReferene.child(it.favouriteRoomID).removeValue()
+                Toast.makeText(this, "Xoa Thanh Cong", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.like.visibility = View.GONE
+                binding.dontlike.visibility = View.VISIBLE
+                Toast.makeText(this, "Xoa That bai", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+    }
+
+    private fun actionLike() {
+        binding.like.visibility = View.GONE
+        binding.dontlike.visibility = View.VISIBLE
+
+        val favouriteRoom = FavouriteRoom(
+            roomDetail!!.favouriteRoomID,
+            auth.currentUser?.email.toString(),
+            roomDetail!!.idRoom,
+            roomDetail!!.emailPerson,
+            roomDetail!!.roomAddressFav,
+            roomDetail!!.roomImageFav,
+            roomDetail!!.priceFav,
+            roomDetail!!.roomAreaFav,
+            roomDetail!!.roomDescriptionFav,
+            roomDetail!!.nameFav,
+            roomDetail!!.phoneFav,
+            roomDetail!!.wifiFav,
+            roomDetail!!.wcFav,
+            roomDetail!!.freeFav,
+            roomDetail!!.fridgeFav,
+            roomDetail!!.airConditionalFav,
+            roomDetail!!.washingMachineFav,
+            roomDetail!!.parkingFav,
+            roomDetail!!.kitchenFav
+
+        )
+        myFavouriteReferene.child(roomDetail!!.favouriteRoomID).setValue(favouriteRoom).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(this, "Xong", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Cuts", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun retrieveDataFromDatabase(roomFavId: String) {

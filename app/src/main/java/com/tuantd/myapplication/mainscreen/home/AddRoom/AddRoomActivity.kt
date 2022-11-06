@@ -64,21 +64,7 @@ class AddRoomActivity : AppCompatActivity() {
         }
 
         addRoomBinding.tvHuy.setOnClickListener {
-            val eBuilder = AlertDialog.Builder(this)
-            eBuilder.setTitle("Back")
-            eBuilder.setMessage("Are you sure you want Exit?")
-            eBuilder.setPositiveButton("Yes"){
-                Dialog,which->
-                finish()
-            }
-            eBuilder.setNegativeButton("No"){
-                Dialog,which->
-
-            }
-            val createBuild = eBuilder.create()
-            createBuild.show()
-
-
+            cancelAction()
         }
         //wifi
         addRoomBinding.wifiOn.setOnClickListener {
@@ -187,7 +173,21 @@ class AddRoomActivity : AppCompatActivity() {
 
     }
 
+    private fun cancelAction(){
+        val eBuilder = AlertDialog.Builder(this)
+        eBuilder.setTitle("Back")
+        eBuilder.setMessage("Are you sure you want Exit?")
+        eBuilder.setPositiveButton("Yes"){
+                Dialog,which->
+            finish()
+        }
+        eBuilder.setNegativeButton("No"){
+                Dialog,which->
 
+        }
+        val createBuild = eBuilder.create()
+        createBuild.show()
+    }
     private fun chooseImage() {
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -281,22 +281,32 @@ class AddRoomActivity : AppCompatActivity() {
             imageReference.putFile(uri).addOnSuccessListener {
 
                 // Toast.makeText(this, "Image uploaded", Toast.LENGTH_LONG).show()
-
-                //download url
                 val myUploadedImageReference = storageReference.child("images").child(imageName)
 
                 myUploadedImageReference.downloadUrl.addOnSuccessListener { url ->
-
                     val imageURL = url.toString()
-
                     addRoomToDatabase(imageURL)
-
                 }
 
             }.addOnFailureListener {
 
-                // Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    override fun onBackPressed() {
+        val eBuilder = AlertDialog.Builder(this)
+        eBuilder.setTitle("Back")
+        eBuilder.setMessage("Are you sure you want Exit?")
+        eBuilder.setPositiveButton("Yes"){
+                Dialog,which->
+            super.onBackPressed()
+        }
+        eBuilder.setNegativeButton("No"){
+                Dialog,which->
+
+        }
+        val createBuild = eBuilder.create()
+        createBuild.show()
     }
 }

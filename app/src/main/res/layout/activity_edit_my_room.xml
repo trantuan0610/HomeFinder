@@ -1,168 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainscreen.account.myRoom.DetailMyRoomActivity">
-    <ScrollView
+    tools:context=".mainscreen.account.myRoom.editMyRoom.EditMyRoomActivity">
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/tvHuy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/bold"
+            android:text="Huỷ"
+            android:textColor="@color/red"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/bold"
+            android:text="Sửa Tin"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+
+            />
+
+        <TextView
+            android:id="@+id/tvEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:fontFamily="@font/bold"
+            android:text="Sửa"
+            android:textColor="@color/blue"
+            android:textSize="15sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey"
+            android:layout_alignParentBottom="true"
+            />
+
+
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="12dp"
+        android:scrollbars="none">
 
-        >
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <RelativeLayout
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-
-                <ImageButton
-                    android:id="@+id/back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:backgroundTint="@color/white"
-                    android:src="@drawable/ic_baseline_arrow_back_24" />
-
-                <TextView
-                    android:id="@+id/tvPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="@font/bold"
-                    android:text="Phòng đã đăng"
-                    android:textColor="@color/blue"
-                    android:textSize="20sp" />
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/grey" />
-
-            </RelativeLayout>
-
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imgRoom"
-                android:layout_width="match_parent"
+
+                android:id="@+id/imgChose"
+                android:layout_width="400dp"
                 android:layout_height="200dp"
-                android:layout_below="@id/toolbar"
-                android:scaleType="fitXY"
-                android:src="@drawable/room1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="60dp"
+                android:src="@drawable/addanh" />
 
             <TextView
-                android:id="@+id/tvtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imgRoom"
-                android:fontFamily="@font/bold"
-                android:text="Phòng trọ full nội thất giá đep"
-                android:textColor="@color/blue"
-                android:textSize="18sp" />
-
-            <View
-                android:id="@+id/viewAddress"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_below="@+id/tvtitle"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/ic_location" />
-
-            <TextView
-                android:id="@+id/tvRoomAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvtitle"
-                android:layout_marginTop="15dp"
-                android:layout_toRightOf="@+id/viewAddress"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:text="122 Định Công Hoàng Mai Hà Nội"
+                android:padding="4dp"
+                android:text="Địa Chỉ:"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="16sp" />
 
-                />
-
-            <TextView
-                android:id="@+id/tvRoomArea"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvRoomAddress"
-                android:layout_marginTop="15dp"
-                android:layout_toRightOf="@+id/view2"
-                android:text="30 m2"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-
-                />
-
-            <View
-                android:id="@+id/view2"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_below="@+id/tvRoomAddress"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/photo_sizel"
-
-                />
-
-            <View
-                android:id="@+id/view3"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_below="@+id/view2"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/ic_baseline_local_phone_24"
-
-                />
+            <EditText
+                android:id="@+id/edtRoomAddress"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/edt_border"
+                android:hint="Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/TP"
+                android:padding="10dp"
+                android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/view2"
-                android:layout_marginTop="15dp"
-                android:layout_toRightOf="@id/view3"
-                android:text="Tuấn 0852482628"
+                android:padding="4dp"
+                android:text="Giá Phòng(VND):"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edtPrice"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/edt_border"
+                android:hint="3000000"
+                android:padding="10dp"
+
+                android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tvdes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/view3"
-                android:layout_marginTop="15dp"
-                android:text="Mô tả chi tiết"
-                android:textColor="@color/blue"
-                android:textSize="14sp" />
+                android:padding="4dp"
+                android:text="Diện Tích(m2)"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edtArea"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/edt_border"
+                android:hint="30"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tvDetailDes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvdes"
-                android:text="chi tiêt nè"
+                android:padding="4dp"
+                android:text="Mô tả chi tiết:"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edtDes"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/edt_border"
+                android:gravity="start"
+                android:padding="10dp"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Liên hệ với chủ:"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                />
+            <EditText
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/edt_border"
+                android:padding="10dp"
+                android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tv_TienIch"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvDetailDes"
-                android:text="Tiện ích phòng"
-                android:textColor="@color/blue" />
+                android:padding="4dp"
+                android:text="Số Điện Thoại(liên lạc):"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
+            <EditText
+                android:id="@+id/edtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/edt_border"
+                android:inputType="phone"
+                android:padding="10dp"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Tiện ích phòng:"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
             <LinearLayout
                 android:id="@+id/ln1"
                 android:layout_width="match_parent"
@@ -302,8 +323,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ln1"
-                android:orientation="horizontal"
-                android:id="@+id/ln2">
+                android:orientation="horizontal">
 
                 <RelativeLayout
                     android:id="@+id/rlt_wc"
@@ -349,10 +369,11 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:background="@drawable/border_btn_tienich"
-                        android:src="@drawable/ic_dieuhoa"
                         android:text="Điều \nhoà"
                         android:textAllCaps="false"
-                        android:textColor="@color/blue" />
+                        android:textColor="@color/blue"
+                        android:src="@drawable/ic_dieuhoa"
+                        />
 
                     <androidx.appcompat.widget.AppCompatImageButton
                         android:id="@+id/airConditional_off"
@@ -360,10 +381,10 @@
                         android:layout_height="60dp"
                         android:background="@drawable/border_btn_tienich_off"
                         android:gravity="center"
-                        android:src="@drawable/ic_dieuhoa_off"
                         android:text="Wifi"
                         android:textColor="@color/black"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        android:src="@drawable/ic_dieuhoa_off"/>
 
                 </RelativeLayout>
 
@@ -428,26 +449,14 @@
                 </RelativeLayout>
 
             </LinearLayout>
+
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_below="@+id/ln2"
                 />
 
 
-
-        </RelativeLayout>
-    </ScrollView>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_more"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/blue"
-        android:src="@drawable/ic_more" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

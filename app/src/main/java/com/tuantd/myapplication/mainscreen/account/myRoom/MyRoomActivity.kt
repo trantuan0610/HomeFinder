@@ -31,9 +31,10 @@ class MyRoomActivity : AppCompatActivity() {
         binding.rcvRoom.adapter = roomsAdapter
         roomsAdapter.onclickItem = {
             val intent =
-                Intent(this, DetailRoomActivity::class.java)
+                Intent(this, DetailMyRoomActivity::class.java)
             intent.putExtra("roomId", it)
             startActivity(intent)
+            finish()
         }
     }
 
@@ -53,14 +54,14 @@ class MyRoomActivity : AppCompatActivity() {
                         roomDescription = room["roomDescription"] as String,
                         name = room["name"] as String,
                         phone = room["phone"] as String,
-                        wifi = room["phone"] as String,
-                        wc = room["phone"] as String,
-                        free = room["phone"] as String,
-                        fridge = room["phone"] as String,
-                        airConditional = room["phone"] as String,
-                        washingMachine = room["phone"] as String,
-                        parking = room["phone"] as String,
-                        kitchen = room["phone"] as String
+                        wifi = room["wifi"] as String,
+                        wc = room["wc"] as String,
+                        free = room["free"] as String,
+                        fridge = room["fridge"] as String,
+                        airConditional = room["airConditional"] as String,
+                        washingMachine = room["washingMachine"] as String,
+                        parking = room["parking"] as String,
+                        kitchen = room["kitchen"] as String
                     )
                     roomList.add(data)
                 }

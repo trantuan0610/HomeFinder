@@ -1,5 +1,7 @@
 package com.tuantd.myapplication.mainscreen.home
 
+import java.io.Serializable
+
 data class Room(
     var roomId: String,
     var email : String,
@@ -18,6 +20,6 @@ data class Room(
     var washingMachine: String,
     var parking: String,
     var kitchen: String
-    ) {
+    ) : Serializable {
 }
 
