@@ -13,7 +13,6 @@ import com.tuantd.myapplication.R
 import com.tuantd.myapplication.mainscreen.MainActivity
 import com.tuantd.myapplication.mainscreen.home.AddRoom.AddRoomActivity
 import com.tuantd.myapplication.mainscreen.home.DetailRoom.DetailRoomActivity
-import com.tuantd.myapplication.mainscreen.posts.DetailPost.Test
 
 class HomeFragment : Fragment() {
     private var loadDone:(() -> Unit)?=null

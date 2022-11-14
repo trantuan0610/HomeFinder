@@ -1,8 +1,13 @@
 package com.tuantd.myapplication.mainscreen.home.DetailRoom
 
+import android.content.Context
 import android.content.Intent
+import android.content.pm.ResolveInfo
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Telephony
+import android.support.annotation.NonNull
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -14,9 +19,11 @@ import com.tuantd.myapplication.databinding.ActivityDetailRoomBinding
 import com.tuantd.myapplication.dialog.DialogSelectContact
 import com.tuantd.myapplication.mainscreen.home.Room
 
+
 class DetailRoomActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityDetailRoomBinding
+
     private var roomList = ArrayList<Room>()
     private var roomFavList = ArrayList<FavouriteRoom>()
     private var likeList = ArrayList<FavouriteRoom>()
@@ -61,11 +68,24 @@ class DetailRoomActivity : AppCompatActivity() {
                     n.putExtra("address", roomDetail?.phone)
                     n.putExtra("sms_body", "Xin chào, Tôi muốn thuê phòng trọ của bạn!!!")
                     startActivity(n)
-                }
+                    }
             }).show(supportFragmentManager,"tag")
         }
     }
-
+    fun getDefaultSmsAppPackageName(@NonNull context: Context): String? {
+        val defaultSmsPackageName: String
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            defaultSmsPackageName = Telephony.Sms.getDefaultSmsPackage(context)
+            return defaultSmsPackageName
+        } else {
+            val intent = Intent(Intent.ACTION_VIEW)
+                .addCategory(Intent.CATEGORY_DEFAULT).setType("vnd.android-dir/mms-sms")
+            val resolveInfos: List<ResolveInfo> =
+                context.getPackageManager().queryIntentActivities(intent, 0)
+            if (resolveInfos != null && !resolveInfos.isEmpty()) return resolveInfos[0].activityInfo.packageName
+        }
+        return null
+    }
     // get data ve va luu data vao roomlist
     private fun retrieveDataFromDatabase(roomID: String) {
         myReference.addValueEventListener(object : ValueEventListener {

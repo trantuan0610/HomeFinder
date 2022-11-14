@@ -9,13 +9,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.tuantd.myapplication.ListTestActivity
 import com.tuantd.myapplication.R
+import com.tuantd.myapplication.TestActivity
 import com.tuantd.myapplication.mainscreen.MainActivity
 import com.tuantd.myapplication.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     lateinit var btnLogin: Button
+    lateinit var btnTest: Button
+    lateinit var btnListTest: Button
     lateinit var btnRegister: TextView
     private lateinit var edtEmail: EditText
     private lateinit var edtPass: EditText
@@ -30,6 +34,16 @@ class LoginActivity : AppCompatActivity() {
         checkLogin()
         Login()
         Register()
+
+        btnTest.setOnClickListener {
+            var intent = Intent(this,TestActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnListTest.setOnClickListener {
+            var intent = Intent(this,ListTestActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
@@ -46,6 +60,8 @@ class LoginActivity : AppCompatActivity() {
         btnRegister = findViewById(R.id.tv_register)
         edtEmail = findViewById(R.id.edtLoginEmail)
         edtPass = findViewById(R.id.edtLoginPass)
+        btnTest = findViewById(R.id.btnTest)
+        btnListTest =findViewById(R.id.btnListTest)
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
     }

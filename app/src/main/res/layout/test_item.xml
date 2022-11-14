@@ -3,67 +3,60 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp">
+    <ImageView
+        android:id="@+id/imgTest"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/room1"
+        android:scaleType="fitXY"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/wifi_on"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@drawable/border_btn_tienich"
-        android:text="Wifi"
-        android:textColor="@color/blue" />
+    <TextView
+        android:id="@+id/tvTestPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/imgTest"
+        android:layout_alignParentStart="true"
+        android:background="@color/blue"
+        android:text="1.5 triệu"
+        android:textColor="@color/white" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/wifi_off"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@drawable/border_btn_tienich_off"
-        android:text="Wifi"
+    <View
+        android:id="@+id/viewAddress"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/ic_location"
+        android:layout_below="@+id/imgTest" />
+
+    <TextView
+        android:id="@+id/tvTestAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:textColor="@color/black"
-        android:visibility="gone" />
+        android:text="122 Định Công Hoàng Mai Hà Nội"
+        android:layout_below="@+id/imgTest"
+        android:layout_toRightOf="@+id/viewAddress"
+        />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/free_off"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="10dp"
-        android:layout_toRightOf="@+id/wifi_on"
-        android:background="@drawable/border_btn_tienich_off"
-        android:text="Tự do"
+    <TextView
+        android:id="@+id/tvTestArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="30 m2"
         android:textColor="@color/black"
-        android:visibility="gone" />
+        android:layout_below="@id/tvTestAddress"
+        android:layout_toRightOf="@+id/view2"
+        />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/free_on"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="10dp"
-        android:layout_toRightOf="@+id/wifi_on"
-        android:background="@drawable/border_btn_tienich"
-        android:text="Tự do"
-        android:textColor="@color/blue"
-        android:visibility="visible" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/dieuhoa_off"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="10dp"
-        android:layout_toRightOf="@+id/free_on"
-        android:background="@drawable/border_btn_tienich_off"
-        android:text="Tự do"
-        android:textColor="@color/black"
-        android:visibility="gone" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/dieuhoa_on"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="10dp"
-        android:layout_toRightOf="@+id/free_on"
-        android:background="@drawable/border_btn_tienich"
-        android:text="Điều Hoà"
-        android:textColor="@color/blue"
-        android:visibility="visible" />
+    <View
+        android:id="@+id/view2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/photo_sizel"
+        android:layout_marginTop="2dp"
+        android:layout_below="@+id/tvTestAddress"
+        />
 
 
 </RelativeLayout>
