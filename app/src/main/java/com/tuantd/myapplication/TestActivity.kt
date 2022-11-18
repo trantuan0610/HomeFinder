@@ -4,13 +4,13 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.database.DatabaseReference
@@ -20,6 +20,7 @@ import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import com.tuantd.myapplication.databinding.ActivityTestBinding
 import java.util.*
+import kotlin.collections.ArrayList
 
 class TestActivity : AppCompatActivity() {
     lateinit var binding : ActivityTestBinding
@@ -311,7 +312,7 @@ class TestActivity : AppCompatActivity() {
     private fun quaylaibuoc1() {
         binding.edtName.visibility = View.VISIBLE
         binding.edtAddress.visibility = View.VISIBLE
-        binding.back1.visibility =View.VISIBLE
+        binding.back1.visibility = View.VISIBLE
         binding.back2.visibility =View.GONE
         binding.tvContinue.visibility = View.VISIBLE
         binding.tvDone.visibility = View.GONE
@@ -359,10 +360,6 @@ class TestActivity : AppCompatActivity() {
     }
 
     private fun addRoomToDatabase(url: ArrayList<String>) {
-        val database=FirebaseDatabase.getInstance()
-        val myReference: DatabaseReference = database.reference.child("Test")
-
-
         val id: String = myReference.push().key.toString()
 
         val test = Test(

@@ -22,7 +22,7 @@ class HomeFragment : Fragment() {
     lateinit var btnAdd: FloatingActionButton
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    private val myReference: DatabaseReference = database.reference.child("Rooms")
+    private val myReference: DatabaseReference = database.reference.child("room")
 
 
     override fun onCreateView(
@@ -64,23 +64,28 @@ class HomeFragment : Fragment() {
                 for (eachRoom in snapshot.children) {
                     val room = eachRoom.value as? HashMap<*, *>
                     val data = Room(
-                        roomId = room?.get("roomId") as String,
-                        email = room["email"] as String,
-                        roomAddress = room["roomAddress"] as String,
-                        roomImage = room["roomImage"] as String,
-                        price = room["price"] as String,
-                        roomArea = room["roomArea"] as String,
-                        roomDescription = room["roomDescription"] as String,
+                        id_bai_dang = room?.get("id_bai_dang") as String,
+                        id_nguoi_dung = room["id_nguoi_dung"] as String,
+                        dia_chi = room["dia_chi"] as String,
+                        list_image = room["list_image"] as List<String>,
+                        gia = room["gia"] as String,
+                        dien_tich = room["dien_tich"] as String,
+                        mo_ta = room["mo_ta"] as String,
                         name = room["name"] as String,
-                        phone = room["phone"] as String,
+                        sdt = room["sdt"] as String,
                         wifi = room["wifi"] as String,
-                        wc = room["wc"] as String,
-                        free = room["free"] as String,
-                        fridge = room["fridge"] as String,
-                        airConditional = room["airConditional"] as String,
-                        washingMachine = room["washingMachine"] as String,
-                        parking = room["parking"] as String,
-                        kitchen = room["kitchen"] as String
+                        nha_ve_sinh = room["nha_ve_sinh"] as String,
+                        tu_do = room["tu_do"] as String,
+                        tu_lanh = room["tu_lanh"] as String,
+                        dieu_hoa = room["dieu_hoa"] as String,
+                        may_giat = room["may_giat"] as String,
+                        giu_xe = room["giu_xe"] as String,
+                        bep_nau = room["bep_nau"] as String,
+                        trang_thai_bai_dang = room["trang_thai_bai_dang"] as String,
+                        trang_thai_duyet = room["trang_thai_duyet"] as String,
+                        thoi_gian = room["thoi_gian"] as String,
+                        tieu_de = room["tieu_de"] as String,
+                        id_loai_bai_dang = room["id_loai_bai_dang"] as String
                     )
                     roomList.add(data)
                 }

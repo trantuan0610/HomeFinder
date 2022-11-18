@@ -19,6 +19,7 @@ class DialogSelectContact(private val onSubmitClickListener: (Int) -> Unit) : Di
         binding = DialogSelectContactBinding.inflate(LayoutInflater.from(context))
         val builder = AlertDialog.Builder(requireActivity())
         builder.setView(binding.root)
+
         binding.btnCancel.setOnClickListener {
             dismiss()
         }
@@ -30,7 +31,14 @@ class DialogSelectContact(private val onSubmitClickListener: (Int) -> Unit) : Di
             onSubmitClickListener.invoke(2)
             dismiss()
         }
-
+        binding.viewRate.setOnClickListener{
+            onSubmitClickListener.invoke(4)
+            dismiss()
+        }
+        binding.viewReport.setOnClickListener{
+            onSubmitClickListener.invoke(5)
+            dismiss()
+        }
 
 
         val dialog = builder.create()

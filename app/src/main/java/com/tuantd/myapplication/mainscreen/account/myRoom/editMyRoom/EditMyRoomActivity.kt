@@ -7,7 +7,6 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -62,9 +61,9 @@ class EditMyRoomActivity : AppCompatActivity() {
 
         binding.tvEdit.setOnClickListener {
             if(imageURL!= null){
-                addRoomToDatabase(imageURL!!)
+                //addRoomToDatabase(imageURL!!)
             }else{
-                addRoomToDatabase(roomDetai.roomImage)
+                addRoomToDatabase(roomDetai.list_image)
             }
         }
 
@@ -255,8 +254,8 @@ class EditMyRoomActivity : AppCompatActivity() {
         }
     }
 
-    private fun addRoomToDatabase(url: String) {
-        val id = roomDetai.roomId
+    private fun addRoomToDatabase(url: List<String>?) {
+        val id = roomDetai.id_bai_dang
         val email = FirebaseAuth.getInstance().currentUser?.email
         val address = binding.edtRoomAddress.text.toString()
         val area = binding.edtArea.text.toString()
@@ -266,23 +265,29 @@ class EditMyRoomActivity : AppCompatActivity() {
         val phone = binding.edtPhone.text.toString()
 
         val roomMap = mutableMapOf<String, Any>()
-        roomMap["roomId"] = id
-        roomMap["email"] = email.toString()
-        roomMap["roomAddress"] = address
-        roomMap["roomImage"] = url
-        roomMap["price"] = price
-        roomMap["roomArea"] = area
-        roomMap["roomDescription"] = des
+        roomMap["id_bai_dang"] = id
+        roomMap["id_nguoi_dung"] = email.toString()
+        roomMap["dia_chi"] = address
+        //roomMap["list_image"] = url
+        roomMap["gia"] = price
+        roomMap["dien_tich"] = area
+        roomMap["mo_ta"] = des
         roomMap["name"] = name
-        roomMap["phone"] = phone
+        roomMap["sdt"] = phone
         roomMap["wifi"] = wifi.toString()
-        roomMap["wc"] = vesinh.toString()
-        roomMap["free"] = tudo.toString()
-        roomMap["fridge"] = tulanh.toString()
-        roomMap["airConditional"] = dieuhoa.toString()
-        roomMap["washingMachine"] = maygiat.toString()
-        roomMap["parking"] = giuxe.toString()
-        roomMap["kitchen"] = bep.toString()
+        roomMap["nha_ve_sinh"] = vesinh.toString()
+        roomMap["tu_do"] = tudo.toString()
+        roomMap["tu_lanh"] = tulanh.toString()
+        roomMap["dieu_hoa"] = dieuhoa.toString()
+        roomMap["may_giat"] = maygiat.toString()
+        roomMap["giu_xe"] = giuxe.toString()
+        roomMap["bep_nau"] = bep.toString()
+        roomMap["trang_thai_bai_dang"] = bep.toString()
+        roomMap["trang_thai_duyet"] = bep.toString()
+        roomMap["thoi_gian"] = bep.toString()
+        roomMap["nong_lanh"] = bep.toString()
+        roomMap["tieu_de"] = bep.toString()
+        roomMap["id_loai_bai_dang"] = bep.toString()
 
 
 
@@ -316,13 +321,13 @@ class EditMyRoomActivity : AppCompatActivity() {
     }
 
     private fun setData(roomDetai: Room) {
-        binding.edtRoomAddress.setText(roomDetai.roomAddress)
-        binding.edtArea.setText(roomDetai.roomArea)
-        binding.edtPrice.setText(roomDetai.price)
-        binding.edtDes.setText(roomDetai.roomDescription)
+        binding.edtRoomAddress.setText(roomDetai.dia_chi)
+        binding.edtArea.setText(roomDetai.dien_tich)
+        binding.edtPrice.setText(roomDetai.gia)
+        binding.edtDes.setText(roomDetai.mo_ta)
         binding.edtName.setText(roomDetai.name)
-        binding.edtPhone.setText(roomDetai.phone)
-        roomDetai.roomImage.let {
+        binding.edtPhone.setText(roomDetai.sdt)
+        roomDetai.list_image?.get(0).let {
             Picasso.get().load(it).into(binding.imgChose)
         }
 
@@ -336,7 +341,7 @@ class EditMyRoomActivity : AppCompatActivity() {
             binding.wifiOn.visibility = View.GONE
 
         }
-        if (roomDetai.wc == "1") {
+        if (roomDetai.nha_ve_sinh == "1") {
             vesinh = 1
             binding.wcOn.visibility = View.VISIBLE
             binding.wcOff.visibility = View.GONE
@@ -346,7 +351,7 @@ class EditMyRoomActivity : AppCompatActivity() {
             binding.wcOff.visibility = View.VISIBLE
 
         }
-        if (roomDetai.kitchen == "1") {
+        if (roomDetai.bep_nau == "1") {
             bep = 1
             binding.kitchenOn.visibility = View.VISIBLE
             binding.kitchenOff.visibility = View.GONE
@@ -356,7 +361,7 @@ class EditMyRoomActivity : AppCompatActivity() {
             binding.kitchenOn.visibility = View.GONE
 
         }
-        if (roomDetai.parking == "1") {
+        if (roomDetai.giu_xe == "1") {
             giuxe = 1
             binding.parkingOn.visibility = View.VISIBLE
             binding.parkingOff.visibility = View.GONE
@@ -366,7 +371,7 @@ class EditMyRoomActivity : AppCompatActivity() {
             binding.parkingOn.visibility = View.GONE
 
         }
-        if (roomDetai.airConditional == "1") {
+        if (roomDetai.dieu_hoa == "1") {
             dieuhoa = 1
             binding.airConditionalOn.visibility = View.VISIBLE
             binding.airConditionalOff.visibility = View.GONE
@@ -376,7 +381,7 @@ class EditMyRoomActivity : AppCompatActivity() {
             binding.airConditionalOn.visibility = View.GONE
 
         }
-        if (roomDetai.fridge == "1") {
+        if (roomDetai.tu_lanh == "1") {
             tulanh = 1
             binding.fridgeOn.visibility = View.VISIBLE
             binding.fridgeOff.visibility = View.GONE
@@ -386,7 +391,7 @@ class EditMyRoomActivity : AppCompatActivity() {
             binding.fridgeOn.visibility = View.GONE
 
         }
-        if (roomDetai.free == "1") {
+        if (roomDetai.tu_do == "1") {
             tudo = 1
             binding.freeOn.visibility = View.VISIBLE
             binding.freeOff.visibility = View.GONE
@@ -396,7 +401,7 @@ class EditMyRoomActivity : AppCompatActivity() {
             binding.freeOn.visibility = View.GONE
 
         }
-        if (roomDetai.washingMachine == "1") {
+        if (roomDetai.may_giat == "1") {
             maygiat = 1
             binding.washingMachineOn.visibility = View.VISIBLE
             binding.washingMachineOff.visibility = View.GONE

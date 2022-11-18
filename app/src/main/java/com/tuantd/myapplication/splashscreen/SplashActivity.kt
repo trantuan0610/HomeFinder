@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import com.tuantd.myapplication.R
 import com.tuantd.myapplication.login.LoginActivity
+import com.tuantd.myapplication.mainscreen.MainActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -15,7 +16,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            var intent = Intent(this,LoginActivity::class.java)
+            var intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
             finish()
         }, 1500)

@@ -23,7 +23,7 @@ class FavouriteRoomActivity : AppCompatActivity() {
      var roomsFavAdapter= FavouriteRoomAdapter()
     lateinit var binding : ActivityFavouriteRoomBinding
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    private val myReference: DatabaseReference = database.reference.child("MyFavouriteRoom")
+    private val myReference: DatabaseReference = database.reference.child("favourite")
     private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,30 +55,14 @@ class FavouriteRoomActivity : AppCompatActivity() {
                 for (favRoom in snapshot.children) {
                     val favRoom = favRoom.value as? HashMap<*, *>
                     val data = FavouriteRoom(
-                        favouriteRoomID = favRoom?.get("favouriteRoomID") as String,
-                        emailPerson = favRoom["emailPerson"] as String,
-                        idRoom = favRoom["idRoom"] as String,
-                        emailFav = favRoom["emailFav"] as String,
-                        roomAddressFav = favRoom["roomAddressFav"] as String,
-                        roomImageFav = favRoom["roomImageFav"] as String,
-                        priceFav = favRoom["priceFav"] as String,
-                        roomAreaFav = favRoom["roomAreaFav"] as String,
-                        roomDescriptionFav = favRoom["roomDescriptionFav"] as String,
-                        nameFav = favRoom["nameFav"] as String ,
-                        phoneFav = favRoom["phoneFav"] as String,
-                        wifiFav = favRoom["wifiFav"] as String ,
-                        wcFav = favRoom["wcFav"] as String,
-                        freeFav = favRoom["freeFav"] as String,
-                        fridgeFav = favRoom["fridgeFav"] as String,
-                        airConditionalFav = favRoom["airConditionalFav"] as String,
-                        washingMachineFav = favRoom["washingMachineFav"] as String,
-                        parkingFav = favRoom["parkingFav"] as String,
-                        kitchenFav = favRoom["kitchenFav"] as String
+                        id_yeu_thich = favRoom?.get("favouriteRoomID") as String,
+                        id_nguoi_dung = favRoom["emailPerson"] as String,
+                        id_bai_dang = favRoom["idRoom"] as String
                     )
                     favroomList.add(data)
                 }
                 favroomList.forEach {
-                    if (it.emailPerson == auth.currentUser?.email) {
+                    if (it.id_nguoi_dung == auth.currentUser?.email) {
                         favroomList2.add(it)
                     }
                 }

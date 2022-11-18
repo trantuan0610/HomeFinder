@@ -1,17 +1,12 @@
 package com.tuantd.myapplication.mainscreen.home.AddRoom
 
 import android.Manifest
-import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,16 +20,23 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
-import com.tuantd.myapplication.R
 import com.tuantd.myapplication.databinding.ActivityAddRoomBinding
 import com.tuantd.myapplication.mainscreen.home.Room
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AddRoomActivity : AppCompatActivity() {
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    private val myReference: DatabaseReference = database.reference.child("Rooms")
-    private lateinit var addRoomBinding: ActivityAddRoomBinding
-    lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
+    private val myReference: DatabaseReference = database.reference.child("room")
+    private lateinit var binding: ActivityAddRoomBinding
+    val listUrl= arrayListOf<String>()
+    private var listImage = mutableListOf<Uri>()
+    lateinit var activityResultLauncher1: ActivityResultLauncher<Intent>
+    lateinit var activityResultLauncher2: ActivityResultLauncher<Intent>
+    lateinit var activityResultLauncher3: ActivityResultLauncher<Intent>
+    lateinit var activityResultLauncher4: ActivityResultLauncher<Intent>
+    lateinit var activityResultLauncher5: ActivityResultLauncher<Intent>
+    lateinit var activityResultLauncher6: ActivityResultLauncher<Intent>
     var imageUri: Uri? = null
     val firebaseStorage: FirebaseStorage = FirebaseStorage.getInstance()
     val storageReference: StorageReference = firebaseStorage.reference
@@ -51,126 +53,232 @@ class AddRoomActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        addRoomBinding = ActivityAddRoomBinding.inflate(layoutInflater)
-        setContentView(addRoomBinding.root)
+        binding = ActivityAddRoomBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        registerActivityForResult()
-        addRoomBinding.imgChose.setOnClickListener {
-            chooseImage()
+        registerActivityForResult2()
+        binding.man2.visibility = View.GONE
+        binding.tvTiep.setOnClickListener {
+            binding.man1.visibility =View.GONE
+            binding.man2.visibility = View.VISIBLE
+            binding.tvTiep.visibility = View.GONE
+            binding.tvPush.visibility = View.VISIBLE
+            binding.tvQuayLai.visibility = View.VISIBLE
+            binding.tvHuy.visibility = View.GONE
+        }
+        binding.tvQuayLai.setOnClickListener {
+            binding.man1.visibility =View.VISIBLE
+            binding.man2.visibility = View.GONE
+            binding.tvTiep.visibility = View.VISIBLE
+            binding.tvPush.visibility = View.GONE
+            binding.tvQuayLai.visibility = View.GONE
+            binding.tvHuy.visibility = View.VISIBLE
+        }
+        binding.img1.setOnClickListener {
+            chooseImageAnh1()
+        }
+        binding.img2.setOnClickListener {
+            chooseImageAnh2()
+        }
+        binding.img3.setOnClickListener {
+            chooseImageAnh3()
+        }
+        binding.img4.setOnClickListener {
+            chooseImageAnh4()
+        }
+        binding.img5.setOnClickListener {
+            chooseImageAnh5()
+        }
+        binding.img6.setOnClickListener {
+            chooseImageAnh6()
         }
 
-        addRoomBinding.tvPush.setOnClickListener {
-            uploadPhoto()
+        binding.tvPush.setOnClickListener {
+            uploadPhoto(listImage)
         }
 
-        addRoomBinding.tvHuy.setOnClickListener {
+        binding.tvHuy.setOnClickListener {
             cancelAction()
         }
         //wifi
-        addRoomBinding.wifiOn.setOnClickListener {
+        binding.wifiOn.setOnClickListener {
             wifi = 0
-            addRoomBinding.wifiOn.visibility = View.GONE
-            addRoomBinding.wifiOff.visibility = View.VISIBLE
+            binding.wifiOn.visibility = View.GONE
+            binding.wifiOff.visibility = View.VISIBLE
         }
 
-        addRoomBinding.wifiOff.setOnClickListener {
+        binding.wifiOff.setOnClickListener {
             wifi = 1
-            addRoomBinding.wifiOn.visibility = View.VISIBLE
-            addRoomBinding.wifiOff.visibility = View.GONE
+            binding.wifiOn.visibility = View.VISIBLE
+            binding.wifiOff.visibility = View.GONE
         }
 
         //wc
-        addRoomBinding.wcOn.setOnClickListener {
+        binding.wcOn.setOnClickListener {
             vesinh = 0
-            addRoomBinding.wcOn.visibility = View.GONE
-            addRoomBinding.wcOff.visibility = View.VISIBLE
+            binding.wcOn.visibility = View.GONE
+            binding.wcOff.visibility = View.VISIBLE
         }
 
-        addRoomBinding.wcOff.setOnClickListener {
+        binding.wcOff.setOnClickListener {
             vesinh = 1
-            addRoomBinding.wcOff.visibility = View.GONE
-            addRoomBinding.wcOn.visibility = View.VISIBLE
+            binding.wcOff.visibility = View.GONE
+            binding.wcOn.visibility = View.VISIBLE
         }
 
         //tulanh
-        addRoomBinding.fridgeOn.setOnClickListener {
+        binding.fridgeOn.setOnClickListener {
             tulanh = 0
-            addRoomBinding.fridgeOn.visibility = View.GONE
-            addRoomBinding.fridgeOff.visibility = View.VISIBLE
+            binding.fridgeOn.visibility = View.GONE
+            binding.fridgeOff.visibility = View.VISIBLE
         }
 
-        addRoomBinding.fridgeOff.setOnClickListener {
+        binding.fridgeOff.setOnClickListener {
             tulanh = 1
-            addRoomBinding.fridgeOn.visibility = View.VISIBLE
-            addRoomBinding.fridgeOff.visibility = View.GONE
+            binding.fridgeOn.visibility = View.VISIBLE
+            binding.fridgeOff.visibility = View.GONE
         }
 
         //bep
-        addRoomBinding.kitchenOn.setOnClickListener {
+        binding.kitchenOn.setOnClickListener {
             bep = 0
-            addRoomBinding.kitchenOff.visibility = View.VISIBLE
-            addRoomBinding.kitchenOn.visibility = View.GONE
+            binding.kitchenOff.visibility = View.VISIBLE
+            binding.kitchenOn.visibility = View.GONE
 
         }
 
-        addRoomBinding.kitchenOff.setOnClickListener {
+        binding.kitchenOff.setOnClickListener {
             bep = 1
-            addRoomBinding.kitchenOff.visibility = View.GONE
-            addRoomBinding.kitchenOn.visibility = View.VISIBLE
+            binding.kitchenOff.visibility = View.GONE
+            binding.kitchenOn.visibility = View.VISIBLE
         }
 
         //giuxe
-        addRoomBinding.parkingOff.setOnClickListener {
+        binding.parkingOff.setOnClickListener {
             giuxe = 1
-            addRoomBinding.parkingOff.visibility = View.GONE
-            addRoomBinding.parkingOn.visibility = View.VISIBLE
+            binding.parkingOff.visibility = View.GONE
+            binding.parkingOn.visibility = View.VISIBLE
         }
 
-        addRoomBinding.parkingOn.setOnClickListener {
+        binding.parkingOn.setOnClickListener {
             giuxe = 0
-            addRoomBinding.parkingOff.visibility = View.VISIBLE
-            addRoomBinding.parkingOn.visibility = View.GONE
+            binding.parkingOff.visibility = View.VISIBLE
+            binding.parkingOn.visibility = View.GONE
         }
 
         //tudo
-        addRoomBinding.freeOn.setOnClickListener {
+        binding.freeOn.setOnClickListener {
             tudo = 0
-            addRoomBinding.freeOff.visibility = View.VISIBLE
-            addRoomBinding.freeOn.visibility = View.GONE
+            binding.freeOff.visibility = View.VISIBLE
+            binding.freeOn.visibility = View.GONE
         }
 
-        addRoomBinding.freeOff.setOnClickListener {
+        binding.freeOff.setOnClickListener {
             tudo = 1
-            addRoomBinding.freeOn.visibility = View.VISIBLE
-            addRoomBinding.freeOff.visibility = View.GONE
+            binding.freeOn.visibility = View.VISIBLE
+            binding.freeOff.visibility = View.GONE
         }
 
         //maygiat
-        addRoomBinding.washingMachineOff.setOnClickListener {
+        binding.washingMachineOff.setOnClickListener {
             maygiat = 1
-            addRoomBinding.washingMachineOff.visibility = View.GONE
-            addRoomBinding.washingMachineOn.visibility = View.VISIBLE
+            binding.washingMachineOff.visibility = View.GONE
+            binding.washingMachineOn.visibility = View.VISIBLE
         }
 
-        addRoomBinding.washingMachineOn.setOnClickListener {
+        binding.washingMachineOn.setOnClickListener {
             maygiat = 0
-            addRoomBinding.washingMachineOn.visibility = View.GONE
-            addRoomBinding.washingMachineOff.visibility = View.VISIBLE
+            binding.washingMachineOn.visibility = View.GONE
+            binding.washingMachineOff.visibility = View.VISIBLE
         }
 
         //dieuhoa
-        addRoomBinding.airConditionalOff.setOnClickListener {
+        binding.airConditionalOff.setOnClickListener {
             dieuhoa = 1
-            addRoomBinding.airConditionalOff.visibility = View.GONE
-            addRoomBinding.airConditionalOn.visibility = View.VISIBLE
+            binding.airConditionalOff.visibility = View.GONE
+            binding.airConditionalOn.visibility = View.VISIBLE
         }
 
-        addRoomBinding.airConditionalOn.setOnClickListener {
+        binding.airConditionalOn.setOnClickListener {
             dieuhoa = 0
-            addRoomBinding.airConditionalOn.visibility = View.GONE
-            addRoomBinding.airConditionalOff.visibility = View.VISIBLE
+            binding.airConditionalOn.visibility = View.GONE
+            binding.airConditionalOff.visibility = View.VISIBLE
         }
 
+    }
+    private fun chooseImageAnh6() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
+            )
+        } else {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.action = Intent.ACTION_GET_CONTENT
+            activityResultLauncher6.launch(intent)
+        }
+    }
+    private fun chooseImageAnh5() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
+            )
+        } else {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.action = Intent.ACTION_GET_CONTENT
+            activityResultLauncher5.launch(intent)
+        }
+    }
+
+    private fun chooseImageAnh4() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
+            )
+        } else {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.action = Intent.ACTION_GET_CONTENT
+            activityResultLauncher4.launch(intent)
+        }
+    }
+
+    private fun chooseImageAnh3() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
+            )
+        } else {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.action = Intent.ACTION_GET_CONTENT
+            activityResultLauncher3.launch(intent)
+        }
     }
 
     private fun cancelAction(){
@@ -188,7 +296,7 @@ class AddRoomActivity : AppCompatActivity() {
         val createBuild = eBuilder.create()
         createBuild.show()
     }
-    private fun chooseImage() {
+    private fun chooseImageAnh1() {
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.READ_EXTERNAL_STORAGE
@@ -203,12 +311,30 @@ class AddRoomActivity : AppCompatActivity() {
             intent.type = "image/*"
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             intent.action = Intent.ACTION_GET_CONTENT
-            activityResultLauncher.launch(intent)
+            activityResultLauncher1.launch(intent)
+        }
+    }
+    private fun chooseImageAnh2() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
+            )
+        } else {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.action = Intent.ACTION_GET_CONTENT
+            activityResultLauncher2.launch(intent)
         }
     }
 
-    fun registerActivityForResult() {
-        activityResultLauncher =
+    fun registerActivityForResult2() {
+        activityResultLauncher1 =
             registerForActivityResult(
                 ActivityResultContracts.StartActivityForResult(),
                 ActivityResultCallback { result ->
@@ -217,30 +343,136 @@ class AddRoomActivity : AppCompatActivity() {
                     val imageData = result.data
 
                     if (resultCode == RESULT_OK && imageData != null) {
-                        imageUri = imageData.data
+                        var  imageUri = imageData.data
 
                         imageUri?.let {
-                            Picasso.get().load(it).into(addRoomBinding.imgChose)
+                            Picasso.get().load(it).into(binding.img1)
+                        }
+                        if (imageUri != null) {
+                            listImage.add(imageUri)
+                        }
+                    }
+                })
+        //2
+        activityResultLauncher2 =
+            registerForActivityResult(
+                ActivityResultContracts.StartActivityForResult(),
+                ActivityResultCallback { result ->
+
+                    val resultCode = result.resultCode
+                    val imageData = result.data
+
+                    if (resultCode == RESULT_OK && imageData != null) {
+                        var  imageUri = imageData.data
+
+                        imageUri?.let {
+                            Picasso.get().load(it).into(binding.img2)
+                        }
+                        if (imageUri != null) {
+                            listImage.add(imageUri)
+                        }
+                    }
+                })
+        //
+        activityResultLauncher3 =
+            registerForActivityResult(
+                ActivityResultContracts.StartActivityForResult(),
+                ActivityResultCallback { result ->
+
+                    val resultCode = result.resultCode
+                    val imageData = result.data
+
+                    if (resultCode == RESULT_OK && imageData != null) {
+                        var  imageUri = imageData.data
+
+                        imageUri?.let {
+                            Picasso.get().load(it).into(binding.img3)
+                        }
+                        if (imageUri != null) {
+                            listImage.add(imageUri)
+                        }
+                    }
+                })
+        //
+        activityResultLauncher4 =
+            registerForActivityResult(
+                ActivityResultContracts.StartActivityForResult(),
+                ActivityResultCallback { result ->
+
+                    val resultCode = result.resultCode
+                    val imageData = result.data
+
+                    if (resultCode == RESULT_OK && imageData != null) {
+                        var  imageUri = imageData.data
+
+                        imageUri?.let {
+                            Picasso.get().load(it).into(binding.img4)
+                        }
+                        if (imageUri != null) {
+                            listImage.add(imageUri)
+                        }
+                    }
+                })
+        //
+        activityResultLauncher5 =
+            registerForActivityResult(
+                ActivityResultContracts.StartActivityForResult(),
+                ActivityResultCallback { result ->
+
+                    val resultCode = result.resultCode
+                    val imageData = result.data
+
+                    if (resultCode == RESULT_OK && imageData != null) {
+                        var  imageUri = imageData.data
+
+                        imageUri?.let {
+                            Picasso.get().load(it).into(binding.img5)
+                        }
+                        if (imageUri != null) {
+                            listImage.add(imageUri)
+                        }
+                    }
+                })
+        //
+        activityResultLauncher6 =
+            registerForActivityResult(
+                ActivityResultContracts.StartActivityForResult(),
+                ActivityResultCallback { result ->
+
+                    val resultCode = result.resultCode
+                    val imageData = result.data
+
+                    if (resultCode == RESULT_OK && imageData != null) {
+                        var  imageUri = imageData.data
+
+                        imageUri?.let {
+                            Picasso.get().load(it).into(binding.img6)
+                        }
+                        if (imageUri != null) {
+                            listImage.add(imageUri)
                         }
                     }
                 })
     }
 
-    private fun addRoomToDatabase(url: String) {
-        val address = addRoomBinding.edtRoomAddress.text.toString()
-        val area = addRoomBinding.edtArea.text.toString()
-        val price = addRoomBinding.edtPrice.text.toString()
-        val des = addRoomBinding.edtDes.text.toString()
-        val name =addRoomBinding.edtName.text.toString()
-        val phone = addRoomBinding.edtPhone.text.toString()
-        val email = FirebaseAuth.getInstance().currentUser?.email
-
+    private fun addRoomToDatabase(url: ArrayList<String>) {
+        val address = binding.edtRoomAddress.text.toString()
+        val area = binding.edtArea.text.toString()
+        val price = binding.edtPrice.text.toString()
+        val des = binding.edtDes.text.toString()
+        val name =binding.edtName.text.toString()
+        val phone = binding.edtPhone.text.toString()
+        val tieude = binding.edtRoomTitle.text.toString()
+        val id_nguoi_dung = FirebaseAuth.getInstance().currentUser?.email
+        val formatter = SimpleDateFormat("dd-MM-yyyy")
+        val date = Date()
+        val current = formatter.format(date)
 
         val id: String = myReference.push().key.toString()
 
         val room = Room(
             id,
-            email!!,
+            id_nguoi_dung!!,
             address,
             url,
             price,
@@ -255,11 +487,23 @@ class AddRoomActivity : AppCompatActivity() {
             dieuhoa.toString(),
             maygiat.toString(),
             giuxe.toString(),
-            bep.toString()
+            bep.toString(),
+            "1",
+            "0",
+            current.toString(),
+            tieude,
+            "1"
+
+
         )
 
         myReference.child(id).setValue(room).addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                Toast.makeText(
+                    this,
+                    "Bạn đã đăng bài thành công. Hãy chờ ban quản trị duyệt bài. Nếu sau 24h chưa thấy duyệt, hãy liên hệ tới hotline 0852482628",
+                    Toast.LENGTH_LONG
+                ).show()
                 finish()
             } else {
 //                Toast.makeText(
@@ -272,26 +516,34 @@ class AddRoomActivity : AppCompatActivity() {
         }
     }
 
-    fun uploadPhoto() {
-        val imageName = UUID.randomUUID().toString()
-        val imageReference = storageReference.child("images").child(imageName)
-
-        imageUri?.let { uri ->
-
+    fun uploadPhoto(listItemChoices: MutableList<Uri>){
+        val listUrl= arrayListOf<String>()
+        listItemChoices.forEachIndexed { index, uri ->
+            val firebaseStorage: FirebaseStorage = FirebaseStorage.getInstance()
+            val storageReference: StorageReference = firebaseStorage.reference
+            val imageName = UUID.randomUUID().toString()
+            val imageReference = storageReference.child("images").child(imageName)
             imageReference.putFile(uri).addOnSuccessListener {
-
-                // Toast.makeText(this, "Image uploaded", Toast.LENGTH_LONG).show()
+                //download url
                 val myUploadedImageReference = storageReference.child("images").child(imageName)
 
                 myUploadedImageReference.downloadUrl.addOnSuccessListener { url ->
+
                     val imageURL = url.toString()
-                    addRoomToDatabase(imageURL)
+
+                    listUrl.add(imageURL)
+                    if (index == listItemChoices.size-1){
+                        addRoomToDatabase(listUrl)
+                    }
                 }
 
             }.addOnFailureListener {
-
+                if (index == listItemChoices.size-1){
+                    addRoomToDatabase(listUrl)
+                }
             }
         }
+
     }
 
     override fun onBackPressed() {

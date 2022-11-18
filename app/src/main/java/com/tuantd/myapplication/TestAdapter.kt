@@ -17,7 +17,9 @@ class TestAdapter : RecyclerView.Adapter<TestAdapter.MyViewHolder>() {
             LayoutInflater.from(parent.context).inflate(R.layout.test_item, parent, false)
         return TestAdapter.MyViewHolder(itemView)
     }
+
     var onclickItem: ((String) -> Unit)? = null
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val test = testList?.get(position)
         Glide.with(holder.itemView)

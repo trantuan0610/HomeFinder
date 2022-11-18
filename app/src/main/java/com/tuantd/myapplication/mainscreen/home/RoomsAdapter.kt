@@ -23,15 +23,15 @@ open class RoomsAdapter() : RecyclerView.Adapter<RoomsAdapter.MyViewHolder>() {
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val room = roomsList?.get(position)
         Glide.with(holder.itemView)
-            .load(room?.roomImage)
+            .load(room?.list_image?.get(0))
             .into(holder.roomImage)
 
-        holder.price.text = "${room?.price} triệu"
-        holder.roomAddress.text = room?.roomAddress
-        holder.roomArea.text = room?.roomArea + "m2"
+        holder.price.text = "${room?.gia} triệu"
+        holder.roomAddress.text = room?.dia_chi
+        holder.roomArea.text = room?.dien_tich + "m2"
 
         holder.roomImage.setOnClickListener {
-            room?.roomId?.let { it1 -> onclickItem?.invoke(it1) }
+            room?.id_bai_dang?.let { it1 -> onclickItem?.invoke(it1) }
         }
     }
 

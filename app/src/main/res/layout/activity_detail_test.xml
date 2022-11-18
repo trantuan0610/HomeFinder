@@ -7,19 +7,14 @@
     tools:context=".DetailTestActivity"
     android:orientation="vertical">
 
-    <com.denzcoskun.imageslider.ImageSlider
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_image"
         android:layout_width="match_parent"
-        android:layout_height="210dp"
-        android:id="@+id/imageSlider"
-        app:iss_auto_cycle="true"
-        app:iss_delay="0"
-        app:iss_placeholder="@android:color/darker_gray"
-        app:iss_error_image="@android:color/darker_gray"
-        app:iss_corner_radius="5"
-        app:iss_selected_dot="@drawable/default_selected_dot"
-        app:iss_unselected_dot="@drawable/default_unselected_dot"
-        app:iss_period="2000"
-        tools:ignore="MissingConstraints" />
+        android:layout_height="250dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

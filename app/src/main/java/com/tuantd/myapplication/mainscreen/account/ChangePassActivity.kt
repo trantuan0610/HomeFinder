@@ -56,18 +56,13 @@ class ChangePassActivity : AppCompatActivity() {
                     user.reauthenticate(credential)
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
-                                Toast.makeText(
-                                    this,
-                                    "Re-Authentication success.",
-                                    Toast.LENGTH_SHORT
-                                ).show()
 
                                 user.updatePassword(newPass.text.toString())
                                     .addOnCompleteListener { task ->
                                         if (task.isSuccessful) {
                                             Toast.makeText(
                                                 this,
-                                                "Password changed successfully.",
+                                                "Thay đổi password thành công",
                                                 Toast.LENGTH_SHORT
                                             ).show()
 
@@ -76,21 +71,16 @@ class ChangePassActivity : AppCompatActivity() {
                                     }
 
                             } else {
-                                Toast.makeText(
-                                    this,
-                                    "Re-Authentication failed.",
-                                    Toast.LENGTH_SHORT
-                                ).show()
                             }
                         }
                 }
 
             } else {
-                Toast.makeText(this, "Password mismatching.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Mật Khẩu không trùng khớp", Toast.LENGTH_SHORT).show()
             }
 
         } else {
-            Toast.makeText(this, "Please enter all the fields.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Không được bỏ trống ", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -21,17 +21,17 @@ open class FavouriteRoomAdapter() : RecyclerView.Adapter<FavouriteRoomAdapter.My
     var onclickItem: ((String) -> Unit)? = null
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val roomFav = roomsFavList?.get(position)
-        Glide.with(holder.itemView)
-            .load(roomFav?.roomImageFav)
-            .into(holder.roomImage)
-
-        holder.price.text = "${roomFav?.priceFav} triệu"
-        holder.roomAddress.text = roomFav?.roomAddressFav
-        holder.roomArea.text = roomFav?.roomAreaFav + "m2"
-
-        holder.roomImage.setOnClickListener {
-            roomFav?.favouriteRoomID?.let { it1 -> onclickItem?.invoke(it1) }
-        }
+//        Glide.with(holder.itemView)
+//            .load(roomFav?.roomImageFav)
+//            .into(holder.roomImage)
+//
+//        holder.price.text = "${roomFav?.priceFav} triệu"
+//        holder.roomAddress.text = roomFav?.roomAddressFav
+//        holder.roomArea.text = roomFav?.roomAreaFav + "m2"
+//
+//        holder.roomImage.setOnClickListener {
+//            roomFav?.favouriteRoomID?.let { it1 -> onclickItem?.invoke(it1) }
+//        }
     }
 
     override fun getItemCount(): Int = roomsFavList?.size?:0

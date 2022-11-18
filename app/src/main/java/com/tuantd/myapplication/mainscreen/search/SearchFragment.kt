@@ -62,10 +62,10 @@ class SearchFragment : Fragment() {
                     arrayList.clear()
                     val search = newText.toString().lowercase()
                     roomList.forEach {
-                        if (it.roomAddress.lowercase().contains(search)) {
-                            arrayList.add(it)
-
-                        }
+//                        if (it.roomAddress.lowercase().contains(search)) {
+//                            arrayList.add(it)
+//
+//                        }
                     }
                     roomsAdapter?.addList(arrayList)
                     roomsAdapter!!.onclickItem = {
@@ -94,23 +94,29 @@ class SearchFragment : Fragment() {
                 for (eachRoom in snapshot.children) {
                     val room = eachRoom.value as? HashMap<String, Any?>
                     val data = Room(
-                        roomId = room?.get("roomId") as String,
-                        email = room?.get("email") as String,
-                        roomAddress = room["roomAddress"] as String,
-                        roomImage = room["roomImage"] as String,
-                        price = room["price"] as String,
-                        roomArea = room["roomArea"] as String,
-                        roomDescription = room["roomDescription"] as String,
+
+                        id_bai_dang = room?.get("id_bai_dang") as String,
+                        id_nguoi_dung = room["id_nguoi_dung"] as String,
+                        dia_chi = room["dia_chi"] as String,
+                        list_image = room["list_image"] as List<String>,
+                        gia = room["gia"] as String,
+                        dien_tich = room["dien_tich"] as String,
+                        mo_ta = room["mo_ta"] as String,
                         name = room["name"] as String,
-                        phone = room["phone"] as String,
-                        wifi = room["phone"] as String ,
-                        wc = room["phone"] as String,
-                        free = room["phone"] as String,
-                        fridge = room["phone"] as String,
-                        airConditional = room["phone"] as String,
-                        washingMachine = room["phone"] as String,
-                        parking = room["phone"] as String,
-                        kitchen = room["phone"] as String
+                        sdt = room["sdt"] as String,
+                        wifi = room["wifi"] as String,
+                        nha_ve_sinh = room["nha_ve_sinh"] as String,
+                        tu_do = room["tu_do"] as String,
+                        tu_lanh = room["tu_lanh"] as String,
+                        dieu_hoa = room["dieu_hoa"] as String,
+                        may_giat = room["may_giat"] as String,
+                        giu_xe = room["giu_xe"] as String,
+                        bep_nau = room["bep_nau"] as String,
+                        trang_thai_bai_dang = room["trang_thai_bai_dang"] as String,
+                        trang_thai_duyet = room["trang_thai_duyet"] as String,
+                        thoi_gian = room["thoi_gian"] as String,
+                        tieu_de = room["tieu_de"] as String,
+                        id_loai_bai_dang = room["id_loai_bai_dang"] as String
                     )
                     roomList.add(data)
                 }

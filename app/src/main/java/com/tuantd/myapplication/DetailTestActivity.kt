@@ -11,11 +11,11 @@ import com.tuantd.myapplication.databinding.ActivityDetailTestBinding
 
 class DetailTestActivity : AppCompatActivity() {
     lateinit var binding : ActivityDetailTestBinding
-    private var testList = ArrayList<Test>()
+    private var testList = mutableListOf<Test>()
     private var testDetail: Test? = null
+    private val imageAdapter = ImageAdapter()
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference : DatabaseReference = database.reference.child("Test")
-    val imageList = ArrayList<SlideModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityDetailTestBinding.inflate(layoutInflater)
@@ -26,7 +26,6 @@ class DetailTestActivity : AppCompatActivity() {
         if (testId != null) {
             getData(testId)
         }
-         binding.imageSlider.setImageList(imageList,ScaleTypes.FIT)
 
     }
 
@@ -45,13 +44,13 @@ class DetailTestActivity : AppCompatActivity() {
                     Log.d("TUANAAA",data.toString())
                     testList.add(data)
                 }
-                testList.forEach {
+
+              testList.forEach {
                     if (it.testID == testId){
                         testDetail = it
+                        imageAdapter.addList(testDetail?.listImage as ArrayList<String>)
+                        binding.rcvImage.adapter = imageAdapter
                     }
-                }
-                for (i in testDetail?.listImage!!) {
-                    imageList.add(SlideModel(i))
                 }
             }
 

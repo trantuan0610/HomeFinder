@@ -32,6 +32,10 @@
         <item name="android:textColor">@color/blue</item>
         <item name="android:background">@drawable/bg_finished_task</item>
     </style>
+    <style name="BlueBorderButton" parent="OrangeButton">
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:background">@drawable/bg_finished_task</item>
+    </style>
 
 
 </resources>

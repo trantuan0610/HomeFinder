@@ -43,6 +43,7 @@
         android:layout_margin="10dp"
         android:background="@drawable/custom_edt"
         android:hint="Password"
+        android:inputType="textPassword"
         android:layout_gravity="center_horizontal" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -64,7 +65,6 @@
         android:layout_height="wrap_content"
         android:text="test"
         android:layout_gravity="center"
-        android:visibility="gone"
         />
     <Button
         android:id="@+id/btnListTest"
@@ -72,33 +72,32 @@
         android:layout_height="wrap_content"
         android:text="listtest"
         android:layout_gravity="center"
-        android:visibility="gone"
         />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button2"
-        android:layout_width="281dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="76dp"
-        android:background="@drawable/botron_btn"
-        android:backgroundTint="#2694F9"
-        android:drawableStart="@drawable/iconfb"
-        android:gravity="center"
-        android:text="Login with Facebook"
-        android:layout_gravity="center_horizontal"  />
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/button2"-->
+<!--        android:layout_width="281dp"-->
+<!--        android:layout_height="52dp"-->
+<!--        android:layout_marginTop="76dp"-->
+<!--        android:background="@drawable/botron_btn"-->
+<!--        android:backgroundTint="#2694F9"-->
+<!--        android:drawableStart="@drawable/iconfb"-->
+<!--        android:gravity="center"-->
+<!--        android:text="Login with Facebook"-->
+<!--        android:layout_gravity="center_horizontal"  />-->
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLoginGG"
-        android:layout_width="281dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="65dp"
-        android:background="@drawable/botron_btn"
-        android:backgroundTint="#FFFFFF"
-        android:drawableStart="@drawable/icongg"
-        android:text="Login with Google"
-        android:layout_gravity="center_horizontal"  />
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/btnLoginGG"-->
+<!--        android:layout_width="281dp"-->
+<!--        android:layout_height="52dp"-->
+<!--        android:layout_marginStart="65dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="65dp"-->
+<!--        android:background="@drawable/botron_btn"-->
+<!--        android:backgroundTint="#FFFFFF"-->
+<!--        android:drawableStart="@drawable/icongg"-->
+<!--        android:text="Login with Google"-->
+<!--        android:layout_gravity="center_horizontal"  />-->
 
     <LinearLayout
         android:layout_width="match_parent"
