@@ -8,39 +8,36 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.tuantd.myapplication.R
+import com.tuantd.myapplication.databinding.ActivityRegisterBinding
 import com.tuantd.myapplication.login.LoginActivity
 import com.tuantd.myapplication.mainscreen.MainActivity
+import com.tuantd.myapplication.mainscreen.home.DetailRoom.FavouriteRoom
 
 class RegisterActivity : AppCompatActivity() {
-    private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
-    private lateinit var btnRegister: Button
-    private lateinit var edtEmail: EditText
-    private lateinit var edtPass: EditText
-    private lateinit var edtName: EditText
-    private lateinit var edtPhone: EditText
+    private  var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private  var db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private var dbrt: FirebaseDatabase = FirebaseDatabase.getInstance()
+    private val myUserReferene: DatabaseReference = dbrt.reference.child("user")
+
+    private lateinit var binding: ActivityRegisterBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        btnRegister = findViewById(R.id.btn_Register)
-        auth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
 
-        edtEmail = findViewById(R.id.edtEmail)
-        edtPass = findViewById(R.id.edtPass)
-        edtName = findViewById(R.id.edtName)
-        edtPhone = findViewById(R.id.edtphoneNumber)
         Register()
 
-        btnRegister.setOnClickListener {
+        binding.btnRegister.setOnClickListener {
             if (checking()) {
-                var email = edtEmail.text.toString()
-                var password = edtPass.text.toString()
-                var name = edtName.text.toString()
-                var phone = edtPhone.text.toString()
+                var email = binding.edtEmail.text.toString()
+                var password = binding.edtPass.text.toString()
+                var name = binding.edtName.text.toString()
+                var phone = binding.edtphoneNumber.text.toString()
 
                 val user = hashMapOf(
                     "Name" to name,
@@ -56,6 +53,24 @@ class RegisterActivity : AppCompatActivity() {
                                 .addOnCompleteListener(this) { task ->
                                     if (task.isSuccessful) {
                                         Users.document(email).set(user)
+                                        //
+                                        val id =  myUserReferene.push().key.toString()
+                                        val user1 = User(
+                                            email,
+                                            email,
+                                            password,
+                                            "0",
+                                            phone,
+                                            name
+                                        )
+                                        myUserReferene.child(id).setValue(user1).addOnCompleteListener { task ->
+                                            if (task.isSuccessful) {
+
+                                            } else {
+
+                                            }
+                                        }
+                                        //
                                         val intent = Intent(this, MainActivity::class.java)
                                         startActivity(intent)
                                         finish()
@@ -72,6 +87,8 @@ class RegisterActivity : AppCompatActivity() {
                                 .show()
                         }
                     }
+
+
             } else {
                 Toast.makeText(this, "Enter the Details", Toast.LENGTH_LONG).show()
             }
@@ -80,10 +97,10 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun checking(): Boolean {
-        if (edtName.text.toString().trim { it <= ' ' }.isNotEmpty()
-            && edtPhone.text.toString().trim { it <= ' ' }.isNotEmpty()
-            && edtEmail.text.toString().trim { it <= ' ' }.isNotEmpty()
-            && edtPass.text.toString().trim { it <= ' ' }.isNotEmpty()
+        if (binding.edtName.text.toString().trim { it <= ' ' }.isNotEmpty()
+            && binding.edtphoneNumber.text.toString().trim { it <= ' ' }.isNotEmpty()
+            && binding.edtEmail.text.toString().trim { it <= ' ' }.isNotEmpty()
+            && binding.edtPass.text.toString().trim { it <= ' ' }.isNotEmpty()
         ) {
             return true
         }
@@ -92,12 +109,10 @@ class RegisterActivity : AppCompatActivity() {
 
 
     private fun Register() {
-        btnRegister.setOnClickListener {
-            val email = edtEmail.text.toString()
-            val pass = edtPass.text.toString()
+        binding.btnRegister.setOnClickListener {
 
-            if (email.isNotEmpty() && pass.isNotEmpty()) {
-                auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
+            if (binding.edtPass.text.isNotEmpty() && binding.edtEmail.text.isNotEmpty()) {
+                auth.createUserWithEmailAndPassword(binding.edtEmail.text.toString(), binding.edtPass.text.toString()).addOnCompleteListener {
                     if (it.isSuccessful) {
                         val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
@@ -111,7 +126,9 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
 }
 
 

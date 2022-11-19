@@ -7,6 +7,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -19,17 +20,27 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
+import com.tuantd.myapplication.R
 import com.tuantd.myapplication.databinding.ActivityEditMyRoomBinding
 import com.tuantd.myapplication.mainscreen.account.myRoom.MyRoomActivity
 import com.tuantd.myapplication.mainscreen.home.Room
+import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class EditMyRoomActivity : AppCompatActivity() {
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference: DatabaseReference = database.reference.child("Rooms")
     private lateinit var binding: ActivityEditMyRoomBinding
-    lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
+    lateinit var activityResultLauncher1: ActivityResultLauncher<Intent>
+    lateinit var activityResultLauncher2: ActivityResultLauncher<Intent>
+    lateinit var activityResultLauncher3: ActivityResultLauncher<Intent>
+    lateinit var activityResultLauncher4: ActivityResultLauncher<Intent>
+    lateinit var activityResultLauncher5: ActivityResultLauncher<Intent>
+    lateinit var activityResultLauncher6: ActivityResultLauncher<Intent>
+    private var listImage = mutableListOf<Uri>()
+    var listUrl= arrayListOf<String>()
     var imageUri: Uri? = null
     val firebaseStorage: FirebaseStorage = FirebaseStorage.getInstance()
     val storageReference: StorageReference = firebaseStorage.reference
@@ -44,26 +55,68 @@ class EditMyRoomActivity : AppCompatActivity() {
     lateinit var roomDetai: Room
     var imageURL : String ?= null
 
+    lateinit var adapterItemText : ArrayAdapter<String>
+    var itemtext = arrayOf("Kí túc xá", "Phòng trọ và nhà trọ" , "Nhà Nguyên Căn" , "Tìm bạn ở ghép")
+    var item = " "
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityEditMyRoomBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
          roomDetai = intent.getSerializableExtra("room") as Room
         if (roomDetai != null) {
             setData(roomDetai)
+            adapterItemText = ArrayAdapter(this, R.layout.item_text,itemtext)
+            binding.autoTxt.setAdapter(adapterItemText)
         }
-        registerActivityForResult()
+        registerActivityForResult2()
+        binding.tvEdit.visibility = View.GONE
+        binding.man2.visibility = View.GONE
+        binding.man1.visibility =View.VISIBLE
+        binding.tvTiep.setOnClickListener {
+            binding.man1.visibility =View.GONE
+            binding.man2.visibility = View.VISIBLE
+            binding.tvTiep.visibility = View.GONE
+            binding.tvEdit.visibility = View.VISIBLE
+            binding.tvQuayLai.visibility = View.VISIBLE
+            binding.tvHuy.visibility = View.GONE
+        }
+        binding.tvQuayLai.setOnClickListener {
+            binding.man1.visibility =View.VISIBLE
+            binding.man2.visibility = View.GONE
+            binding.tvTiep.visibility = View.VISIBLE
+            binding.tvEdit.visibility = View.GONE
+            binding.tvQuayLai.visibility = View.GONE
+            binding.tvHuy.visibility = View.VISIBLE
+        }
+        binding.img1.setOnClickListener {
 
-        binding.imgChose.setOnClickListener {
-            chooseImage()
+            chooseImageAnh1()
+        }
+        binding.img2.setOnClickListener {
+            chooseImageAnh2()
+        }
+        binding.img3.setOnClickListener {
+            chooseImageAnh3()
+        }
+        binding.img4.setOnClickListener {
+            chooseImageAnh4()
+        }
+        binding.img5.setOnClickListener {
+            chooseImageAnh5()
+        }
+        binding.img6.setOnClickListener {
+            chooseImageAnh6()
         }
 
         binding.tvEdit.setOnClickListener {
-            if(imageURL!= null){
+            if(listImage.size == 0){
                 //addRoomToDatabase(imageURL!!)
             }else{
-                addRoomToDatabase(roomDetai.list_image)
+                uploadphoto(listImage)
+
             }
         }
 
@@ -76,6 +129,144 @@ class EditMyRoomActivity : AppCompatActivity() {
 
     }
 
+    private fun uploadphoto(listItemChoices : MutableList<Uri>) {
+        listItemChoices.forEachIndexed { index, uri ->
+            val firebaseStorage: FirebaseStorage = FirebaseStorage.getInstance()
+            val storageReference: StorageReference = firebaseStorage.reference
+            val imageName = UUID.randomUUID().toString()
+            val imageReference = storageReference.child("images").child(imageName)
+            imageReference.putFile(uri).addOnSuccessListener {
+                //download url
+                val myUploadedImageReference = storageReference.child("images").child(imageName)
+
+                myUploadedImageReference.downloadUrl.addOnSuccessListener { url ->
+
+                    val imageURL = url.toString()
+
+                    listUrl.add(imageURL)
+                    if (index == listItemChoices.size-1){
+                        addRoomToDatabase(listUrl)
+                    }
+                }
+
+            }.addOnFailureListener {
+                if (index == listItemChoices.size-1){
+                    addRoomToDatabase(listUrl)
+                }
+            }
+        }
+    }
+
+    private fun chooseImageAnh6() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
+            )
+        } else {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.action = Intent.ACTION_GET_CONTENT
+            activityResultLauncher6.launch(intent)
+        }
+    }
+    private fun chooseImageAnh5() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
+            )
+        } else {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.action = Intent.ACTION_GET_CONTENT
+            activityResultLauncher5.launch(intent)
+        }
+    }
+
+    private fun chooseImageAnh4() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
+            )
+        } else {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.action = Intent.ACTION_GET_CONTENT
+            activityResultLauncher4.launch(intent)
+        }
+    }
+
+    private fun chooseImageAnh3() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
+            )
+        } else {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.action = Intent.ACTION_GET_CONTENT
+            activityResultLauncher3.launch(intent)
+        }
+    }
+    private fun chooseImageAnh1() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
+            )
+        } else {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.action = Intent.ACTION_GET_CONTENT
+            activityResultLauncher1.launch(intent)
+        }
+    }
+    private fun chooseImageAnh2() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
+            )
+        } else {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.action = Intent.ACTION_GET_CONTENT
+            activityResultLauncher2.launch(intent)
+        }
+    }
     private fun setUtilities() {
         //wifi
         binding.wifiOn.setOnClickListener {
@@ -183,10 +374,8 @@ class EditMyRoomActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerActivityForResult() {
-        val imageName = UUID.randomUUID().toString()
-        val imageReference = storageReference.child("images").child(imageName)
-        activityResultLauncher =
+    fun registerActivityForResult2() {
+        activityResultLauncher1 =
             registerForActivityResult(
                 ActivityResultContracts.StartActivityForResult(),
                 ActivityResultCallback { result ->
@@ -195,24 +384,113 @@ class EditMyRoomActivity : AppCompatActivity() {
                     val imageData = result.data
 
                     if (resultCode == RESULT_OK && imageData != null) {
-                        imageUri = imageData.data
+                        var  imageUri = imageData.data
 
                         imageUri?.let {
-                            Picasso.get().load(it).into(binding.imgChose)
+                            Picasso.get().load(it).into(binding.img1)
                         }
-                        imageUri?.let { uri ->
+                        if (imageUri != null) {
+                            listImage.add(imageUri)
+                        }
+                    }
+                })
+        //2
+        activityResultLauncher2 =
+            registerForActivityResult(
+                ActivityResultContracts.StartActivityForResult(),
+                ActivityResultCallback { result ->
 
-                            imageReference.putFile(uri).addOnSuccessListener {
-                                val myUploadedImageReference = storageReference.child("images").child(imageName)
+                    val resultCode = result.resultCode
+                    val imageData = result.data
 
-                                myUploadedImageReference.downloadUrl.addOnSuccessListener { url ->
-                                    imageURL = url.toString()
+                    if (resultCode == RESULT_OK && imageData != null) {
+                        var  imageUri = imageData.data
 
-                                }
+                        imageUri?.let {
+                            Picasso.get().load(it).into(binding.img2)
+                        }
+                        if (imageUri != null) {
+                            listImage.add(imageUri)
+                        }
+                    }
+                })
+        //
+        activityResultLauncher3 =
+            registerForActivityResult(
+                ActivityResultContracts.StartActivityForResult(),
+                ActivityResultCallback { result ->
 
-                            }.addOnFailureListener {
+                    val resultCode = result.resultCode
+                    val imageData = result.data
 
-                            }
+                    if (resultCode == RESULT_OK && imageData != null) {
+                        var  imageUri = imageData.data
+
+                        imageUri?.let {
+                            Picasso.get().load(it).into(binding.img3)
+                        }
+                        if (imageUri != null) {
+                            listImage.add(imageUri)
+                        }
+                    }
+                })
+        //
+        activityResultLauncher4 =
+            registerForActivityResult(
+                ActivityResultContracts.StartActivityForResult(),
+                ActivityResultCallback { result ->
+
+                    val resultCode = result.resultCode
+                    val imageData = result.data
+
+                    if (resultCode == RESULT_OK && imageData != null) {
+                        var  imageUri = imageData.data
+
+                        imageUri?.let {
+                            Picasso.get().load(it).into(binding.img4)
+                        }
+                        if (imageUri != null) {
+                            listImage.add(imageUri)
+                        }
+                    }
+                })
+        //
+        activityResultLauncher5 =
+            registerForActivityResult(
+                ActivityResultContracts.StartActivityForResult(),
+                ActivityResultCallback { result ->
+
+                    val resultCode = result.resultCode
+                    val imageData = result.data
+
+                    if (resultCode == RESULT_OK && imageData != null) {
+                        var  imageUri = imageData.data
+
+                        imageUri?.let {
+                            Picasso.get().load(it).into(binding.img5)
+                        }
+                        if (imageUri != null) {
+                            listImage.add(imageUri)
+                        }
+                    }
+                })
+        //
+        activityResultLauncher6 =
+            registerForActivityResult(
+                ActivityResultContracts.StartActivityForResult(),
+                ActivityResultCallback { result ->
+
+                    val resultCode = result.resultCode
+                    val imageData = result.data
+
+                    if (resultCode == RESULT_OK && imageData != null) {
+                        var  imageUri = imageData.data
+
+                        imageUri?.let {
+                            Picasso.get().load(it).into(binding.img6)
+                        }
+                        if (imageUri != null) {
+                            listImage.add(imageUri)
                         }
                     }
                 })
@@ -234,27 +512,9 @@ class EditMyRoomActivity : AppCompatActivity() {
         createBuild.show()
     }
 
-    private fun uploadPhoto(){
-        val imageName = UUID.randomUUID().toString()
-        val imageReference = storageReference.child("images").child(imageName)
 
-        imageUri?.let { uri ->
 
-            imageReference.putFile(uri).addOnSuccessListener {
-                val myUploadedImageReference = storageReference.child("images").child(imageName)
-
-                myUploadedImageReference.downloadUrl.addOnSuccessListener { url ->
-                     imageURL = url.toString()
-
-                }
-
-            }.addOnFailureListener {
-
-            }
-        }
-    }
-
-    private fun addRoomToDatabase(url: List<String>?) {
+    private fun addRoomToDatabase(url: ArrayList<String>) {
         val id = roomDetai.id_bai_dang
         val email = FirebaseAuth.getInstance().currentUser?.email
         val address = binding.edtRoomAddress.text.toString()
@@ -263,12 +523,16 @@ class EditMyRoomActivity : AppCompatActivity() {
         val des = binding.edtDes.text.toString()
         val name =binding.edtName.text.toString()
         val phone = binding.edtPhone.text.toString()
+        val tieu_de= binding.edtRoomTitle.text.toString()
+        val formatter = SimpleDateFormat("dd-MM-yyyy")
+        val date = Date()
+        val current = formatter.format(date)
 
         val roomMap = mutableMapOf<String, Any>()
         roomMap["id_bai_dang"] = id
         roomMap["id_nguoi_dung"] = email.toString()
         roomMap["dia_chi"] = address
-        //roomMap["list_image"] = url
+        roomMap["list_image"] = url
         roomMap["gia"] = price
         roomMap["dien_tich"] = area
         roomMap["mo_ta"] = des
@@ -282,12 +546,11 @@ class EditMyRoomActivity : AppCompatActivity() {
         roomMap["may_giat"] = maygiat.toString()
         roomMap["giu_xe"] = giuxe.toString()
         roomMap["bep_nau"] = bep.toString()
-        roomMap["trang_thai_bai_dang"] = bep.toString()
-        roomMap["trang_thai_duyet"] = bep.toString()
-        roomMap["thoi_gian"] = bep.toString()
-        roomMap["nong_lanh"] = bep.toString()
-        roomMap["tieu_de"] = bep.toString()
-        roomMap["id_loai_bai_dang"] = bep.toString()
+        roomMap["trang_thai_bai_dang"] = roomDetai.trang_thai_bai_dang
+        roomMap["trang_thai_duyet"] = roomDetai.trang_thai_duyet
+        roomMap["thoi_gian"] = current.toString()
+        roomMap["tieu_de"] = tieu_de
+        roomMap["id_loai_bai_dang"] = binding.autoTxt.text.toString()
 
 
 
@@ -301,24 +564,6 @@ class EditMyRoomActivity : AppCompatActivity() {
         }
     }
 
-    private fun chooseImage() {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
-            )
-        } else {
-            val intent = Intent()
-            intent.type = "image/*"
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            intent.action = Intent.ACTION_GET_CONTENT
-            activityResultLauncher.launch(intent)
-        }
-    }
 
     private fun setData(roomDetai: Room) {
         binding.edtRoomAddress.setText(roomDetai.dia_chi)
@@ -327,9 +572,40 @@ class EditMyRoomActivity : AppCompatActivity() {
         binding.edtDes.setText(roomDetai.mo_ta)
         binding.edtName.setText(roomDetai.name)
         binding.edtPhone.setText(roomDetai.sdt)
-        roomDetai.list_image?.get(0).let {
-            Picasso.get().load(it).into(binding.imgChose)
+        binding.edtRoomTitle.setText(roomDetai.tieu_de)
+        binding.autoTxt.setText(roomDetai.id_loai_bai_dang)
+        listUrl = roomDetai.list_image as ArrayList<String>
+        if (roomDetai.list_image?.get(0)!=null){
+            roomDetai.list_image?.get(0).let {
+                Picasso.get().load(it).into(binding.img1)
+            }
         }
+        if (roomDetai.list_image?.get(1)!=null){
+            roomDetai.list_image?.get(1).let {
+                Picasso.get().load(it).into(binding.img2)
+            }
+        }
+        if (roomDetai.list_image?.get(2)!=null){
+            roomDetai.list_image?.get(2).let {
+                Picasso.get().load(it).into(binding.img3)
+            }
+        }
+        if (roomDetai.list_image?.get(3)!=null){
+            roomDetai.list_image?.get(3).let {
+                Picasso.get().load(it).into(binding.img4)
+            }
+        }
+        if (roomDetai.list_image?.get(4)!=null){
+            roomDetai.list_image?.get(4).let {
+                Picasso.get().load(it).into(binding.img5)
+            }
+        }
+        if (roomDetai.list_image?.get(5)!=null){
+            roomDetai.list_image?.get(5).let {
+                Picasso.get().load(it).into(binding.img6)
+            }
+        }
+
 
         if (roomDetai.wifi == "1") {
             wifi = 1

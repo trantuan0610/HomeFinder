@@ -5,26 +5,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".mainscreen.home.Report.ReportActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="60dp">
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_dangerous"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Báo cáo bài đăng"
+            android:textSize="28sp"
+            android:textColor="@color/red"
+            />
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="báo cáo bài đăng"
-        />
+        android:text="Tiêu đề báo cáo:"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"/>
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:id="@+id/edtTitle"
+        android:background="@drawable/edt_border"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:hint="Tiêu đề báo cáo"
+        android:padding="5dp"
         />
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Nội dung báo cáo:"
+    android:layout_marginTop="20dp"
+    android:layout_marginStart="10dp"
+    android:textColor="@color/black"/>
+
     <EditText
+        android:hint="Lý do báo cáo bài đăng"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edtContent"/>
-    <Button
+        android:layout_height="200dp"
+        android:id="@+id/edtContent"
+        android:background="@drawable/edt_border"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="start"
+        android:padding="5dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_marginTop="10dp"
         android:id="@+id/btnReport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Báo cáo"
+        android:layout_gravity="center"
+        android:background="@drawable/border_btn_red"
+        android:layout_width="match_parent"
+        android:layout_height = "46dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:text="Báo Cáo"
+        android:textAllCaps="true"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
         />
 
 

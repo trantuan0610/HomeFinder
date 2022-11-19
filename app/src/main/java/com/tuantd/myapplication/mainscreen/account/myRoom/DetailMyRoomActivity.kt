@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.tuantd.myapplication.ImageAdapter
 import com.tuantd.myapplication.databinding.ActivityDetailMyRoomBinding
 import com.tuantd.myapplication.dialog.DialogEditRoom
 import com.tuantd.myapplication.mainscreen.account.myRoom.editMyRoom.EditMyRoomActivity
@@ -22,6 +23,7 @@ class DetailMyRoomActivity : AppCompatActivity() {
     private var roomList = ArrayList<Room>()
     private var roomFavList = ArrayList<FavouriteRoom>()
     private var likeList = ArrayList<FavouriteRoom>()
+    private val imageAdapter = ImageAdapter()
     private var roomDetail: Room? = null
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference: DatabaseReference = database.reference.child("room")
@@ -103,7 +105,12 @@ class DetailMyRoomActivity : AppCompatActivity() {
                         binding.tvDetailDes.text = it.mo_ta
                         binding.tvtitle.text = it.tieu_de
                         binding.tvName.text = it.name + "-" + it.sdt
-                        Glide.with(applicationContext).load(it.list_image?.get(0)).into(binding.imgRoom)
+                        binding.tvDate.text = "Ngày đăng: " + it.thoi_gian
+                        binding.tvLoaiPhong.text = "Loại Phòng: " + it.id_loai_bai_dang
+
+                        imageAdapter.addList(it?.list_image as ArrayList<String>)
+                        binding.rcvImage.adapter = imageAdapter
+
                         if (it.wifi == "1") {
                             binding.wifiOn.visibility = View.VISIBLE
                             binding.wifiOff.visibility = View.GONE

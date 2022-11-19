@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -20,7 +22,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
+import com.tuantd.myapplication.R
 import com.tuantd.myapplication.databinding.ActivityAddRoomBinding
+import com.tuantd.myapplication.dialog.LoadingDialog
 import com.tuantd.myapplication.mainscreen.home.Room
 import java.text.SimpleDateFormat
 import java.util.*
@@ -49,6 +53,10 @@ class AddRoomActivity : AppCompatActivity() {
     var bep = 1
     var tulanh = 1
 
+    lateinit var adapterItemText : ArrayAdapter<String>
+    var itemtext = arrayOf("Kí túc xá", "Phòng trọ và nhà trọ" , "Nhà Nguyên Căn" , "Tìm bạn ở ghép")
+     var item = " "
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +64,12 @@ class AddRoomActivity : AppCompatActivity() {
         binding = ActivityAddRoomBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        adapterItemText = ArrayAdapter(this, R.layout.item_text,itemtext)
+        binding.autoTxt.setAdapter(adapterItemText)
+
         registerActivityForResult2()
         binding.man2.visibility = View.GONE
+        binding.man1.visibility =View.VISIBLE
         binding.tvTiep.setOnClickListener {
             binding.man1.visibility =View.GONE
             binding.man2.visibility = View.VISIBLE
@@ -75,6 +87,7 @@ class AddRoomActivity : AppCompatActivity() {
             binding.tvHuy.visibility = View.VISIBLE
         }
         binding.img1.setOnClickListener {
+
             chooseImageAnh1()
         }
         binding.img2.setOnClickListener {
@@ -492,7 +505,7 @@ class AddRoomActivity : AppCompatActivity() {
             "0",
             current.toString(),
             tieude,
-            "1"
+            binding.autoTxt.text.toString()
 
 
         )

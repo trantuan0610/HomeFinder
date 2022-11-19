@@ -48,10 +48,9 @@ class ReportActivity : AppCompatActivity() {
         )
         myReference.child(id).setValue(report).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(this, "Lưu thành công", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Báo cáo thành công.", Toast.LENGTH_SHORT).show()
                 finish()
             } else {
-                Toast.makeText(this, "Lưu thất bại", Toast.LENGTH_SHORT).show()
                 finish()
             }
         }

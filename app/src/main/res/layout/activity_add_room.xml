@@ -83,7 +83,14 @@
         android:orientation="vertical"
         android:layout_below="@+id/toolbar"
         >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm hình ảnh cho bài đăng:"
+            android:textColor="@color/black"
+            />
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -156,6 +163,7 @@
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/man1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
@@ -163,7 +171,6 @@
         android:scrollbars="none">
 
         <LinearLayout
-            android:id="@+id/man1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
@@ -560,7 +567,19 @@
 
             </LinearLayout>
 
-
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:hint="Loại phòng trọ"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                >
+                <AutoCompleteTextView
+                    android:id="@+id/auto_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"/>
+            </com.google.android.material.textfield.TextInputLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="100dp"

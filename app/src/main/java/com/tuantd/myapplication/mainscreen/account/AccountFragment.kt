@@ -27,6 +27,7 @@ class AccountFragment : Fragment() {
 
     lateinit var btnLogOut: Button
     lateinit var imgMore: ImageButton
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,16 +36,26 @@ class AccountFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentAccountBinding.inflate(layoutInflater)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.btnLogOut.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
+        if (auth.currentUser?.email != null){
+            binding.man2.visibility = View.GONE
+            binding.man1.visibility = View.VISIBLE
+        }else{
+            binding.man1.visibility = View.GONE
+            binding.man2.visibility = View.VISIBLE
+        }
+        binding.btnLogin.setOnClickListener {
             var intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
-            (activity)?.finish()
+        }
+        binding.btnLogOut.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            binding.man1.visibility = View.GONE
+            binding.man2.visibility = View.VISIBLE
         }
 
         binding.tvAboutUs.setOnClickListener {
@@ -72,6 +83,5 @@ class AccountFragment : Fragment() {
             startActivity(intent)
         }
     }
-
 
 }

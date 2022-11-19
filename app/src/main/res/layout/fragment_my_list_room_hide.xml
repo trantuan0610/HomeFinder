@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".mainscreen.account.myRoom.fragment.MyListRoomHideFragment">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_room"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/rooms_item"
+            android:layout_marginTop="?actionBarSize"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bài đăng của bạn đang chờ duyệt.Nếu sau 24h bài đăng chưa được duyệt, vui lòng liên hệ tới hotline 1900 6868 để được hỗ trợ. "
+                android:textColor="@color/black"
+                android:layout_below="@+id/rcv_room"/>
+        </RelativeLayout>
+    </ScrollView>
+</FrameLayout>

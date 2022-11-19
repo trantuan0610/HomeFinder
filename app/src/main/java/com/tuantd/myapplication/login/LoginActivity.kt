@@ -18,8 +18,6 @@ import com.tuantd.myapplication.register.RegisterActivity
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     lateinit var btnLogin: Button
-    lateinit var btnTest: Button
-    lateinit var btnListTest: Button
     lateinit var btnRegister: TextView
     private lateinit var edtEmail: EditText
     private lateinit var edtPass: EditText
@@ -34,16 +32,6 @@ class LoginActivity : AppCompatActivity() {
         checkLogin()
         Login()
         Register()
-
-        btnTest.setOnClickListener {
-            var intent = Intent(this,TestActivity::class.java)
-            startActivity(intent)
-        }
-
-        btnListTest.setOnClickListener {
-            var intent = Intent(this,ListTestActivity::class.java)
-            startActivity(intent)
-        }
 
     }
 
@@ -60,8 +48,8 @@ class LoginActivity : AppCompatActivity() {
         btnRegister = findViewById(R.id.tv_register)
         edtEmail = findViewById(R.id.edtLoginEmail)
         edtPass = findViewById(R.id.edtLoginPass)
-        btnTest = findViewById(R.id.btnTest)
-        btnListTest =findViewById(R.id.btnListTest)
+//        btnTest = findViewById(R.id.btnTest)
+//        btnListTest =findViewById(R.id.btnListTest)
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
     }
@@ -110,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-
+        super.onBackPressed()
     }
 
 }

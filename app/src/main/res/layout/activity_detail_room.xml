@@ -8,7 +8,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
     >
 <LinearLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -153,13 +152,6 @@
             android:textSize="14sp"
             android:layout_marginEnd="30dp"
             />
-        <TextView
-           android:id="@+id/tvRate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Đánh giá:"
-            android:textColor="@color/black"
-            android:layout_marginEnd="30dp"/>
 
         <TextView
             android:id="@+id/tvDate"
@@ -177,7 +169,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/tvRoomAddress"
         android:gravity="center_vertical"
         android:layout_marginTop="10dp">
         <View
@@ -199,6 +190,35 @@
             android:textSize="14sp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp">
+        <View
+            android:id="@+id/view4"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_star_xanh"
+
+            />
+
+        <TextView
+            android:id="@+id/tvRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đánh giá:"
+            android:textColor="@color/black"
+            android:layout_marginEnd="30dp"/>
+        <TextView
+            android:id="@+id/tvLoaiPhong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đánh giá:"
+            android:textColor="@color/black"
+            android:layout_marginEnd="30dp"/>
+    </LinearLayout>
 
 
         <TextView

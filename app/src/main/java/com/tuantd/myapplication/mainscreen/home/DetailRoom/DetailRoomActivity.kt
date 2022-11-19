@@ -18,13 +18,11 @@ import com.tuantd.myapplication.ImageAdapter
 import com.tuantd.myapplication.databinding.ActivityDetailRoomBinding
 import com.tuantd.myapplication.dialog.DialogRate
 import com.tuantd.myapplication.dialog.DialogSelectContact
-import com.tuantd.myapplication.mainscreen.MainActivity
 import com.tuantd.myapplication.mainscreen.home.Rate.Rate
 import com.tuantd.myapplication.mainscreen.home.Report.ReportActivity
 import com.tuantd.myapplication.mainscreen.home.Room
 import com.tuantd.myapplication.mainscreen.home.RoomsAdapter
-import java.math.RoundingMode
-import java.text.DecimalFormat
+import java.util.*
 
 
 class DetailRoomActivity : AppCompatActivity() {
@@ -32,6 +30,7 @@ class DetailRoomActivity : AppCompatActivity() {
     lateinit var binding: ActivityDetailRoomBinding
     private val roomsAdapter= RoomsAdapter()
     private var roomList = ArrayList<Room>()
+    private var roomLienquan = ArrayList<Room>()
     private var roomFavList = ArrayList<FavouriteRoom>()
     private var likeList = ArrayList<FavouriteRoom>()
     val rateList = ArrayList<Rate>()
@@ -39,6 +38,7 @@ class DetailRoomActivity : AppCompatActivity() {
     private val imageAdapter = ImageAdapter()
     private var sodiem = 0.0
     private var dem = 0
+    var rated = 0
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference: DatabaseReference = database.reference.child("room")
@@ -70,8 +70,8 @@ class DetailRoomActivity : AppCompatActivity() {
         binding.dontlike.setOnClickListener {
             actionDontLike()
         }
-        roomsAdapter.addList(roomList)
-        binding.rcvTinlienquan.adapter = roomsAdapter
+
+
         roomsAdapter.onclickItem = {
             val intent =
                 Intent(this, DetailRoomActivity::class.java)
@@ -95,22 +95,46 @@ class DetailRoomActivity : AppCompatActivity() {
                     n.putExtra("sms_body", "Xin chào, Tôi muốn thuê phòng trọ của bạn!!!")
                     startActivity(n)
                     }
-                    3-> {}
-                    4-> {if(!Rated()){
-                        DialogRate(roomDetail?.id_bai_dang, onSubmitClickListener = {
-                            if (it==1){
-                                Toast.makeText(this,"Đánh giá sao thành công",Toast.LENGTH_SHORT).show()
-                            }
-                        }).show(supportFragmentManager,"tag1")
-                    }else{
-                        Toast.makeText(this,"Bạn đã đánh giá sao cho bài đăng này",Toast.LENGTH_SHORT).show()
+                    3-> {
+                        val map = "http://maps.google.co.in/maps?q=${roomDetail?.dia_chi}"
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(map))
+                            startActivity(intent)
                     }
+                    4-> {
+                        if (auth.currentUser != null) {
+                            if(!(rated > 0)){
+                                DialogRate(roomDetail?.id_bai_dang, onSubmitClickListener = {
+                                    if (it==1){
+                                        Toast.makeText(this,"Đánh giá sao thành công",Toast.LENGTH_SHORT).show()
+                                    }
+                                }).show(supportFragmentManager,"tag1")
+                            }else{
+                                Toast.makeText(this,"Bạn đã đánh giá sao cho bài đăng này",Toast.LENGTH_SHORT).show()
+                            }
+                        }else{
+                            Toast.makeText(this,"Bạn chưa đăng nhập. Hãy đăng nhập để sử dụng tính năng này",Toast.LENGTH_SHORT).show()
+                        }
+
 
                     }
                     5-> {
-                        val intent = Intent(this, ReportActivity::class.java)
-                        intent.putExtra("roomId", roomDetail?.id_bai_dang)
-                        startActivity(intent)
+                        if (auth.currentUser != null) {
+                            val intent = Intent(this, ReportActivity::class.java)
+                            intent.putExtra("roomId", roomDetail?.id_bai_dang)
+                            startActivity(intent)
+                        }else{
+                            Toast.makeText(this,"Bạn chưa đăng nhập. Hãy đăng nhập để sử dụng tính năng này",Toast.LENGTH_SHORT).show()
+                        }
+
+
+                    }
+                    6->{
+                        val intent = Intent()
+                        intent.action = Intent.ACTION_SEND
+                        intent.putExtra(Intent.EXTRA_TEXT, "Địa chỉ:" + roomDetail?.dia_chi +"\n"+"Anh/chị:"+roomDetail?.name+"\n"+"SDT:"+roomDetail?.sdt)
+                        intent.type = "text/plain"
+
+                        startActivity(Intent.createChooser(intent, "Please select app: "))
                     }
                 }
 
@@ -131,6 +155,11 @@ class DetailRoomActivity : AppCompatActivity() {
                     )
                     rateList.add(data)
                 }
+                rateList.forEach{
+                    if(it.id_bai_dang == roomDetail?.id_bai_dang && it.id_nguoi_dung == FirebaseAuth.getInstance().currentUser?.email.toString()){
+                        rated = 1
+                    }
+                }
                 rateList.forEach {
                     if(it.id_bai_dang == roomDetail?.id_bai_dang){
                         sodiem = sodiem + it.so_diem.toDouble()
@@ -148,11 +177,6 @@ class DetailRoomActivity : AppCompatActivity() {
             override fun onCancelled(error: DatabaseError) {
             }
         })
-    }
-
-    private fun Rated(): Boolean {
-        return rateList.size > 0
-
     }
 
     fun getDefaultSmsAppPackageName(@NonNull context: Context): String? {
@@ -175,6 +199,7 @@ class DetailRoomActivity : AppCompatActivity() {
         myReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 roomList.clear()
+                roomLienquan.clear()
                 for (eachRoom in snapshot.children) {
                     val room = eachRoom.value as? HashMap<*, *>
                     val data = Room(
@@ -213,6 +238,7 @@ class DetailRoomActivity : AppCompatActivity() {
                         binding.tvtitle.text = it.tieu_de
                         binding.tvName.text = it.name + "-" + it.sdt
                         binding.tvDate.text = "Ngày đăng: " + it.thoi_gian
+                        binding.tvLoaiPhong.text = "Loại Phòng: " + it.id_loai_bai_dang
 
                         imageAdapter.addList(it?.list_image as ArrayList<String>)
                         binding.rcvImage.adapter = imageAdapter
@@ -285,6 +311,13 @@ class DetailRoomActivity : AppCompatActivity() {
                     }
 
                 }
+                roomList.forEach {
+                    if (it.trang_thai_duyet == "1" && it.trang_thai_bai_dang=="1"){
+                        roomLienquan.add(it)
+                    }
+                }
+                roomsAdapter.addList(roomLienquan)
+                binding.rcvTinlienquan.adapter = roomsAdapter
 
             }
 

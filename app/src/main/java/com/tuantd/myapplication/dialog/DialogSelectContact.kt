@@ -31,12 +31,20 @@ class DialogSelectContact(private val onSubmitClickListener: (Int) -> Unit) : Di
             onSubmitClickListener.invoke(2)
             dismiss()
         }
+        binding.viewMap.setOnClickListener{
+            onSubmitClickListener.invoke(3)
+            dismiss()
+        }
         binding.viewRate.setOnClickListener{
             onSubmitClickListener.invoke(4)
             dismiss()
         }
         binding.viewReport.setOnClickListener{
             onSubmitClickListener.invoke(5)
+            dismiss()
+        }
+        binding.viewShare.setOnClickListener {
+            onSubmitClickListener.invoke(6)
             dismiss()
         }
 

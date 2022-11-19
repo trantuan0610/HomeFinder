@@ -9,11 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-
         >
-        <RelativeLayout
+        <LinearLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/toolbar"
@@ -47,94 +48,147 @@
 
             </RelativeLayout>
 
-
-            <ImageView
-                android:id="@+id/imgRoom"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_image"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="250dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
                 android:layout_below="@id/toolbar"
-                android:scaleType="fitXY"
-                android:src="@drawable/room1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                />
 
             <TextView
                 android:id="@+id/tvtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imgRoom"
+                android:layout_below="@+id/rcv_image"
                 android:fontFamily="@font/bold"
                 android:text="Phòng trọ full nội thất giá đep"
                 android:textColor="@color/blue"
                 android:textSize="18sp" />
-
-            <View
-                android:id="@+id/viewAddress"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_below="@+id/tvtitle"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/ic_location" />
-
-            <TextView
-                android:id="@+id/tvRoomAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvtitle"
-                android:layout_marginTop="15dp"
-                android:layout_toRightOf="@+id/viewAddress"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:text="122 Định Công Hoàng Mai Hà Nội"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-
-                />
-
-            <TextView
-                android:id="@+id/tvRoomArea"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvRoomAddress"
-                android:layout_marginTop="15dp"
-                android:layout_toRightOf="@+id/view2"
-                android:text="30 m2"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-
-                />
-
-            <View
-                android:id="@+id/view2"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_below="@+id/tvRoomAddress"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/photo_sizel"
-
-                />
-
-            <View
-                android:id="@+id/view3"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_below="@+id/view2"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/ic_baseline_local_phone_24"
-
-                />
-
-            <TextView
-                android:id="@+id/tvName"
+            <LinearLayout
+                android:id="@+id/rltAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/view2"
-                android:layout_marginTop="15dp"
-                android:layout_toRightOf="@id/view3"
-                android:text="Tuấn 0852482628"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:orientation="horizontal"
+                android:layout_below="@id/tvRoomAddress"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp">
+                <View
+                    android:id="@+id/viewAddress"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/tvtitle"
+                    android:background="@drawable/ic_location" />
+
+                <TextView
+                    android:id="@+id/tvRoomAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="122 Định Công Hoàng Mai Hà Nội"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rltArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/tvRoomAddress"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp">
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/tvRoomAddress"
+                    android:background="@drawable/photo_sizel"
+
+                    />
+                <TextView
+                    android:id="@+id/tvRoomArea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/view2"
+                    android:text="30 m2"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="30dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ngày Đăng:"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="30dp"/>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp">
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/rltArea"
+                    android:background="@drawable/ic_baseline_local_phone_24"
+
+                    />
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rltArea"
+                    android:text="Tuấn 0852482628"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp">
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/ic_star_xanh"
+
+                    />
+
+                <TextView
+                    android:id="@+id/tvRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đánh giá:"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="30dp"/>
+                <TextView
+                    android:id="@+id/tvLoaiPhong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đánh giá:"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="30dp"/>
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/tvdes"
@@ -151,7 +205,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvdes"
-                android:text="chi tiêt nè"
+                android:text="AAAAAAAAAAA"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -432,11 +486,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_below="@+id/ln2"
+
                 />
-
-
-
-        </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_more"

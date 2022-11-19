@@ -6,13 +6,10 @@
     android:orientation="vertical"
     tools:context=".mainscreen.account.AccountFragment">
 
-    <Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -24,9 +21,6 @@
                 android:textSize="20sp" />
 
         </RelativeLayout>
-
-    </Toolbar>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -48,47 +42,91 @@
         android:text="HomeFinder"
         android:textColor="@color/black"
         android:textSize="30sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/man1"
+        android:visibility="gone">
+        <TextView
+            style="@style/NavigationMenu"
+            android:id="@+id/tv_Profile"
+            android:text="Thông tin cá nhân"
+            />
 
-    <TextView
-        style="@style/NavigationMenu"
-        android:id="@+id/tv_Profile"
-        android:text="Thông tin cá nhân"
-        />
+
+        <TextView
+            android:id="@+id/tv_aboutUs"
+            style="@style/NavigationMenu"
+            android:text="Về chúng tôi"
+            />
+
+        <TextView
+            style="@style/NavigationMenu"
+            android:id="@+id/tv_Term"
+            android:text="Điều khoản và chính sách sử dụng"
+            />
+
+        <TextView
+            android:id="@+id/tv_myRoom"
+            style="@style/NavigationMenu"
+            android:text="Phòng đã đăng"
+            />
+
+        <TextView
+            android:id="@+id/tv_myFavRoom"
+            android:text="Đã lưu"
+            style="@style/NavigationMenu"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLogOut"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/border_btn"
+            style="@style/OrangeButton"
+            android:text="Đăng Xuất"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/man2"
+        android:layout_marginTop="50dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yêu cầu đăng nhập"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/blue"
+            android:textSize="18dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bạn cần đăng nhập để sử dụng tính năng này!"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            />
 
 
-    <TextView
-        android:id="@+id/tv_aboutUs"
-        style="@style/NavigationMenu"
-        android:text="Về chúng tôi"
-       />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLogin"
+            android:layout_gravity="center"
+            android:layout_marginTop="200dp"
+            android:background="@drawable/border_btn"
+            style="@style/OrangeButton"
+            android:text="Đăng Nhập"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            />
+    </LinearLayout>
 
-    <TextView
-        style="@style/NavigationMenu"
-        android:id="@+id/tv_Term"
-        android:text="Điều khoản và chính sách sử dụng"
-        />
-
-    <TextView
-        android:id="@+id/tv_myRoom"
-        style="@style/NavigationMenu"
-        android:text="Phòng đã đăng"
-    />
-
-    <TextView
-        android:id="@+id/tv_myFavRoom"
-        android:text="Đã lưu"
-        style="@style/NavigationMenu"
-      />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLogOut"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/border_btn"
-        style="@style/OrangeButton"
-        android:text="Đăng Xuất"
-        android:textAllCaps="false"
-        android:textColor="@color/white" />
 
 
 </LinearLayout>
