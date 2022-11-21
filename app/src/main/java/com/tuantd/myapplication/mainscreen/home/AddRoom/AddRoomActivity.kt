@@ -44,14 +44,14 @@ class AddRoomActivity : AppCompatActivity() {
     var imageUri: Uri? = null
     val firebaseStorage: FirebaseStorage = FirebaseStorage.getInstance()
     val storageReference: StorageReference = firebaseStorage.reference
-    var wifi = 1
-    var vesinh = 1
-    var dieuhoa = 1
-    var maygiat = 1
-    var tudo = 1
-    var giuxe = 1
-    var bep = 1
-    var tulanh = 1
+    var wifi = true
+    var vesinh = true
+    var dieuhoa = true
+    var maygiat = true
+    var tudo = true
+    var giuxe = true
+    var bep = true
+    var tulanh = true
 
     lateinit var adapterItemText : ArrayAdapter<String>
     var itemtext = arrayOf("Kí túc xá", "Phòng trọ và nhà trọ" , "Nhà Nguyên Căn" , "Tìm bạn ở ghép")
@@ -106,6 +106,7 @@ class AddRoomActivity : AppCompatActivity() {
             chooseImageAnh6()
         }
 
+        setUtilities()
         binding.tvPush.setOnClickListener {
             uploadPhoto(listImage)
         }
@@ -113,112 +114,117 @@ class AddRoomActivity : AppCompatActivity() {
         binding.tvHuy.setOnClickListener {
             cancelAction()
         }
+
+    }
+
+    private fun setUtilities() {
         //wifi
         binding.wifiOn.setOnClickListener {
-            wifi = 0
+            wifi = false
             binding.wifiOn.visibility = View.GONE
             binding.wifiOff.visibility = View.VISIBLE
         }
 
         binding.wifiOff.setOnClickListener {
-            wifi = 1
+            wifi = true
             binding.wifiOn.visibility = View.VISIBLE
             binding.wifiOff.visibility = View.GONE
         }
 
         //wc
         binding.wcOn.setOnClickListener {
-            vesinh = 0
+            vesinh = false
             binding.wcOn.visibility = View.GONE
             binding.wcOff.visibility = View.VISIBLE
         }
 
         binding.wcOff.setOnClickListener {
-            vesinh = 1
+            vesinh = true
             binding.wcOff.visibility = View.GONE
             binding.wcOn.visibility = View.VISIBLE
         }
 
         //tulanh
         binding.fridgeOn.setOnClickListener {
-            tulanh = 0
+            tulanh = false
             binding.fridgeOn.visibility = View.GONE
             binding.fridgeOff.visibility = View.VISIBLE
         }
 
         binding.fridgeOff.setOnClickListener {
-            tulanh = 1
+            tulanh = true
             binding.fridgeOn.visibility = View.VISIBLE
             binding.fridgeOff.visibility = View.GONE
         }
 
         //bep
         binding.kitchenOn.setOnClickListener {
-            bep = 0
+            bep = false
             binding.kitchenOff.visibility = View.VISIBLE
             binding.kitchenOn.visibility = View.GONE
 
         }
 
         binding.kitchenOff.setOnClickListener {
-            bep = 1
+            bep = true
             binding.kitchenOff.visibility = View.GONE
             binding.kitchenOn.visibility = View.VISIBLE
         }
 
         //giuxe
         binding.parkingOff.setOnClickListener {
-            giuxe = 1
+            giuxe = true
             binding.parkingOff.visibility = View.GONE
             binding.parkingOn.visibility = View.VISIBLE
         }
 
         binding.parkingOn.setOnClickListener {
-            giuxe = 0
+            giuxe = false
             binding.parkingOff.visibility = View.VISIBLE
             binding.parkingOn.visibility = View.GONE
         }
 
         //tudo
         binding.freeOn.setOnClickListener {
-            tudo = 0
+            tudo = false
             binding.freeOff.visibility = View.VISIBLE
             binding.freeOn.visibility = View.GONE
         }
 
         binding.freeOff.setOnClickListener {
-            tudo = 1
+            tudo = true
             binding.freeOn.visibility = View.VISIBLE
             binding.freeOff.visibility = View.GONE
         }
 
         //maygiat
         binding.washingMachineOff.setOnClickListener {
-            maygiat = 1
+            maygiat = true
             binding.washingMachineOff.visibility = View.GONE
             binding.washingMachineOn.visibility = View.VISIBLE
         }
 
         binding.washingMachineOn.setOnClickListener {
-            maygiat = 0
+            maygiat = false
             binding.washingMachineOn.visibility = View.GONE
             binding.washingMachineOff.visibility = View.VISIBLE
         }
 
         //dieuhoa
         binding.airConditionalOff.setOnClickListener {
-            dieuhoa = 1
+            dieuhoa = true
             binding.airConditionalOff.visibility = View.GONE
             binding.airConditionalOn.visibility = View.VISIBLE
         }
 
         binding.airConditionalOn.setOnClickListener {
-            dieuhoa = 0
+            dieuhoa = false
             binding.airConditionalOn.visibility = View.GONE
             binding.airConditionalOff.visibility = View.VISIBLE
         }
 
     }
+
     private fun chooseImageAnh6() {
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -493,16 +499,16 @@ class AddRoomActivity : AppCompatActivity() {
             des,
             name,
             phone,
-            wifi.toString(),
-            vesinh.toString(),
-            tudo.toString(),
-            tulanh.toString(),
-            dieuhoa.toString(),
-            maygiat.toString(),
-            giuxe.toString(),
-            bep.toString(),
-            "1",
-            "0",
+            wifi,
+            vesinh,
+            tudo,
+            tulanh,
+            dieuhoa,
+            maygiat,
+            giuxe,
+            bep,
+            true,
+            false,
             current.toString(),
             tieude,
             binding.autoTxt.text.toString()

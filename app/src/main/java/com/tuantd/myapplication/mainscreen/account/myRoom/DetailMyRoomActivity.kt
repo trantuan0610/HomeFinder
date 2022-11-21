@@ -80,16 +80,16 @@ class DetailMyRoomActivity : AppCompatActivity() {
                         mo_ta = room["mo_ta"] as String,
                         name = room["name"] as String,
                         sdt = room["sdt"] as String,
-                        wifi = room["wifi"] as String,
-                        nha_ve_sinh = room["nha_ve_sinh"] as String,
-                        tu_do = room["tu_do"] as String,
-                        tu_lanh = room["tu_lanh"] as String,
-                        dieu_hoa = room["dieu_hoa"] as String,
-                        may_giat = room["may_giat"] as String,
-                        giu_xe = room["giu_xe"] as String,
-                        bep_nau = room["bep_nau"] as String,
-                        trang_thai_bai_dang = room["trang_thai_bai_dang"] as String,
-                        trang_thai_duyet = room["trang_thai_duyet"] as String,
+                        wifi = room["wifi"] as Boolean,
+                        nha_ve_sinh = room["nha_ve_sinh"] as Boolean,
+                        tu_do = room["tu_do"] as Boolean,
+                        tu_lanh = room["tu_lanh"] as Boolean,
+                        dieu_hoa = room["dieu_hoa"] as Boolean,
+                        may_giat = room["may_giat"] as Boolean,
+                        giu_xe = room["giu_xe"] as Boolean,
+                        bep_nau = room["bep_nau"] as Boolean,
+                        trang_thai_bai_dang = room["trang_thai_bai_dang"] as Boolean,
+                        trang_thai_duyet = room["trang_thai_duyet"] as Boolean,
                         thoi_gian = room["thoi_gian"] as String,
                         tieu_de = room["tieu_de"] as String,
                         id_loai_bai_dang = room["id_loai_bai_dang"] as String
@@ -111,7 +111,7 @@ class DetailMyRoomActivity : AppCompatActivity() {
                         imageAdapter.addList(it?.list_image as ArrayList<String>)
                         binding.rcvImage.adapter = imageAdapter
 
-                        if (it.wifi == "1") {
+                        if (it.wifi == true) {
                             binding.wifiOn.visibility = View.VISIBLE
                             binding.wifiOff.visibility = View.GONE
                         } else {
@@ -119,7 +119,7 @@ class DetailMyRoomActivity : AppCompatActivity() {
                             binding.wifiOn.visibility = View.GONE
 
                         }
-                        if (it.nha_ve_sinh == "1") {
+                        if (it.nha_ve_sinh == true) {
                             binding.wcOn.visibility = View.VISIBLE
                             binding.wcOff.visibility = View.GONE
                         } else {
@@ -127,7 +127,7 @@ class DetailMyRoomActivity : AppCompatActivity() {
                             binding.wcOff.visibility = View.VISIBLE
 
                         }
-                        if (it.bep_nau == "1") {
+                        if (it.bep_nau == true) {
                             binding.kitchenOn.visibility = View.VISIBLE
                             binding.kitchenOff.visibility = View.GONE
                         } else {
@@ -135,7 +135,7 @@ class DetailMyRoomActivity : AppCompatActivity() {
                             binding.kitchenOn.visibility = View.GONE
 
                         }
-                        if (it.giu_xe == "1") {
+                        if (it.giu_xe == true) {
                             binding.parkingOn.visibility = View.VISIBLE
                             binding.parkingOff.visibility = View.GONE
                         } else {
@@ -143,7 +143,7 @@ class DetailMyRoomActivity : AppCompatActivity() {
                             binding.parkingOn.visibility = View.GONE
 
                         }
-                        if (it.dieu_hoa == "1") {
+                        if (it.dieu_hoa == true) {
                             binding.airConditionalOn.visibility = View.VISIBLE
                             binding.airConditionalOff.visibility = View.GONE
                         } else {
@@ -151,7 +151,7 @@ class DetailMyRoomActivity : AppCompatActivity() {
                             binding.airConditionalOn.visibility = View.GONE
 
                         }
-                        if (it.tu_lanh == "1") {
+                        if (it.tu_lanh == true) {
                             binding.fridgeOn.visibility = View.VISIBLE
                             binding.fridgeOff.visibility = View.GONE
                         } else {
@@ -159,7 +159,7 @@ class DetailMyRoomActivity : AppCompatActivity() {
                             binding.fridgeOn.visibility = View.GONE
 
                         }
-                        if (it.tu_do == "1") {
+                        if (it.tu_do == true) {
                             binding.freeOn.visibility = View.VISIBLE
                             binding.freeOff.visibility = View.GONE
                         } else {
@@ -167,7 +167,7 @@ class DetailMyRoomActivity : AppCompatActivity() {
                             binding.freeOn.visibility = View.GONE
 
                         }
-                        if (it.may_giat == "1") {
+                        if (it.may_giat == true) {
                             binding.washingMachineOn.visibility = View.VISIBLE
                             binding.washingMachineOff.visibility = View.GONE
                         } else {

@@ -29,7 +29,7 @@ class SearchFragment : Fragment() {
     lateinit var tvHistory: TextView
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    private val myReference: DatabaseReference = database.reference.child("Rooms")
+    private val myReference: DatabaseReference = database.reference.child("room")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,16 +58,16 @@ class SearchFragment : Fragment() {
             @SuppressLint("NotifyDataSetChanged")
             override fun onQueryTextChange(newText: String?): Boolean {
                     tvHistory.visibility =View.GONE
-                if (newText!!.isNotEmpty()) {
                     arrayList.clear()
+                if (newText!!.isNotEmpty()) {
                     val search = newText.toString().lowercase()
                     roomList.forEach {
-//                        if (it.roomAddress.lowercase().contains(search)) {
-//                            arrayList.add(it)
-//
-//                        }
+                        if (it.dia_chi?.lowercase()?.contains(search) == true) {
+                            arrayList.add(it)
+                        }
                     }
                     roomsAdapter?.addList(arrayList)
+                    roomsAdapter!!.notifyDataSetChanged()
                     roomsAdapter!!.onclickItem = {
                         val intent =
                             Intent((activity as MainActivity), DetailRoomActivity::class.java)
@@ -77,8 +77,7 @@ class SearchFragment : Fragment() {
                 } else {
                     arrayList.clear()
                     tvHistory.visibility = View.VISIBLE
-//                    arrayList.addAll(roomList)
-//                    roomsAdapter?.addList(arrayList)
+                    roomsAdapter?.addList(arrayList)
                 }
 
                 return true
@@ -92,7 +91,7 @@ class SearchFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 roomList.clear()
                 for (eachRoom in snapshot.children) {
-                    val room = eachRoom.value as? HashMap<String, Any?>
+                    val room = eachRoom.value as? HashMap<*, *>
                     val data = Room(
 
                         id_bai_dang = room?.get("id_bai_dang") as String,
@@ -104,23 +103,22 @@ class SearchFragment : Fragment() {
                         mo_ta = room["mo_ta"] as String,
                         name = room["name"] as String,
                         sdt = room["sdt"] as String,
-                        wifi = room["wifi"] as String,
-                        nha_ve_sinh = room["nha_ve_sinh"] as String,
-                        tu_do = room["tu_do"] as String,
-                        tu_lanh = room["tu_lanh"] as String,
-                        dieu_hoa = room["dieu_hoa"] as String,
-                        may_giat = room["may_giat"] as String,
-                        giu_xe = room["giu_xe"] as String,
-                        bep_nau = room["bep_nau"] as String,
-                        trang_thai_bai_dang = room["trang_thai_bai_dang"] as String,
-                        trang_thai_duyet = room["trang_thai_duyet"] as String,
+                        wifi = room["wifi"] as Boolean,
+                        nha_ve_sinh = room["nha_ve_sinh"] as Boolean,
+                        tu_do = room["tu_do"] as Boolean,
+                        tu_lanh = room["tu_lanh"] as Boolean,
+                        dieu_hoa = room["dieu_hoa"] as Boolean,
+                        may_giat = room["may_giat"] as Boolean,
+                        giu_xe = room["giu_xe"] as Boolean,
+                        bep_nau = room["bep_nau"] as Boolean,
+                        trang_thai_bai_dang = room["trang_thai_bai_dang"] as Boolean,
+                        trang_thai_duyet = room["trang_thai_duyet"] as Boolean,
                         thoi_gian = room["thoi_gian"] as String,
                         tieu_de = room["tieu_de"] as String,
                         id_loai_bai_dang = room["id_loai_bai_dang"] as String
                     )
                     roomList.add(data)
                 }
-                //roomsAdapter?.addList(roomList)
 
             }
 

@@ -56,7 +56,7 @@ class RegisterActivity : AppCompatActivity() {
                                         //
                                         val id =  myUserReferene.push().key.toString()
                                         val user1 = User(
-                                            email,
+                                            id,
                                             email,
                                             password,
                                             "0",

@@ -67,16 +67,16 @@ class MyListRoomShowFragment : Fragment() {
                         mo_ta = room["mo_ta"] as String,
                         name = room["name"] as String,
                         sdt = room["sdt"] as String,
-                        wifi = room["wifi"] as String,
-                        nha_ve_sinh = room["nha_ve_sinh"] as String,
-                        tu_do = room["tu_do"] as String,
-                        tu_lanh = room["tu_lanh"] as String,
-                        dieu_hoa = room["dieu_hoa"] as String,
-                        may_giat = room["may_giat"] as String,
-                        giu_xe = room["giu_xe"] as String,
-                        bep_nau = room["bep_nau"] as String,
-                        trang_thai_bai_dang = room["trang_thai_bai_dang"] as String,
-                        trang_thai_duyet = room["trang_thai_duyet"] as String,
+                        wifi = room["wifi"] as Boolean,
+                        nha_ve_sinh = room["nha_ve_sinh"] as Boolean,
+                        tu_do = room["tu_do"] as Boolean,
+                        tu_lanh = room["tu_lanh"] as Boolean,
+                        dieu_hoa = room["dieu_hoa"] as Boolean,
+                        may_giat = room["may_giat"] as Boolean,
+                        giu_xe = room["giu_xe"] as Boolean,
+                        bep_nau = room["bep_nau"] as Boolean,
+                        trang_thai_bai_dang = room["trang_thai_bai_dang"] as Boolean,
+                        trang_thai_duyet = room["trang_thai_duyet"] as Boolean,
                         thoi_gian = room["thoi_gian"] as String,
                         tieu_de = room["tieu_de"] as String,
                         id_loai_bai_dang = room["id_loai_bai_dang"] as String
@@ -95,7 +95,7 @@ class MyListRoomShowFragment : Fragment() {
 
     private fun fillDataFromFireBase(email: String) {
         roomList.forEach {
-            if (it.id_nguoi_dung == email && it.trang_thai_duyet == "1") {
+            if (it.id_nguoi_dung == email && it.trang_thai_duyet == true) {
                 arrayList.add(it)
             }
         }
