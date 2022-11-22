@@ -12,20 +12,26 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.tuantd.myapplication.databinding.DialogRateBinding
 import com.tuantd.myapplication.mainscreen.home.Rate.Rate
+import com.tuantd.myapplication.register.User
+import java.util.ArrayList
+import java.util.HashMap
 
 class DialogRate(private val idRoom: String?,private val onSubmitClickListener: (Int) -> Unit) : DialogFragment() {
     private lateinit var binding: DialogRateBinding
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference: DatabaseReference = database.reference.child("rate")
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val myUserReference: DatabaseReference = database.reference.child("user")
+    private var userDetail: User? = null
+    val userList = ArrayList<User>()
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = DialogRateBinding.inflate(LayoutInflater.from(context))
         val builder = AlertDialog.Builder(requireActivity())
         builder.setView(binding.root)
+        getUser()
         var sodiem = 1
         binding.btnCancel.setOnClickListener {
             dismiss()
@@ -95,13 +101,42 @@ class DialogRate(private val idRoom: String?,private val onSubmitClickListener: 
         return dialog
     }
 
+    private fun getUser() {
+        myUserReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                userList.clear()
+                for (user in snapshot.children) {
+                    val uSer = user.value as? HashMap<*, *>
+                    val data = com.tuantd.myapplication.register.User(
+                        id_nguoi_dung =  uSer?.get("id_nguoi_dung") as String,
+                        email = uSer["email"] as String,
+                        mat_khau = uSer["mat_khau"] as String,
+                        quyen = uSer["quyen"] as String,
+                        sdt = uSer["sdt"] as String,
+                        ten = uSer["ten"] as String
+                    )
+                    userList.add(data)
+                }
+                userList.forEach {
+                    if (it.email == auth.currentUser?.email  ) {
+                        userDetail = it
+                    }
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+
     private fun rate(diem: Int?) {
         val id = myReference.push().key.toString()
 
         val rate = Rate(
             id,
             idRoom!!,
-            auth.currentUser?.email.toString(),
+            userDetail!!.id_nguoi_dung,
             so_diem = diem.toString()
         )
         myReference.child(id).setValue(rate).addOnCompleteListener { task ->

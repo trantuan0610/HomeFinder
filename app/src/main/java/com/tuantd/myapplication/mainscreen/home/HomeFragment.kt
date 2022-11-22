@@ -2,11 +2,14 @@ package com.tuantd.myapplication.mainscreen.home
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -25,6 +28,7 @@ class HomeFragment : Fragment() {
     lateinit var rcv_room: RecyclerView
     private val roomsAdapter= RoomsAdapter()
     lateinit var btnAdd: FloatingActionButton
+    private var dialog: androidx.appcompat.app.AlertDialog? = null
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference: DatabaseReference = database.reference.child("room")
@@ -41,6 +45,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         rcv_room = view.findViewById(R.id.rcv_room)
         btnAdd = view.findViewById(R.id.btn_Add)
+        createDialog()
         btnAdd.setOnClickListener {
             if (auth.currentUser != null) {
                 val intent = Intent(activity as MainActivity, AddRoomActivity::class.java)
@@ -112,7 +117,24 @@ class HomeFragment : Fragment() {
             }
         })
     }
+    private fun createDialog() {
+        val dialogBuilder = AlertDialog.Builder(requireActivity())
+        val dialogView = LayoutInflater.from(requireActivity()).inflate(R.layout.layout_loading, null)
+        dialogBuilder.setView(dialogView)
+        dialogBuilder.setCancelable(false)
+        dialog = dialogBuilder.create()
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.setCancelable(false)
+        dialog?.setCanceledOnTouchOutside(true)
+    }
 
+    fun showLoading() {
+        dialog?.show()
+    }
+
+    fun hiddenLoading() {
+        dialog?.dismiss()
+    }
 
 
 

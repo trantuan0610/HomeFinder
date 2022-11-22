@@ -14,6 +14,7 @@ import com.tuantd.myapplication.databinding.FragmentMyListRoomShowBinding
 import com.tuantd.myapplication.mainscreen.account.myRoom.DetailMyRoomActivity
 import com.tuantd.myapplication.mainscreen.home.Room
 import com.tuantd.myapplication.mainscreen.home.RoomsAdapter
+import com.tuantd.myapplication.register.User
 
 
 class MyListRoomShowFragment : Fragment() {
@@ -26,6 +27,11 @@ class MyListRoomShowFragment : Fragment() {
     private var roomsAdapter = RoomsAdapter()
     private var loadDone:(() -> Unit)?=null
 
+    private val myUserReference: DatabaseReference = database.reference.child("user")
+    private var userDetail: User? = null
+    val userList = java.util.ArrayList<User>()
+    private val auth = FirebaseAuth.getInstance()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,7 +43,8 @@ class MyListRoomShowFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        retrieveDataFromDatabase(FirebaseAuth.getInstance().currentUser!!.email.toString())
+
+        getUser()
         loadDone={
             roomsAdapter?.addList(arrayList)
         }
@@ -51,7 +58,37 @@ class MyListRoomShowFragment : Fragment() {
 
     }
 
-    private fun retrieveDataFromDatabase(email: String) {
+    private fun getUser() {
+        myUserReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                userList.clear()
+                for (user in snapshot.children) {
+                    val uSer = user.value as? java.util.HashMap<*, *>
+                    val data = com.tuantd.myapplication.register.User(
+                        id_nguoi_dung =  uSer?.get("id_nguoi_dung") as String,
+                        email = uSer["email"] as String,
+                        mat_khau = uSer["mat_khau"] as String,
+                        quyen = uSer["quyen"] as String,
+                        sdt = uSer["sdt"] as String,
+                        ten = uSer["ten"] as String
+                    )
+                    userList.add(data)
+                }
+                userList.forEach {
+                    if (it.email == auth.currentUser?.email  ) {
+                        userDetail = it
+                    }
+                }
+                retrieveDataFromDatabase(userDetail!!.id_nguoi_dung)
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+
+    private fun retrieveDataFromDatabase(id_nguoi_dung: String) {
         myReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 roomList.clear()
@@ -83,7 +120,7 @@ class MyListRoomShowFragment : Fragment() {
                     )
                     roomList.add(data)
                 }
-                fillDataFromFireBase(email)
+                fillDataFromFireBase(id_nguoi_dung)
                 loadDone?.invoke()
                 //roomsAdapter?.addList(roomList)
             }
@@ -93,9 +130,9 @@ class MyListRoomShowFragment : Fragment() {
         })
     }
 
-    private fun fillDataFromFireBase(email: String) {
+    private fun fillDataFromFireBase(id_nguoi_dung: String) {
         roomList.forEach {
-            if (it.id_nguoi_dung == email && it.trang_thai_duyet == true) {
+            if (it.id_nguoi_dung == id_nguoi_dung && it.trang_thai_duyet == true) {
                 arrayList.add(it)
             }
         }

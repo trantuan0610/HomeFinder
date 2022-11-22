@@ -3,8 +3,12 @@ package com.tuantd.myapplication.mainscreen.home.AddRoom
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -17,14 +21,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import com.google.firebase.firestore.auth.User
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import com.tuantd.myapplication.R
 import com.tuantd.myapplication.databinding.ActivityAddRoomBinding
 import com.tuantd.myapplication.dialog.LoadingDialog
+import com.tuantd.myapplication.mainscreen.home.DetailRoom.FavouriteRoom
 import com.tuantd.myapplication.mainscreen.home.Room
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,8 +37,8 @@ import java.util.*
 class AddRoomActivity : AppCompatActivity() {
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference: DatabaseReference = database.reference.child("room")
+    private val myUserReference: DatabaseReference = database.reference.child("user")
     private lateinit var binding: ActivityAddRoomBinding
-    val listUrl= arrayListOf<String>()
     private var listImage = mutableListOf<Uri>()
     lateinit var activityResultLauncher1: ActivityResultLauncher<Intent>
     lateinit var activityResultLauncher2: ActivityResultLauncher<Intent>
@@ -53,6 +58,11 @@ class AddRoomActivity : AppCompatActivity() {
     var bep = true
     var tulanh = true
 
+    var userDetail : com.tuantd.myapplication.register.User ?= null
+   var userList = ArrayList<com.tuantd.myapplication.register.User>()
+
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
     lateinit var adapterItemText : ArrayAdapter<String>
     var itemtext = arrayOf("Kí túc xá", "Phòng trọ và nhà trọ" , "Nhà Nguyên Căn" , "Tìm bạn ở ghép")
      var item = " "
@@ -66,6 +76,9 @@ class AddRoomActivity : AppCompatActivity() {
 
         adapterItemText = ArrayAdapter(this, R.layout.item_text,itemtext)
         binding.autoTxt.setAdapter(adapterItemText)
+
+        createDialog()
+        getDataUser()
 
         registerActivityForResult2()
         binding.man2.visibility = View.GONE
@@ -108,6 +121,7 @@ class AddRoomActivity : AppCompatActivity() {
 
         setUtilities()
         binding.tvPush.setOnClickListener {
+            showLoading()
             uploadPhoto(listImage)
         }
 
@@ -115,6 +129,35 @@ class AddRoomActivity : AppCompatActivity() {
             cancelAction()
         }
 
+    }
+
+    private fun getDataUser() {
+        myUserReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                userList.clear()
+                for (user in snapshot.children) {
+                    val uSer = user.value as? HashMap<*, *>
+                    val data = com.tuantd.myapplication.register.User(
+                        id_nguoi_dung =  uSer?.get("id_nguoi_dung") as String,
+                        email = uSer["email"] as String,
+                        mat_khau = uSer["mat_khau"] as String,
+                        quyen = uSer["quyen"] as String,
+                        sdt = uSer["sdt"] as String,
+                        ten = uSer["ten"] as String
+                    )
+                    userList.add(data)
+                }
+                userList.forEach {
+                    if (it.email == auth.currentUser?.email  ) {
+                       userDetail = it
+                    }
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
     }
 
     private fun setUtilities() {
@@ -482,7 +525,7 @@ class AddRoomActivity : AppCompatActivity() {
         val name =binding.edtName.text.toString()
         val phone = binding.edtPhone.text.toString()
         val tieude = binding.edtRoomTitle.text.toString()
-        val id_nguoi_dung = FirebaseAuth.getInstance().currentUser?.email
+        val email = FirebaseAuth.getInstance().currentUser?.email
         val formatter = SimpleDateFormat("dd-MM-yyyy")
         val date = Date()
         val current = formatter.format(date)
@@ -491,7 +534,7 @@ class AddRoomActivity : AppCompatActivity() {
 
         val room = Room(
             id,
-            id_nguoi_dung!!,
+            userDetail?.id_nguoi_dung,
             address,
             url,
             price,
@@ -523,6 +566,7 @@ class AddRoomActivity : AppCompatActivity() {
                     "Bạn đã đăng bài thành công. Hãy chờ ban quản trị duyệt bài. Nếu sau 24h chưa thấy duyệt, hãy liên hệ tới hotline 0852482628",
                     Toast.LENGTH_LONG
                 ).show()
+                hiddenLoading()
                 finish()
             } else {
 //                Toast.makeText(
@@ -564,6 +608,29 @@ class AddRoomActivity : AppCompatActivity() {
         }
 
     }
+
+    //loading
+    private var dialog: androidx.appcompat.app.AlertDialog? = null
+
+    private fun createDialog() {
+        val dialogBuilder = AlertDialog.Builder(this)
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.layout_loading, null)
+        dialogBuilder.setView(dialogView)
+        dialogBuilder.setCancelable(false)
+        dialog = dialogBuilder.create()
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.setCancelable(false)
+        dialog?.setCanceledOnTouchOutside(true)
+    }
+
+    fun showLoading() {
+        dialog?.show()
+    }
+
+    fun hiddenLoading() {
+        dialog?.dismiss()
+    }
+    //
 
     override fun onBackPressed() {
         val eBuilder = AlertDialog.Builder(this)

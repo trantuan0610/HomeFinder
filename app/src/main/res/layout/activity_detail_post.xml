@@ -1,16 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainscreen.posts.DetailPost.DetailPostActivity">
-
-    <WebView
-        android:id="@+id/webView"
+    tools:context=".mainscreen.posts.DetailPost.DetailPostActivity"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/bold"
+            android:text="Chi tiết bài viết"
+            android:textColor="@color/blue"
+            android:textSize="22sp" />
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_share"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/grey" />
+
+    </RelativeLayout>
+   <ImageView
+       android:id="@+id/imgAnh"
+       android:layout_width="match_parent"
+       android:layout_height="250dp"
+       android:scaleType="fitXY"
+       android:src="@drawable/home"
+       />
+    <TextView
+        android:id="@+id/tvTieude"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Tieu de bai viet"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        />
+    <TextView
+        android:id="@+id/tvNoiDung"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Noi dung bai viet"
+        android:textColor="@color/black"
+        android:textStyle="normal"
+        android:textSize="20sp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_weight="3"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="20/10/2022"
+            android:gravity="center_horizontal"
+            />
+
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rcv_postKhac"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

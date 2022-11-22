@@ -1,53 +1,75 @@
 package com.tuantd.myapplication.mainscreen.posts.DetailPost
 
+import android.content.Intent
 import android.os.Bundle
-import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.tuantd.myapplication.R
+import com.bumptech.glide.Glide
+import com.google.firebase.database.*
+import com.tuantd.myapplication.databinding.ActivityDetailPostBinding
+import com.tuantd.myapplication.mainscreen.MainActivity
+import com.tuantd.myapplication.mainscreen.posts.Posts
+import com.tuantd.myapplication.mainscreen.posts.PostsAdapter
 
 class DetailPostActivity : AppCompatActivity() {
-    lateinit var webView: WebView
-    lateinit var url: String
+
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    private val myReference: DatabaseReference = database.reference.child("Test")
+    private val myReference: DatabaseReference = database.reference.child("post")
+    lateinit var  binding: ActivityDetailPostBinding
+    var postAdapter =  PostsAdapter()
+    var listPost = ArrayList<Posts>()
+    var listPostKhac = ArrayList<Posts>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_post)
+        binding = ActivityDetailPostBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-
-        webView=  findViewById(R.id.webView)
-        intent.getStringExtra("url")?.let { webView.loadUrl(it) }
-
-//        addRoomToDatabase()
+        var id = intent.getStringExtra("postId")
+        if (id != null) {
+            retrieveDataFromDatabase(id)
+        }
+        postAdapter.onclickItem = {
+            val intent =
+                Intent(this, DetailPostActivity::class.java)
+                  intent.putExtra("postId", it)
+                startActivity(intent)
+        }
 
     }
 
-//    private fun addRoomToDatabase() {
-//        val id: String = myReference.push().key.toString()
-//
-//        val test = Test(
-//            id,
-//            "Test",
-//            Room("1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1")
-//        )
-//
-//        myReference.child(id).setValue(test).addOnCompleteListener { task ->
-//            if (task.isSuccessful) {
-//                finish()
-//            } else {
-////                Toast.makeText(
-////                    this,
-////                    task.exception.toString(),
-////                    Toast.LENGTH_LONG
-////                ).show()
-//
-//            }
-//        }
-//    }
+    private fun retrieveDataFromDatabase(id: String) {
+        myReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                listPost.clear()
+                listPostKhac.clear()
+                for (eachRoom in snapshot.children) {
+                    val room = eachRoom.value as? java.util.HashMap<*, *>
+                    val data = Posts(
+                        id_bai_viet = room?.get("id_bai_viet") as String,
+                        tieu_de = room["tieu_de"] as String,
+                        noi_dung = room["noi_dung"] as String,
+                        hinh_anh = room["hinh_anh"] as String
+                    )
+                    listPost.add(data)
+                }
+                listPost.forEach {
+                    if (it.id_bai_viet == id){
+                        binding.tvTieude.text = it.tieu_de
+                        binding.tvNoiDung.text = it.noi_dung
+                        Glide.with(this@DetailPostActivity).load(it.hinh_anh).into(binding.imgAnh)
+                    }
+                }
+                postAdapter.addList(listPost)
+                binding.rcvPostKhac.adapter = postAdapter
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+
 
 }
 

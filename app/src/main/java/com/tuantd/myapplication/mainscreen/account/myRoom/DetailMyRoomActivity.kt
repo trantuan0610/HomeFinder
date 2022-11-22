@@ -12,9 +12,11 @@ import com.google.firebase.database.*
 import com.tuantd.myapplication.ImageAdapter
 import com.tuantd.myapplication.databinding.ActivityDetailMyRoomBinding
 import com.tuantd.myapplication.dialog.DialogEditRoom
+import com.tuantd.myapplication.dialog.DialogRate
 import com.tuantd.myapplication.mainscreen.account.myRoom.editMyRoom.EditMyRoomActivity
 import com.tuantd.myapplication.mainscreen.home.AddRoom.AddRoomActivity
 import com.tuantd.myapplication.mainscreen.home.DetailRoom.FavouriteRoom
+import com.tuantd.myapplication.mainscreen.home.Report.ReportActivity
 import com.tuantd.myapplication.mainscreen.home.Room
 
 class DetailMyRoomActivity : AppCompatActivity() {
@@ -45,21 +47,41 @@ class DetailMyRoomActivity : AppCompatActivity() {
         }
         binding.btnMore.setOnClickListener {
             DialogEditRoom(onSubmitClickListener = { it ->
-                if (it == 1) {
-                val intent = Intent(this, EditMyRoomActivity::class.java).apply {
-                    putExtra("room",roomDetail)
-                    startActivity(this)
-                }
-                    finish()
+                when(it){
+                    1 -> {
+                        val intent = Intent(this, EditMyRoomActivity::class.java).apply {
+                            putExtra("room", roomDetail)
+                            startActivity(this)
+                            finish()
+                        }
+                    }
 
-                } else {
-                    myReference.child(roomDetail!!.id_bai_dang).removeValue()
-                    val intent = Intent(this, MyRoomActivity::class.java)
-                    startActivity(intent)
-                    Toast.makeText(this,"Đã xoá",Toast.LENGTH_SHORT).show()
-                    finish()
+                    2-> {
+                        myReference.child(roomDetail!!.id_bai_dang).removeValue()
+                        val intent = Intent(this, MyRoomActivity::class.java)
+                        startActivity(intent)
+                        Toast.makeText(this,"Đã xoá",Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                    3-> {
+                        val intent = Intent()
+                        intent.action = Intent.ACTION_SEND
+                        intent.putExtra(Intent.EXTRA_TEXT, "Địa chỉ:" + roomDetail?.dia_chi +"\n"+"Anh/chị:"+roomDetail?.name+"\n"+"SDT:"+roomDetail?.sdt)
+                        intent.type = "text/plain"
+                        startActivity(Intent.createChooser(intent, "Please select app: "))
+                    }
+                    4-> {
+                        myReference.child(roomDetail!!.id_bai_dang).child("trang_thai_bai_dang").setValue(true)
+                        Toast.makeText(this,"Đã thay đổi trạng thái",Toast.LENGTH_SHORT).show()
 
+
+                    }
+                    5-> {
+                        myReference.child(roomDetail!!.id_bai_dang).child("trang_thai_bai_dang").setValue(false)
+                        Toast.makeText(this,"Đã thay đổi trạng thái",Toast.LENGTH_SHORT).show()
+                    }
                 }
+
             }).show(supportFragmentManager, "tag")
         }
     }
@@ -107,6 +129,14 @@ class DetailMyRoomActivity : AppCompatActivity() {
                         binding.tvName.text = it.name + "-" + it.sdt
                         binding.tvDate.text = "Ngày đăng: " + it.thoi_gian
                         binding.tvLoaiPhong.text = "Loại Phòng: " + it.id_loai_bai_dang
+
+                        if(it.trang_thai_bai_dang == true){
+                            binding.tvShow.visibility = View.VISIBLE
+                            binding.tvHide.visibility = View.GONE
+                        }else{
+                            binding.tvShow.visibility = View.GONE
+                            binding.tvHide.visibility = View.VISIBLE
+                        }
 
                         imageAdapter.addList(it?.list_image as ArrayList<String>)
                         binding.rcvImage.adapter = imageAdapter

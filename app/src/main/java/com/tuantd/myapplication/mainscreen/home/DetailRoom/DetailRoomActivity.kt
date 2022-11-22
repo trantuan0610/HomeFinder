@@ -22,6 +22,7 @@ import com.tuantd.myapplication.mainscreen.home.Rate.Rate
 import com.tuantd.myapplication.mainscreen.home.Report.ReportActivity
 import com.tuantd.myapplication.mainscreen.home.Room
 import com.tuantd.myapplication.mainscreen.home.RoomsAdapter
+import com.tuantd.myapplication.register.User
 import java.util.*
 
 
@@ -35,6 +36,7 @@ class DetailRoomActivity : AppCompatActivity() {
     private var likeList = ArrayList<FavouriteRoom>()
     val rateList = ArrayList<Rate>()
     private var roomDetail: Room? = null
+
     private val imageAdapter = ImageAdapter()
     private var sodiem = 0.0
     private var dem = 0
@@ -44,6 +46,9 @@ class DetailRoomActivity : AppCompatActivity() {
     private val myReference: DatabaseReference = database.reference.child("room")
     private val myFavouriteReferene: DatabaseReference = database.reference.child("favourite")
     private val myRateReferene: DatabaseReference = database.reference.child("rate")
+    private val myUserReference: DatabaseReference = database.reference.child("user")
+    private var userDetail: User? = null
+    val userList = ArrayList<User>()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +59,7 @@ class DetailRoomActivity : AppCompatActivity() {
         binding.back.setOnClickListener {
             onBackPressed()
         }
-
+        getUser()
         val roomId = intent.getStringExtra("roomId")
         if (roomId != null) {
             retrieveDataFromDatabase(roomId)
@@ -141,6 +146,36 @@ class DetailRoomActivity : AppCompatActivity() {
             }).show(supportFragmentManager,"tag")
         }
     }
+
+    private fun getUser() {
+        myUserReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                userList.clear()
+                for (user in snapshot.children) {
+                    val uSer = user.value as? HashMap<*, *>
+                    val data = com.tuantd.myapplication.register.User(
+                        id_nguoi_dung =  uSer?.get("id_nguoi_dung") as String,
+                        email = uSer["email"] as String,
+                        mat_khau = uSer["mat_khau"] as String,
+                        quyen = uSer["quyen"] as String,
+                        sdt = uSer["sdt"] as String,
+                        ten = uSer["ten"] as String
+                    )
+                    userList.add(data)
+                }
+                userList.forEach {
+                    if (it.email == auth.currentUser?.email  ) {
+                        userDetail = it
+                    }
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+
     private  fun  getListRate(){
         myRateReferene.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -156,7 +191,7 @@ class DetailRoomActivity : AppCompatActivity() {
                     rateList.add(data)
                 }
                 rateList.forEach{
-                    if(it.id_bai_dang == roomDetail?.id_bai_dang && it.id_nguoi_dung == FirebaseAuth.getInstance().currentUser?.email.toString()){
+                    if(it.id_bai_dang == roomDetail?.id_bai_dang && it.id_nguoi_dung == userDetail!!.id_nguoi_dung){
                         rated = 1
                     }
                 }
@@ -343,7 +378,7 @@ class DetailRoomActivity : AppCompatActivity() {
                 }
                 Log.e("AAAAA", "room fav list" + roomFavList.size.toString())
                 roomFavList.forEach {
-                    if (it.id_nguoi_dung == auth.currentUser?.email && it.id_bai_dang == roomDetail?.id_bai_dang ) {
+                    if (it.id_nguoi_dung == userDetail!!.id_nguoi_dung && it.id_bai_dang == roomDetail?.id_bai_dang ) {
                         setLike_DontLike(it)
                     }
                 }
@@ -374,7 +409,7 @@ class DetailRoomActivity : AppCompatActivity() {
         val favouriteRoom = FavouriteRoom(
             id,
             roomDetail!!.id_bai_dang,
-            auth.currentUser?.email.toString()
+            userDetail!!.id_nguoi_dung
 
         )
         myFavouriteReferene.child(id).setValue(favouriteRoom).addOnCompleteListener { task ->
@@ -390,7 +425,7 @@ class DetailRoomActivity : AppCompatActivity() {
     //done
     private fun actionDontLike() {
         roomFavList.forEach {
-            if (it.id_bai_dang == roomDetail?.id_bai_dang && it.id_nguoi_dung == auth.currentUser?.email.toString() ) {
+            if (it.id_bai_dang == roomDetail?.id_bai_dang && it.id_nguoi_dung == userDetail!!.id_nguoi_dung ) {
                 binding.like.visibility = View.VISIBLE
                 binding.dontlike.visibility = View.GONE
                 myFavouriteReferene.child(it.id_yeu_thich).removeValue()

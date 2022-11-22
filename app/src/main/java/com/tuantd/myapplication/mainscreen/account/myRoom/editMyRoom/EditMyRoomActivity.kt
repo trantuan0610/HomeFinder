@@ -3,9 +3,12 @@ package com.tuantd.myapplication.mainscreen.account.myRoom.editMyRoom
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ImageView
@@ -39,10 +42,11 @@ class EditMyRoomActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditMyRoomBinding
     lateinit var activityResultLauncher1: ActivityResultLauncher<Intent>
 
-    var vitri = 0
+    var vitri = -1
 
     var listAnh = ArrayList<Any>()
     var listImageView = ArrayList<ImageView>()
+    private var dialog: AlertDialog? = null
 
     var wifi = true
     var vesinh = true
@@ -72,34 +76,38 @@ class EditMyRoomActivity : AppCompatActivity() {
         listImageView.add(binding.img6)
 
          roomDetai = intent.getSerializableExtra("room") as Room
-        if (roomDetai != null) {
-            setData(roomDetai)
-            adapterItemText = ArrayAdapter(this, R.layout.item_text,itemtext)
-            binding.autoTxt.setAdapter(adapterItemText)
+        //setdata
+        setData(roomDetai)
+        adapterItemText = ArrayAdapter(this, R.layout.item_text,itemtext)
+        binding.autoTxt.setAdapter(adapterItemText)
 
-            listAnh.forEachIndexed { index, any ->
+        listAnh.forEachIndexed { index, any ->
+            loadAnh(any,listImageView[index])
+        }
+
+        listImageView.forEachIndexed { index, imageView ->
+
+            imageView.setOnClickListener {
                 vitri = index
-                loadAnh(any,listImageView[index])
-                listImageView[index].setOnClickListener {
-                    if (ContextCompat.checkSelfPermission(
-                            this,
-                            Manifest.permission.READ_EXTERNAL_STORAGE
-                        )
-                        != PackageManager.PERMISSION_GRANTED
-                    ) {
-                        ActivityCompat.requestPermissions(
-                            this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
-                        )
-                    } else {
-                        val intent = Intent()
-                        intent.type = "image/*"
-                        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-                        intent.action = Intent.ACTION_GET_CONTENT
-                        activityResultLauncher1.launch(intent)
-                    }
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                    != PackageManager.PERMISSION_GRANTED
+                ) {
+                    ActivityCompat.requestPermissions(
+                        this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
+                    )
+                } else {
+                    val intent = Intent()
+                    intent.type = "image/*"
+                    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                    intent.action = Intent.ACTION_GET_CONTENT
+                    activityResultLauncher1.launch(intent)
                 }
             }
         }
+        createDialog()
 
         binding.tvEdit.visibility = View.GONE
         binding.man2.visibility = View.GONE
@@ -122,14 +130,17 @@ class EditMyRoomActivity : AppCompatActivity() {
         }
 
         binding.tvEdit.setOnClickListener {
-            var count = 0
+            showLoading()
+            val listCheck = arrayListOf<Int>()
             listAnh.forEachIndexed{ index, imageView ->
                 if (imageView.checkUri())
-                    count = index
+                   listCheck.add(index)
             }
-
+            if (listCheck.isEmpty()){
+               addRoomToDatabase()
+            }
             listAnh.forEachIndexed { index, imageView ->
-                if(imageView.checkUri()){
+                if(listCheck.contains(index)){
                     val firebaseStorage: FirebaseStorage = FirebaseStorage.getInstance()
                     val storageReference: StorageReference = firebaseStorage.reference
                     val imageName = UUID.randomUUID().toString()
@@ -142,14 +153,12 @@ class EditMyRoomActivity : AppCompatActivity() {
                         myUploadedImageReference.downloadUrl.addOnSuccessListener { url ->
 
                             listAnh[index] = url.toString()
-                            if (count == index){
+                            listCheck.remove(index)
+                            if (listCheck.isEmpty()){
                                 addRoomToDatabase()
                             }
                         }
                     }
-                }
-                else if (index == listAnh.size-1){
-                    addRoomToDatabase()
                 }
             }
         }
@@ -286,7 +295,12 @@ class EditMyRoomActivity : AppCompatActivity() {
 
                         imageUri?.let {
                             Glide.with(this).load(it).into(listImageView[vitri])
-                            listAnh[vitri] = it
+                            if (listAnh.size-1<vitri){
+                                vitri=listAnh.size
+                                listAnh.add(it)
+                            }else{
+                                listAnh[vitri] = it
+                            }
                         }
                     }
                 })
@@ -307,14 +321,14 @@ class EditMyRoomActivity : AppCompatActivity() {
         val createBuild = eBuilder.create()
         createBuild.show()
     }
-
+    //clear
     fun Any.checkUri():Boolean{
         return this is Uri
     }
 
     private fun addRoomToDatabase() {
 
-        val email = FirebaseAuth.getInstance().currentUser?.email
+        val email = roomDetai.id_nguoi_dung.toString()
         val address = binding.edtRoomAddress.text.toString()
         val area = binding.edtArea.text.toString()
         val price = binding.edtPrice.text.toString()
@@ -328,7 +342,7 @@ class EditMyRoomActivity : AppCompatActivity() {
 
         val roomMap = mutableMapOf<String, Any>()
         roomMap["id_bai_dang"] = roomDetai.id_bai_dang
-        roomMap["id_nguoi_dung"] = email.toString()
+        roomMap["id_nguoi_dung"] = email
         roomMap["dia_chi"] = address
         roomMap["list_image"] = listAnh
         roomMap["gia"] = price
@@ -357,6 +371,7 @@ class EditMyRoomActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 val intent = Intent(this, MyRoomActivity::class.java)
                 startActivity(intent)
+                hiddenLoading()
                 finish()
             }
         }
@@ -482,7 +497,26 @@ class EditMyRoomActivity : AppCompatActivity() {
 
     }
 
+    //loadAnh
     private fun loadAnh(img: Any, imageView: ImageView) {
         Glide.with(this).load(img).error(R.drawable.addanh).into(imageView)
+    }
+    private fun createDialog() {
+        val dialogBuilder = AlertDialog.Builder(this)
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.layout_loading, null)
+        dialogBuilder.setView(dialogView)
+        dialogBuilder.setCancelable(false)
+        dialog = dialogBuilder.create()
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.setCancelable(false)
+        dialog?.setCanceledOnTouchOutside(true)
+    }
+
+    fun showLoading() {
+        dialog?.show()
+    }
+
+    fun hiddenLoading() {
+        dialog?.dismiss()
     }
 }
