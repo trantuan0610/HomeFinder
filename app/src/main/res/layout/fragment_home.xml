@@ -17,7 +17,8 @@
             android:layout_centerInParent="true"
             android:text="Danh sách phòng cho thuê"
             android:textColor="@color/blue"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold"/>
 
         <View
             android:layout_width="match_parent"
@@ -35,7 +36,8 @@
         android:layout_below="@+id/toolbar"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
-        tools:listitem="@layout/rooms_item" />
+        tools:listitem="@layout/rooms_item"
+        android:layout_margin="8dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_Add"

@@ -67,9 +67,9 @@ class LoginActivity : AppCompatActivity() {
     private fun Login() {
         btnLogin.setOnClickListener {
             showLoading()
+            getUser()
             val email = edtEmail.text.toString()
             val pass = edtPass.text.toString()
-            getUser()
 //
             if (email.isNotEmpty() && pass.isNotEmpty()) {
                 if (userDetail != null) {
@@ -83,14 +83,17 @@ class LoginActivity : AppCompatActivity() {
 
                         } else {
                             Toast.makeText(this, "Bạn nhập sai mật khẩu", Toast.LENGTH_SHORT).show()
+                            hiddenLoading()
                         }
                     }
                 } else {
                     Toast.makeText(this, "Bạn chưa có tài khoản", Toast.LENGTH_SHORT).show()
+                    hiddenLoading()
                 }
 
             } else {
                 Toast.makeText(this, "Không được bỏ trống email và mật khẩu", Toast.LENGTH_SHORT).show()
+                hiddenLoading()
             }
         }
     }
@@ -100,7 +103,6 @@ class LoginActivity : AppCompatActivity() {
         btnRegister.setOnClickListener {
             var intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
-
         }
     }
 

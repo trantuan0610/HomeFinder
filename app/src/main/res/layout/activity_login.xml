@@ -21,7 +21,7 @@
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/bold"
         android:text="HomeFinder"
-        android:textColor="@color/black"
+        android:textColor="@color/blue"
         android:textSize="30sp"
          />
 
@@ -51,13 +51,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:backgroundTint="@color/blue"
+        android:background="@drawable/border_btn"
         android:text="Đăng Nhập"
         app:layout_constraintTop_toBottomOf="@+id/edtLoginPass"
         tools:layout_editor_absoluteX="0dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_gravity="center_horizontal"  />
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white"/>
 
 <!--    <Button-->
 <!--        android:id="@+id/btnTest"-->

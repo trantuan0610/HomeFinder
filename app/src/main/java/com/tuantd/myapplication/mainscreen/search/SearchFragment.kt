@@ -61,6 +61,7 @@ class SearchFragment : Fragment() {
 
         retrieveDataFromDatabase()
         roomsAdapter = RoomsAdapter()
+        roomsAdsAdapter = RoomsAdapter()
         binding.rcvSearchRooms.adapter = roomsAdapter
         binding.rcvSearchAds.adapter = roomsAdsAdapter
 
@@ -74,27 +75,57 @@ class SearchFragment : Fragment() {
             binding.man1.visibility = View.VISIBLE
         }
         binding.btnOk.setOnClickListener {
-
-
-            if(binding.edtSearch.text.toString().isNotEmpty() || binding.autoTxt.text.toString().isNotEmpty () || binding.edtPriceMin.text.toString().isNotEmpty ()
-                || binding.edtpriceMax.text.toString().isNotEmpty() || binding.edtAreaMin.text.toString().isNotEmpty() || binding.edtAreaMax.text.toString().isNotEmpty()){
+            if (binding.edtSearch.text.toString().isNotEmpty()
+                || binding.autoTxt.text.toString().isNotEmpty()
+                || binding.edtPriceMin.text.toString().isNotEmpty()
+                || binding.edtpriceMax.text.toString().isNotEmpty()
+                || binding.edtAreaMin.text.toString().isNotEmpty()
+                || binding.edtAreaMax.text.toString().isNotEmpty()
+            ) {
+                roomList2.clear()
                 roomList.forEach {
-                    roomList2.clear()
-                    var diachi = binding.edtSearch.text.toString()
-                    var loaiphong = binding.autoTxt.text.toString()
-                    var giaMin =binding.edtPriceMin.text.toString().toInt()
-                    var giaMax = binding.edtpriceMax.text.toString().toInt()
-                    var dientichMin =binding.edtAreaMin.text.toString().toInt()
-                    var dientichMax = binding.edtAreaMax.text.toString().toInt()
-                    if (it.dia_chi!!.lowercase().contains(diachi) && it.id_loai_bai_dang == loaiphong && it.dien_tich.toInt() > dientichMin &&
-                        it.dien_tich.toInt() < dientichMax && it.gia.toInt() > giaMin && it.gia.toInt() < giaMax){
+                    val diachi = binding.edtSearch.text.toString()
+                    val loaiphong = binding.autoTxt.text.toString()
+                    val giaMin = binding.edtPriceMin.text.toString().toDouble()
+                    val giaMax = binding.edtpriceMax.text.toString().toDouble()
+                    val dientichMin = binding.edtAreaMin.text.toString().toDouble()
+                    val dientichMax = binding.edtAreaMax.text.toString().toDouble()
+                    if (it.dia_chi!!.lowercase()
+                            .contains(diachi) && it.id_loai_bai_dang == loaiphong && it.dien_tich.toDouble() > dientichMin &&
+                        it.dien_tich.toDouble() < dientichMax && it.gia.toDouble() > giaMin && it.gia.toDouble() < giaMax
+                    ) {
                         roomList2.add(it)
-
                     }
                 }
-            }else{
-                Toast.makeText(requireContext(),"Ban phai Nhap du giu lieu",Toast.LENGTH_SHORT).show()
+                if (roomList2.isNotEmpty()) {
+                    binding.man2.visibility = View.GONE
+                    binding.man3.visibility = View.VISIBLE
+                    Toast.makeText(requireContext(), roomList2.size.toString(), Toast.LENGTH_SHORT)
+                        .show()
+                    roomsAdsAdapter?.addList(roomList2)
+                    roomsAdsAdapter!!.onclickItem = {
+                        val intent =
+                            Intent((activity as MainActivity), DetailRoomActivity::class.java)
+                        intent.putExtra("roomId", it)
+                        (activity as MainActivity).startActivity(intent)
+                    }
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Không tìm thấy phòng phù hợp",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            } else {
+                Toast.makeText(requireContext(), "Bạn phải nhập đầy đủ dữ liệu", Toast.LENGTH_SHORT)
+                    .show()
             }
+        }
+
+        binding.tvBack.setOnClickListener {
+            binding.man3.visibility = View.GONE
+            binding.man2.visibility = View.VISIBLE
         }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
