@@ -94,11 +94,14 @@ class DetailRoomActivity : AppCompatActivity() {
                     }
 
                     2-> {
-                        val n = Intent(Intent.ACTION_VIEW)
-                    n.type = "vnd.android-dir/mms-sms"
-                    n.putExtra("address", roomDetail?.sdt)
-                    n.putExtra("sms_body", "Xin chào, Tôi muốn thuê phòng trọ của bạn!!!")
-                    startActivity(n)
+                        var n = Intent(Intent.ACTION_VIEW,Uri.parse("smsto:"+roomDetail?.sdt))
+                        n.putExtra("sms_body","Xin chào, Tôi muốn thuê phòng trọ của bạn!!!")
+                        startActivity(n)
+//                    val n = Intent(Intent.ACTION_VIEW)
+//                    n.type = "vnd.android-dir/mms-sms"
+//                    n.putExtra("address", roomDetail?.sdt)
+//                    n.putExtra("sms_body", "Xin chào, Tôi muốn thuê phòng trọ của bạn!!!")
+//                    startActivity(n)
                     }
                     3-> {
                         val map = "http://maps.google.co.in/maps?q=${roomDetail?.dia_chi}"
