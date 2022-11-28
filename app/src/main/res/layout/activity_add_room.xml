@@ -28,9 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:textStyle="bold"
             android:text="Quay Lại"
-            android:fontFamily="@font/bold"
+            android:textStyle="bold"
             android:textColor="@color/grey"
             android:textSize="15sp"
             android:visibility="gone"
@@ -362,7 +361,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:background="@drawable/border_btn_tienich"
-                        android:src="@drawable/ic_wifi_on"
+                        android:src="@drawable/wifi"
                         android:text="Wifi"
                         android:textAllCaps="false"
                         android:textColor="@color/blue"
@@ -374,7 +373,7 @@
                         android:layout_height="60dp"
                         android:background="@drawable/border_btn_tienich_off"
                         android:gravity="center"
-                        android:src="@drawable/ic_wifi_off"
+                        android:src="@drawable/wifi_off"
                         android:text="Wifi"
                         android:textColor="@color/black"
                          />
@@ -396,7 +395,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:background="@drawable/border_btn_tienich"
-                        android:src="@drawable/ic_tulanh"
+                        android:src="@drawable/tulanh"
                         android:textAllCaps="false"
                         android:textColor="@color/blue"
                         android:visibility="gone"/>
@@ -407,7 +406,7 @@
                         android:layout_height="60dp"
                         android:background="@drawable/border_btn_tienich_off"
                         android:gravity="center"
-                        android:src="@drawable/ic_tulanh_off"
+                        android:src="@drawable/tulanh_off"
                         android:textColor="@color/black"
                          />
 
@@ -427,7 +426,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:background="@drawable/border_btn_tienich"
-                        android:src="@drawable/ic_bep"
+                        android:src="@drawable/bep"
                         android:textAllCaps="false"
                         android:textColor="@color/blue"
                         android:visibility="gone"/>
@@ -438,7 +437,7 @@
                         android:layout_height="60dp"
                         android:background="@drawable/border_btn_tienich_off"
                         android:gravity="center"
-                        android:src="@drawable/ic_bep_off"
+                        android:src="@drawable/bep_off"
                         android:textColor="@color/black"
                         />
 
@@ -460,7 +459,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:background="@drawable/border_btn_tienich"
-                        android:src="@drawable/ic_free"
+                        android:src="@drawable/time"
                         android:textColor="@color/blue"
                         android:visibility="gone"/>
 
@@ -470,7 +469,7 @@
                         android:layout_height="60dp"
                         android:background="@drawable/border_btn_tienich_off"
                         android:gravity="center"
-                        android:src="@drawable/ic_free_off"
+                        android:src="@drawable/time_off"
                         android:textColor="@color/black"
 
                         />
@@ -498,7 +497,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:background="@drawable/border_btn_tienich"
-                        android:src="@drawable/ic_wc_on"
+                        android:src="@drawable/wc_on"
                         android:textAllCaps="false"
                         android:textColor="@color/blue"
                         android:visibility="gone" />
@@ -509,7 +508,7 @@
                         android:layout_height="60dp"
                         android:background="@drawable/border_btn_tienich_off"
                         android:gravity="center"
-                        android:src="@drawable/ic_wc_off"
+                        android:src="@drawable/wc_off"
                         android:textColor="@color/black"
                         />
 
@@ -531,7 +530,7 @@
                         android:background="@drawable/border_btn_tienich"
                         android:textAllCaps="false"
                         android:textColor="@color/blue"
-                        android:src="@drawable/icon_dieuhoa_on"
+                        android:src="@drawable/dieuhoa"
                         android:visibility="gone"
                         />
 
@@ -542,7 +541,7 @@
                         android:background="@drawable/border_btn_tienich_off"
                         android:gravity="center"
                         android:textColor="@color/black"
-                        android:src="@drawable/icon_dieuhoa_off"/>
+                        android:src="@drawable/dieuhoa_off"/>
 
                 </RelativeLayout>
 
@@ -591,7 +590,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:background="@drawable/border_btn_tienich"
-                        android:src="@drawable/ic_giuxe"
+                        android:src="@drawable/giuxe"
                         android:textAllCaps="false"
                         android:textColor="@color/blue"
                         android:visibility="gone"/>
@@ -602,7 +601,7 @@
                         android:layout_height="60dp"
                         android:background="@drawable/border_btn_tienich_off"
                         android:gravity="center"
-                        android:src="@drawable/ic_giuxe_off"
+                        android:src="@drawable/giuxe_off"
                         android:textColor="@color/black"
                          />
 

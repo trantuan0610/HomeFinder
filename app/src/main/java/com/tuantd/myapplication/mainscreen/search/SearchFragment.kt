@@ -76,11 +76,11 @@ class SearchFragment : Fragment() {
         }
         binding.btnOk.setOnClickListener {
             if (binding.edtSearch.text.toString().isNotEmpty()
-                || binding.autoTxt.text.toString().isNotEmpty()
-                || binding.edtPriceMin.text.toString().isNotEmpty()
-                || binding.edtpriceMax.text.toString().isNotEmpty()
-                || binding.edtAreaMin.text.toString().isNotEmpty()
-                || binding.edtAreaMax.text.toString().isNotEmpty()
+                && binding.autoTxt.text.toString().isNotEmpty()
+                && binding.edtPriceMin.text.toString().isNotEmpty()
+                && binding.edtpriceMax.text.toString().isNotEmpty()
+                && binding.edtAreaMin.text.toString().isNotEmpty()
+                && binding.edtAreaMax.text.toString().isNotEmpty()
             ) {
                 roomList2.clear()
                 roomList.forEach {
@@ -100,6 +100,8 @@ class SearchFragment : Fragment() {
                 if (roomList2.isNotEmpty()) {
                     binding.man2.visibility = View.GONE
                     binding.man3.visibility = View.VISIBLE
+                    binding.tvBack.visibility = View.VISIBLE
+                    binding.tvTitle.setText("Danh Sách Tìm Kiếm")
                     Toast.makeText(requireContext(), roomList2.size.toString(), Toast.LENGTH_SHORT)
                         .show()
                     roomsAdsAdapter?.addList(roomList2)
@@ -117,15 +119,17 @@ class SearchFragment : Fragment() {
                     ).show()
                 }
 
-            } else {
-                Toast.makeText(requireContext(), "Bạn phải nhập đầy đủ dữ liệu", Toast.LENGTH_SHORT)
-                    .show()
+            } else
+            {
+                Toast.makeText(requireContext(), "Bạn phải nhập đầy đủ dữ liệu", Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.tvBack.setOnClickListener {
             binding.man3.visibility = View.GONE
             binding.man2.visibility = View.VISIBLE
+            binding.tvBack.visibility = View.GONE
+            binding.tvTitle.setText("Tìm Kiếm")
         }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

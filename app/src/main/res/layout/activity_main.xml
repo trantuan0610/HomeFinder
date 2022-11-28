@@ -20,9 +20,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        app:itemIconTint="@color/blue"
-        app:itemTextColor="@color/blue"
+        app:itemIconTint="@drawable/selected_bottom_nav"
+        app:itemTextColor="@drawable/selected_bottom_nav"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:menu="@menu/menu" />
+        app:menu="@menu/menu"
+        app:labelVisibilityMode="labeled"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
