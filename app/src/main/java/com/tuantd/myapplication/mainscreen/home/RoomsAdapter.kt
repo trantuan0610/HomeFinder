@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tuantd.myapplication.R
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 
 open class RoomsAdapter() : RecyclerView.Adapter<RoomsAdapter.MyViewHolder>() {
 
@@ -26,8 +28,13 @@ open class RoomsAdapter() : RecyclerView.Adapter<RoomsAdapter.MyViewHolder>() {
         Glide.with(holder.itemView)
             .load(room?.list_image?.get(0))
             .into(holder.roomImage)
-
-        holder.price.text = "${room?.gia} Đ"
+        //
+        val symbols = DecimalFormatSymbols()
+        symbols.setDecimalSeparator(',')
+        val decimalFormat = DecimalFormat("###,###,###,###Đ", symbols)
+        holder.price.setText(decimalFormat.format(room?.gia?.toInt() ?: 0))
+        //
+//        holder.price.text = "${room?.gia} Đ"
         holder.roomAddress.text = room?.dia_chi
         holder.roomArea.text = room?.dien_tich + "m2"
 
