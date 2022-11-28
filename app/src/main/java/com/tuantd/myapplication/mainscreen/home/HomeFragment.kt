@@ -22,6 +22,7 @@ import com.tuantd.myapplication.mainscreen.home.AddRoom.AddRoomActivity
 import com.tuantd.myapplication.mainscreen.home.DetailRoom.DetailRoomActivity
 
 class HomeFragment : Fragment() {
+    //test
     private var loadDone:(() -> Unit)?=null
     private var getRoomList = ArrayList<Room>()
     private var roomList = ArrayList<Room>()
