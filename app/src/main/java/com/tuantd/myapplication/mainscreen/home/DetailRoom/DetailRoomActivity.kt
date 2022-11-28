@@ -23,6 +23,8 @@ import com.tuantd.myapplication.mainscreen.home.Report.ReportActivity
 import com.tuantd.myapplication.mainscreen.home.Room
 import com.tuantd.myapplication.mainscreen.home.RoomsAdapter
 import com.tuantd.myapplication.register.User
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.util.*
 
 
@@ -152,7 +154,12 @@ class DetailRoomActivity : AppCompatActivity() {
             }).show(supportFragmentManager,"tag")
         }
     }
-
+    private fun setTextMoney(text: String) {
+        val symbols = DecimalFormatSymbols()
+        symbols.setDecimalSeparator(',')
+        val decimalFormat = DecimalFormat("###,###,###,###Đ", symbols)
+        binding.tvPrice.setText(decimalFormat.format(text.toInt()))
+    }
     private fun getUser() {
         myUserReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -219,22 +226,6 @@ class DetailRoomActivity : AppCompatActivity() {
             }
         })
     }
-
-    fun getDefaultSmsAppPackageName(@NonNull context: Context): String? {
-        val defaultSmsPackageName: String
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            defaultSmsPackageName = Telephony.Sms.getDefaultSmsPackage(context)
-            return defaultSmsPackageName
-        } else {
-            val intent = Intent(Intent.ACTION_VIEW)
-                .addCategory(Intent.CATEGORY_DEFAULT).setType("vnd.android-dir/mms-sms")
-            val resolveInfos: List<ResolveInfo> =
-                context.getPackageManager().queryIntentActivities(intent, 0)
-            if (resolveInfos != null && !resolveInfos.isEmpty()) return resolveInfos[0].activityInfo.packageName
-        }
-        return null
-    }
-
     // get data ve va luu data vao roomlist
     private fun retrieveDataFromDatabase(roomID: String) {
         myReference.addValueEventListener(object : ValueEventListener {
@@ -273,7 +264,8 @@ class DetailRoomActivity : AppCompatActivity() {
                     if (it.id_bai_dang.equals(roomID)) {
                         roomDetail = it
                         binding.tvRoomAddress.text = it.dia_chi
-                        binding.tvPrice.text = it.gia + "Đ"
+                        //binding.tvPrice.text = it.gia + "Đ"
+                        setTextMoney(it.gia)
                         binding.tvRoomArea.text = it.dien_tich + "m2"
                         binding.tvDetailDes.text = it.mo_ta
                         binding.tvtitle.text = it.tieu_de

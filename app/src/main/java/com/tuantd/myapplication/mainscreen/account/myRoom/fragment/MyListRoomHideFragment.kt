@@ -54,6 +54,7 @@ class MyListRoomHideFragment : Fragment() {
                 Intent(requireContext(), DetailMyRoomActivity::class.java)
             intent.putExtra("roomId", it)
             startActivity(intent)
+            requireActivity().finish()
         }
 
     }

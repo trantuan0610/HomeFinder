@@ -18,6 +18,8 @@ import com.tuantd.myapplication.mainscreen.home.AddRoom.AddRoomActivity
 import com.tuantd.myapplication.mainscreen.home.DetailRoom.FavouriteRoom
 import com.tuantd.myapplication.mainscreen.home.Report.ReportActivity
 import com.tuantd.myapplication.mainscreen.home.Room
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 
 class DetailMyRoomActivity : AppCompatActivity() {
 
@@ -85,7 +87,12 @@ class DetailMyRoomActivity : AppCompatActivity() {
             }).show(supportFragmentManager, "tag")
         }
     }
-
+    private fun setTextMoney(text: String) {
+        val symbols = DecimalFormatSymbols()
+        symbols.setDecimalSeparator(',')
+        val decimalFormat = DecimalFormat("###,###,###,###Đ", symbols)
+        binding.tvPrice.setText(decimalFormat.format(text.toInt()))
+    }
     private fun retrieveDataFromDatabase(roomID: String) {
         myReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -122,7 +129,8 @@ class DetailMyRoomActivity : AppCompatActivity() {
                     if (it.id_bai_dang.equals(roomID)) {
                         roomDetail = it
                         binding.tvRoomAddress.text = it.dia_chi
-                        binding.tvPrice.text = it.gia + "Đ"
+//                        binding.tvPrice.text = it.gia + "Đ"
+                        setTextMoney(it.gia)
                         binding.tvRoomArea.text = it.dien_tich + "m2"
                         binding.tvDetailDes.text = it.mo_ta
                         binding.tvtitle.text = it.tieu_de
