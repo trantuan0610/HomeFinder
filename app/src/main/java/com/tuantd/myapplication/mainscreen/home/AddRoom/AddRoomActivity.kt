@@ -49,14 +49,14 @@ class AddRoomActivity : AppCompatActivity() {
     var imageUri: Uri? = null
     val firebaseStorage: FirebaseStorage = FirebaseStorage.getInstance()
     val storageReference: StorageReference = firebaseStorage.reference
-    var wifi = true
-    var vesinh = true
-    var dieuhoa = true
-    var maygiat = true
-    var tudo = true
-    var giuxe = true
-    var bep = true
-    var tulanh = true
+    var wifi = false
+    var vesinh = false
+    var dieuhoa = false
+    var maygiat = false
+    var tudo = false
+    var giuxe = false
+    var bep = false
+    var tulanh = false
 
     var userDetail : com.tuantd.myapplication.register.User ?= null
    var userList = ArrayList<com.tuantd.myapplication.register.User>()

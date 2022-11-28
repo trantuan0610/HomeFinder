@@ -488,7 +488,7 @@
                         android:text="Điều \nhoà"
                         android:textAllCaps="false"
                         android:textColor="@color/blue"
-                        android:src="@drawable/ic_dieuhoa"
+                        android:src="@drawable/icon_dieuhoa_on"
                         />
 
                     <androidx.appcompat.widget.AppCompatImageButton
@@ -500,7 +500,7 @@
                         android:text="Wifi"
                         android:textColor="@color/black"
                         android:visibility="gone"
-                        android:src="@drawable/ic_dieuhoa_off"/>
+                        android:src="@drawable/icon_dieuhoa_off"/>
 
                 </RelativeLayout>
 

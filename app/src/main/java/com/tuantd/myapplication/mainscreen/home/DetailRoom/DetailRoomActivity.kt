@@ -422,8 +422,6 @@ class DetailRoomActivity : AppCompatActivity() {
             myFavouriteReferene.child(id).setValue(favouriteRoom).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Lưu thành công", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Lưu thất bại", Toast.LENGTH_SHORT).show()
                 }
             }
         }else{
@@ -442,10 +440,7 @@ class DetailRoomActivity : AppCompatActivity() {
                     binding.dontlike.visibility = View.GONE
                     myFavouriteReferene.child(it.id_yeu_thich).removeValue()
                     Toast.makeText(this, "Bỏ lưu thành công", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Bỏ lưu thất bại", Toast.LENGTH_SHORT).show()
                 }
-
             }
         }else{
             Toast.makeText(this,"Bạn phải đăng nhập để lưu phòng",Toast.LENGTH_SHORT).show()

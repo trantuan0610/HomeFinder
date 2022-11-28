@@ -422,7 +422,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:background="@drawable/border_btn_tienich"
-                        android:src="@drawable/ic_dieuhoa"
+                        android:src="@drawable/icon_dieuhoa_on"
                         android:text="Điều \nhoà"
                         android:textAllCaps="false"
                         android:textColor="@color/blue" />
@@ -433,7 +433,7 @@
                         android:layout_height="60dp"
                         android:background="@drawable/border_btn_tienich_off"
                         android:gravity="center"
-                        android:src="@drawable/ic_dieuhoa_off"
+                        android:src="@drawable/icon_dieuhoa_off"
                         android:text="Wifi"
                         android:textColor="@color/black"
                         android:visibility="gone" />
