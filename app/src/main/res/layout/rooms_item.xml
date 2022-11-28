@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="2dp">
+    android:layout_margin="4dp"
+    android:background="@color/white">
     <androidx.cardview.widget.CardView
         android:id="@+id/card_image"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="120dp"
         app:cardCornerRadius="5dp"
         ><ImageView
         android:id="@+id/imgRoom"
@@ -20,16 +21,20 @@
         android:scaleType="fitXY" />
     </androidx.cardview.widget.CardView>
 
-
+    <View
+        android:id="@+id/viewPrice"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/ic_money_xanh"
+        android:layout_below="@+id/card_image" />
     <TextView
         android:id="@+id/tvRoomPrice"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_alignParentStart="true"
-        android:background="@color/blue"
         android:text="1.5 triệu"
-        android:textColor="@color/white"
-        android:layout_below="@+id/card_image"/>
+        android:textColor="@color/black"
+        android:layout_below="@+id/card_image"
+        android:layout_toRightOf="@+id/viewPrice"/>
 
     <View
         android:id="@+id/viewAddress"

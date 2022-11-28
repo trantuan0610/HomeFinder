@@ -41,11 +41,14 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun setThatFragment(fragment: Fragment) {
-        if (fragment != null){
-            //bắn sang accountFragment
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.frame_layout,fragment)
-            transaction.commit()
-        }
+        //bắn sang accountFragment
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frame_layout,fragment)
+        transaction.commit()
+    }
+
+    override fun onBackPressed() {
+        finish()
+        super.onBackPressed()
     }
 }
