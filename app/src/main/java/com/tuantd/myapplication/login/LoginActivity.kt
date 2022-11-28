@@ -66,31 +66,33 @@ class LoginActivity : AppCompatActivity() {
 
     private fun Login() {
         btnLogin.setOnClickListener {
-            showLoading()
+
             val email = edtEmail.text.toString()
             val pass = edtPass.text.toString()
-            getUser()
-//
+
             if (email.isNotEmpty() && pass.isNotEmpty()) {
-                if (userDetail != null) {
-                    auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
-                        if (it.isSuccessful) {
+                showLoading()
+                auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
+                    if (it.isSuccessful) {
 
-                            var intent = Intent(this, MainActivity::class.java)
-                            startActivity(intent)
-                            hiddenLoading()
-                            finish()
+                        var intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        hiddenLoading()
+                        finish()
 
-                        } else {
-                            Toast.makeText(this, "Bạn nhập sai mật khẩu", Toast.LENGTH_SHORT).show()
+                    } else if (!getUserSuccessful()) {
+                        Toast.makeText(this, "Bạn nhập sai mật khẩu", Toast.LENGTH_SHORT).show()
+                        hiddenLoading()
+
+                        }else{
+                        Toast.makeText(this, "Ban chưa có tài khoản.Hãy đăng kí tài khoản để tiếp tục!", Toast.LENGTH_SHORT).show()
+                        hiddenLoading()
                         }
-                    }
-                } else {
-                    Toast.makeText(this, "Bạn chưa có tài khoản", Toast.LENGTH_SHORT).show()
-                }
 
+                }
             } else {
                 Toast.makeText(this, "Không được bỏ trống email và mật khẩu", Toast.LENGTH_SHORT).show()
+                hiddenLoading()
             }
         }
     }
@@ -104,7 +106,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun getUser() {
+    private fun getUserSuccessful() :Boolean{
         myUserReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 userList.clear()
@@ -131,6 +133,8 @@ class LoginActivity : AppCompatActivity() {
             override fun onCancelled(error: DatabaseError) {
             }
         })
+
+        return userDetail!=null
     }
 
     //loading

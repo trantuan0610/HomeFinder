@@ -63,7 +63,10 @@ class DetailRoomActivity : AppCompatActivity() {
         val roomId = intent.getStringExtra("roomId")
         if (roomId != null) {
             retrieveDataFromDatabase(roomId)
-            getFavouriteRoomLike()
+            if(auth.currentUser?.email !=null){
+                getFavouriteRoomLike()
+            }
+
             getListRate()
         }
 
@@ -406,38 +409,49 @@ class DetailRoomActivity : AppCompatActivity() {
 
     // like room (done)
     private fun actionLike() {
-        binding.like.visibility = View.GONE
-        binding.dontlike.visibility = View.VISIBLE
-        val id = myFavouriteReferene.push().key.toString()
-        val favouriteRoom = FavouriteRoom(
-            id,
-            roomDetail!!.id_bai_dang,
-            userDetail!!.id_nguoi_dung
+        if (auth.currentUser?.email != null){
+            binding.like.visibility = View.GONE
+            binding.dontlike.visibility = View.VISIBLE
+            val id = myFavouriteReferene.push().key.toString()
+            val favouriteRoom = FavouriteRoom(
+                id,
+                roomDetail!!.id_bai_dang,
+                userDetail!!.id_nguoi_dung
 
-        )
-        myFavouriteReferene.child(id).setValue(favouriteRoom).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Toast.makeText(this, "Lưu thành công", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Lưu thất bại", Toast.LENGTH_SHORT).show()
+            )
+            myFavouriteReferene.child(id).setValue(favouriteRoom).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Lưu thành công", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Lưu thất bại", Toast.LENGTH_SHORT).show()
+                }
             }
+        }else{
+            Toast.makeText(this,"Bạn phải đăng nhập để lưu phòng",Toast.LENGTH_SHORT).show()
         }
+
 
     }
 
     //done
     private fun actionDontLike() {
-        roomFavList.forEach {
-            if (it.id_bai_dang == roomDetail?.id_bai_dang && it.id_nguoi_dung == userDetail!!.id_nguoi_dung ) {
-                binding.like.visibility = View.VISIBLE
-                binding.dontlike.visibility = View.GONE
-                myFavouriteReferene.child(it.id_yeu_thich).removeValue()
-                Toast.makeText(this, "Bỏ lưu thành công", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Bỏ lưu thất bại", Toast.LENGTH_SHORT).show()
-            }
+        if(auth.currentUser?.email != null){
+            roomFavList.forEach {
+                if (it.id_bai_dang == roomDetail?.id_bai_dang && it.id_nguoi_dung == userDetail!!.id_nguoi_dung ) {
+                    binding.like.visibility = View.VISIBLE
+                    binding.dontlike.visibility = View.GONE
+                    myFavouriteReferene.child(it.id_yeu_thich).removeValue()
+                    Toast.makeText(this, "Bỏ lưu thành công", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Bỏ lưu thất bại", Toast.LENGTH_SHORT).show()
+                }
 
+            }
+        }else{
+            Toast.makeText(this,"Bạn phải đăng nhập để lưu phòng",Toast.LENGTH_SHORT).show()
         }
+
+
 
     }
 }
