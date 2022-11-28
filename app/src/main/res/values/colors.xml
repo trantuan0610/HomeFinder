@@ -13,7 +13,8 @@
     <color name="colorAccent">#D81B60</color>
     <color name="light_grey">#eeeeee</color>
     <color name="grey">#bfbfbf</color>
+    <color name="grey_dam">#8E8E93</color>
     <color name="colorPrimaryDark">#d13135</color>
     <color name="gray_btn_bg_color">#D0D0D0</color>
-    <color name="blue">#246BFD</color>
+    <color name="blue">#007AFF</color>
 </resources>

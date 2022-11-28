@@ -66,6 +66,7 @@
             android:textSize="16sp"
             android:textColor="@color/black"
             android:layout_marginTop="30dp"
+            android:lineSpacingMultiplier="1.2"
             />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -105,7 +106,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
                     android:hint="Loại phòng trọ"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     >
@@ -120,7 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_margin="10dp">
+                android:layout_margin="5dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -130,24 +131,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:gravity="center">
 
                     <EditText
                         android:id="@+id/edtAreaMin"
-                        android:layout_width="80dp"
+                        android:layout_width="100dp"
                         android:layout_height="30dp"
                         android:background="@drawable/edt_border"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
+                        android:inputType="number"
                         android:hint="Từ:"
                         />
                     <EditText
                         android:id="@+id/edtAreaMax"
-                        android:layout_width="80dp"
+                        android:layout_width="100dp"
                         android:layout_height="30dp"
                         android:background="@drawable/edt_border"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:hint="Đến:"
+                        android:inputType="number"
                         android:layout_marginStart="90dp"
                         />
                     <TextView
@@ -164,7 +167,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_margin="10dp">
+                android:layout_margin="5dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -174,24 +177,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:gravity="center">
 
                     <EditText
                         android:id="@+id/edtPriceMin"
-                        android:layout_width="80dp"
+                        android:layout_width="100dp"
                         android:layout_height="30dp"
                         android:background="@drawable/edt_border"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:hint="Từ:"
+                        android:inputType="number"
                         />
                     <EditText
                         android:id="@+id/edtpriceMax"
-                        android:layout_width="80dp"
+                        android:layout_width="100dp"
                         android:layout_height="30dp"
                         android:background="@drawable/edt_border"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:hint="Đến:"
+                        android:inputType="number"
                         android:layout_marginStart="90dp"
                         />
                     <TextView
@@ -208,7 +213,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:gravity="center">
 
                 <Button
@@ -227,6 +232,31 @@
 
             </LinearLayout>
 
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/man3"
+            android:visibility="gone">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Danh sách sau khi tìm kiếm nâng cao"
+                    android:layout_marginEnd="50dp"
+                    />
+                <TextView
+                    android:id="@+id/tvBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quay lại"
+                    android:textColor="@color/blue"
+                    />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_searchAds"
@@ -234,7 +264,6 @@
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2" />
-
         </LinearLayout>
 
 

@@ -102,7 +102,6 @@ class LoginActivity : AppCompatActivity() {
         btnRegister.setOnClickListener {
             var intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
-
         }
     }
 
