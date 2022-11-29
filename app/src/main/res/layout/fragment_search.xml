@@ -14,7 +14,8 @@
         <RelativeLayout
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:background="@color/blue">
             <TextView
                 android:visibility="gone"
                 android:id="@+id/tvBack"
@@ -22,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:text="Quay lại"
                 android:textSize="16sp"
-                android:textColor="@color/blue"
+                android:textColor="@color/white"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="8dp"
                 />
@@ -32,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="Tìm Kiếm"
-                android:textColor="@color/blue"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:id="@+id/tvTitle"/>
@@ -64,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_marginTop="8dp"
         >
         <androidx.appcompat.widget.SearchView
@@ -99,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="visible"
+            android:visibility="gone"
             >
             <EditText
                 android:id="@+id/edtSearch"

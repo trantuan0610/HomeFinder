@@ -18,6 +18,7 @@ class DetailPostActivity : AppCompatActivity() {
     var postAdapter =  PostsAdapter()
     var listPost = ArrayList<Posts>()
     var listPostKhac = ArrayList<Posts>()
+    var postDetail : Posts?= null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,13 +26,19 @@ class DetailPostActivity : AppCompatActivity() {
         binding = ActivityDetailPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.share.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.putExtra(Intent.EXTRA_TEXT, "Bài Đăng từ HomeFinder"+"\n"+ postDetail?.tieu_de +"\n"+postDetail?.noi_dung+"\n")
+            intent.type = "text/plain"
+            startActivity(Intent.createChooser(intent, "Please select app: "))
+        }
         var id = intent.getStringExtra("postId")
         if (id != null) {
             retrieveDataFromDatabase(id)
         }
         postAdapter.onclickItem = {
-            val intent =
-                Intent(this, DetailPostActivity::class.java)
+            val intent =  Intent(this, DetailPostActivity::class.java)
                   intent.putExtra("postId", it)
                 startActivity(intent)
         }
@@ -55,6 +62,7 @@ class DetailPostActivity : AppCompatActivity() {
                 }
                 listPost.forEach {
                     if (it.id_bai_viet == id){
+                        postDetail = it
                         binding.tvTieude.text = it.tieu_de
                         binding.tvNoiDung.text = it.noi_dung
                         Glide.with(this@DetailPostActivity).load(it.hinh_anh).into(binding.imgAnh)

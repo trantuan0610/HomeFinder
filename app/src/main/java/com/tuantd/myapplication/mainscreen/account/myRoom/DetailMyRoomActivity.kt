@@ -42,6 +42,13 @@ class DetailMyRoomActivity : AppCompatActivity() {
         binding.back.setOnClickListener {
             onBackPressed()
         }
+        binding.share.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.putExtra(Intent.EXTRA_TEXT, "Bài Đăng từ HomeFinder"+"\n"+"Địa chỉ: " + roomDetail?.dia_chi +"\n"+"Anh/chị: "+roomDetail?.name+"\n"+"SDT: "+roomDetail?.sdt)
+            intent.type = "text/plain"
+            startActivity(Intent.createChooser(intent, "Please select app: "))
+        }
 
         val roomId = intent.getStringExtra("roomId")
         if (roomId != null) {
@@ -64,13 +71,6 @@ class DetailMyRoomActivity : AppCompatActivity() {
                         startActivity(intent)
                         Toast.makeText(this,"Đã xoá",Toast.LENGTH_SHORT).show()
                         finish()
-                    }
-                    3-> {
-                        val intent = Intent()
-                        intent.action = Intent.ACTION_SEND
-                        intent.putExtra(Intent.EXTRA_TEXT, "Địa chỉ:" + roomDetail?.dia_chi +"\n"+"Anh/chị:"+roomDetail?.name+"\n"+"SDT:"+roomDetail?.sdt)
-                        intent.type = "text/plain"
-                        startActivity(Intent.createChooser(intent, "Please select app: "))
                     }
                     4-> {
                         myReference.child(roomDetail!!.id_bai_dang).child("trang_thai_bai_dang").setValue(true)

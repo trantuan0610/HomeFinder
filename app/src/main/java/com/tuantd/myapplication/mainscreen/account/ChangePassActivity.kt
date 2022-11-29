@@ -5,59 +5,53 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.tuantd.myapplication.R
+import com.tuantd.myapplication.databinding.ActivityChangePassBinding
 import com.tuantd.myapplication.login.LoginActivity
 
 class ChangePassActivity : AppCompatActivity() {
-
-    lateinit var currentPass: EditText
-    lateinit var newPass: EditText
-    lateinit var new2Pass: EditText
-    lateinit var btnEdit: Button
+    lateinit var binding : ActivityChangePassBinding
     var auth = FirebaseAuth.getInstance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_change_pass)
+        binding = ActivityChangePassBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        currentPass = findViewById(R.id.currentPassword)
-        newPass = findViewById(R.id.newPassword)
-        new2Pass = findViewById(R.id.confirmPassword)
-        btnEdit = findViewById(R.id.btnChangePassword)
-
-        btnEdit.setOnClickListener {
-
+        binding.btnChangePassword.setOnClickListener {
             changePass()
-
         }
-
+        binding.back.setOnClickListener {
+            onBackPressed()
+        }
 
     }
 
     private fun changePass() {
-        if (currentPass.text.isNotEmpty() &&
-            newPass.text.isNotEmpty() &&
-            new2Pass.text.isNotEmpty()
+        if (binding.currentPassword.text.isNotEmpty() &&
+            binding.newPassword.text.isNotEmpty() &&
+            binding.confirmPassword.text.isNotEmpty()
         ) {
 
-            if (newPass.text.toString() == new2Pass.text.toString()
+            if (binding.newPassword.text.toString() == binding.confirmPassword.text.toString()
             ) {
 
                 val user = auth.currentUser
                 if (user != null && user.email != null) {
                     val credential = EmailAuthProvider
-                        .getCredential(user.email!!, currentPass.text.toString())
+                        .getCredential(user.email!!, binding.currentPassword.text.toString())
 
                     user.reauthenticate(credential)
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
 
-                                user.updatePassword(newPass.text.toString())
+                                user.updatePassword(binding.newPassword.text.toString())
                                     .addOnCompleteListener { task ->
                                         if (task.isSuccessful) {
                                             Toast.makeText(

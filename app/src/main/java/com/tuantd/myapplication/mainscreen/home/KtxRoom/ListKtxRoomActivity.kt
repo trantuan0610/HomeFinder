@@ -1,68 +1,42 @@
-package com.tuantd.myapplication.mainscreen.home
+package com.tuantd.myapplication.mainscreen.home.KtxRoom
 
-import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.tuantd.myapplication.R
-import com.tuantd.myapplication.databinding.FragmentHomeBinding
-import com.tuantd.myapplication.databinding.FragmentMyListRoomHideBinding
-import com.tuantd.myapplication.dialog.LoadingDialog
-import com.tuantd.myapplication.mainscreen.MainActivity
-import com.tuantd.myapplication.mainscreen.home.AddRoom.AddRoomActivity
+import com.tuantd.myapplication.databinding.ActivityListKtxRoomBinding
+import com.tuantd.myapplication.databinding.ActivityListMotelBinding
 import com.tuantd.myapplication.mainscreen.home.DetailRoom.DetailRoomActivity
-import com.tuantd.myapplication.mainscreen.home.KtxRoom.ListKtxRoomActivity
-import com.tuantd.myapplication.mainscreen.home.MotelRoom.ListMotelActivity
+import com.tuantd.myapplication.mainscreen.home.Room
+import com.tuantd.myapplication.mainscreen.home.RoomsAdapter
+import com.tuantd.myapplication.mainscreen.home.RoomsAdapter2
+import com.tuantd.myapplication.mainscreen.home.RoomsAdapter3
 
-class HomeFragment : Fragment() {
-    //test
+class ListKtxRoomActivity : AppCompatActivity() {
+    lateinit var binding : ActivityListKtxRoomBinding
+
     private var loadDone:(() -> Unit)?=null
     private var getRoomList = ArrayList<Room>()
     private var roomList = ArrayList<Room>()
     private var  roomListKTX = ArrayList<Room>()
     private var roomListPT = ArrayList<Room>()
     private val roomsAdapter= RoomsAdapter()
-    private val roomsAdapterKTX= RoomsAdapter2()
-    private val roomsAdapterPT= RoomsAdapter2()
+    private val roomsAdapterKTX= RoomsAdapter3()
+    private val roomsAdapterPT= RoomsAdapter3()
     private var dialog: AlertDialog? = null
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference: DatabaseReference = database.reference.child("room")
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-
-    lateinit var binding : FragmentHomeBinding
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentHomeBinding.inflate(layoutInflater)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        createDialog()
-        binding.btnAdd.setOnClickListener {
-            if (auth.currentUser != null) {
-                val intent = Intent(activity as MainActivity, AddRoomActivity::class.java)
-                startActivity(intent)
-            }else{
-                Toast.makeText(requireContext(),"Bạn chưa đăng nhập. Hãy đăng nhập để sử dụng tính năng này",Toast.LENGTH_SHORT).show()
-            }
-
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityListKtxRoomBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         retrieveDataFromDatabase()
+
 
         loadDone={
             roomsAdapter.addList(roomList)
@@ -70,48 +44,17 @@ class HomeFragment : Fragment() {
             roomsAdapterKTX.addList(roomListKTX)
         }
 
-        binding.rcvRoom.adapter = roomsAdapter
         binding.rcvRoomKTX.adapter = roomsAdapterKTX
-        binding.rcvRoomPT.adapter = roomsAdapterPT
 
-        roomsAdapter.onclickItem = {
-            val intent =
-                Intent((activity as MainActivity), DetailRoomActivity::class.java)
-            intent.putExtra("roomId", it)
-            (activity as MainActivity).startActivity(intent)
-
-        }
-        roomsAdapterKTX.onclickItem = {
-            val intent =
-                Intent((activity as MainActivity), DetailRoomActivity::class.java)
-            intent.putExtra("roomId", it)
-            (activity as MainActivity).startActivity(intent)
-
-        }
         roomsAdapterPT.onclickItem = {
             val intent =
-                Intent((activity as MainActivity), DetailRoomActivity::class.java)
+                Intent(this, DetailRoomActivity::class.java)
             intent.putExtra("roomId", it)
-            (activity as MainActivity).startActivity(intent)
+            startActivity(intent)
 
         }
-
-        binding.tvViewMoreKTX.setOnClickListener {
-            val intent =
-                Intent((activity as MainActivity), ListKtxRoomActivity::class.java)
-            (activity as MainActivity).startActivity(intent)
-        }
-
-        binding.tvViewMorePT.setOnClickListener {
-            val intent =
-                Intent((activity as MainActivity), ListMotelActivity::class.java)
-            (activity as MainActivity).startActivity(intent)
-        }
-
-
 
     }
-
     private fun retrieveDataFromDatabase() {
         myReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -166,28 +109,4 @@ class HomeFragment : Fragment() {
             }
         })
     }
-    private fun createDialog() {
-        val dialogBuilder = AlertDialog.Builder(requireActivity())
-        val dialogView = LayoutInflater.from(requireActivity()).inflate(R.layout.layout_loading, null)
-        dialogBuilder.setView(dialogView)
-        dialogBuilder.setCancelable(false)
-        dialog = dialogBuilder.create()
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog?.setCancelable(false)
-        dialog?.setCanceledOnTouchOutside(true)
-    }
-
-    fun showLoading() {
-        dialog?.show()
-    }
-
-    fun hiddenLoading() {
-        dialog?.dismiss()
-    }
-
-
-
 }
-
-
-

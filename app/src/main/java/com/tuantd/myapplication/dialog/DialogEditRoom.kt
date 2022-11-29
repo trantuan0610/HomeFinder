@@ -28,10 +28,6 @@ class DialogEditRoom (private val onSubmitClickListener: (Int) -> Unit) : Dialog
             onSubmitClickListener.invoke(2)
             dismiss()
         }
-        binding.viewShare.setOnClickListener {
-            onSubmitClickListener.invoke(3)
-            dismiss()
-        }
 
         binding.viewShow.setOnClickListener {
             onSubmitClickListener.invoke(4)

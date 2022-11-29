@@ -30,6 +30,10 @@ class ProfileActivity : AppCompatActivity() {
             var intent = Intent(this , ChangePassActivity::class.java)
             startActivity(intent)
         }
+        binding.btnChangeProfile.setOnClickListener {
+            var intent = Intent(this , ChangePassActivity::class.java)
+            startActivity(intent)
+        }
 
 
     }
