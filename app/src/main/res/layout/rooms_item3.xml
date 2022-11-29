@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="4dp"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_image"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        app:cardCornerRadius="5dp"
+        android:layout_weight="2"
+        ><ImageView
+        android:id="@+id/imgRoom"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/room1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="fitXY" />
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:layout_marginStart="5dp">
+        <TextView
+            android:id="@+id/tvRoomTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cho thuê nhà trọ Đồng Tháp"
+            android:textColor="@color/blue"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="2dp">
+            <View
+                android:id="@+id/viewPrice"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_money_xanh"
+                android:layout_below="@+id/card_image" />
+            <TextView
+                android:id="@+id/tvRoomPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="1.5 triệu"
+                android:textColor="@color/black" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="2dp">
+            <View
+                android:id="@+id/viewAddress"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_location" />
+
+            <TextView
+                android:id="@+id/tvRoomAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/black"
+                android:text="122 Định Công Hoàng Mai Hà Nội"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="2dp">
+            <View
+                android:id="@+id/view2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/photo_sizel"
+                android:layout_marginTop="2dp"
+                />
+            <TextView
+                android:id="@+id/tvRoomArea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30 m2"
+                android:textColor="@color/black"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="2dp">
+            <View
+                android:id="@+id/view5"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/time"
+                android:layout_marginTop="2dp"
+                />
+            <TextView
+                android:id="@+id/tvRoomDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30 m2"
+                android:textColor="@color/black"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

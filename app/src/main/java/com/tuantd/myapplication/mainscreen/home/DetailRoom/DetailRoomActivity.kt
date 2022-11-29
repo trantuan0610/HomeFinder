@@ -81,6 +81,13 @@ class DetailRoomActivity : AppCompatActivity() {
             actionDontLike()
         }
 
+        binding.share.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.putExtra(Intent.EXTRA_TEXT, "Địa chỉ:" + roomDetail?.dia_chi +"\n"+"Anh/chị:"+roomDetail?.name+"\n"+"SDT:"+roomDetail?.sdt)
+            intent.type = "text/plain"
+            startActivity(Intent.createChooser(intent, "Please select app: "))
+        }
 
         roomsAdapter.onclickItem = {
             val intent =
@@ -140,14 +147,6 @@ class DetailRoomActivity : AppCompatActivity() {
                         }
 
 
-                    }
-                    6->{
-                        val intent = Intent()
-                        intent.action = Intent.ACTION_SEND
-                        intent.putExtra(Intent.EXTRA_TEXT, "Địa chỉ:" + roomDetail?.dia_chi +"\n"+"Anh/chị:"+roomDetail?.name+"\n"+"SDT:"+roomDetail?.sdt)
-                        intent.type = "text/plain"
-
-                        startActivity(Intent.createChooser(intent, "Please select app: "))
                     }
                 }
 
@@ -269,6 +268,7 @@ class DetailRoomActivity : AppCompatActivity() {
                         binding.tvRoomArea.text = it.dien_tich + "m2"
                         binding.tvDetailDes.text = it.mo_ta
                         binding.tvtitle.text = it.tieu_de
+                        binding.tvTitle2.text = it.tieu_de
                         binding.tvName.text = it.name + "-" + it.sdt
                         binding.tvDate.text = "Ngày đăng: " + it.thoi_gian
                         binding.tvLoaiPhong.text = "Loại Phòng: " + it.id_loai_bai_dang

@@ -2,45 +2,36 @@ package com.tuantd.myapplication.mainscreen.search
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.tuantd.myapplication.R
 import com.tuantd.myapplication.databinding.FragmentSearchBinding
-import com.tuantd.myapplication.dialog.DialogRate
-import com.tuantd.myapplication.dialog.DialogSelectContact
-import com.tuantd.myapplication.dialog.LoadingDialog
 import com.tuantd.myapplication.mainscreen.MainActivity
 import com.tuantd.myapplication.mainscreen.home.DetailRoom.DetailRoomActivity
-import com.tuantd.myapplication.mainscreen.home.Report.ReportActivity
 import com.tuantd.myapplication.mainscreen.home.Room
-import com.tuantd.myapplication.mainscreen.home.RoomsAdapter
+import com.tuantd.myapplication.mainscreen.home.RoomsAdapter3
 
 
 class SearchFragment : Fragment() {
     private var roomList = ArrayList<Room>()
     private var roomList2 = ArrayList<Room>()
     private var arrayList = ArrayList<Room>()
-    private var roomsAdapter: RoomsAdapter?=null
-    private var roomsAdsAdapter: RoomsAdapter?=null
-   lateinit var binding : FragmentSearchBinding
+    private var roomsAdapter: RoomsAdapter3? = null
+    private var roomsAdsAdapter: RoomsAdapter3? = null
+    lateinit var binding: FragmentSearchBinding
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference: DatabaseReference = database.reference.child("room")
 
-    lateinit var adapterItemText : ArrayAdapter<String>
-    var itemtext = arrayOf("Kí túc xá", "Phòng trọ và nhà trọ" , "Nhà Nguyên Căn" , "Tìm bạn ở ghép")
+    lateinit var adapterItemText: ArrayAdapter<String>
+    var itemtext = arrayOf("Kí túc xá", "Phòng trọ và nhà trọ", "Nhà Nguyên Căn", "Tìm bạn ở ghép")
     var item = " "
 
 
@@ -49,19 +40,19 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-       binding = FragmentSearchBinding.inflate(layoutInflater)
+        binding = FragmentSearchBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapterItemText = ArrayAdapter(requireContext(), R.layout.item_text,itemtext)
+        adapterItemText = ArrayAdapter(requireContext(), R.layout.item_text, itemtext)
         binding.autoTxt.setAdapter(adapterItemText)
 
         retrieveDataFromDatabase()
-        roomsAdapter = RoomsAdapter()
-        roomsAdsAdapter = RoomsAdapter()
+        roomsAdapter = RoomsAdapter3()
+        roomsAdsAdapter = RoomsAdapter3()
         binding.rcvSearchRooms.adapter = roomsAdapter
         binding.rcvSearchAds.adapter = roomsAdsAdapter
 
@@ -119,9 +110,9 @@ class SearchFragment : Fragment() {
                     ).show()
                 }
 
-            } else
-            {
-                Toast.makeText(requireContext(), "Bạn phải nhập đầy đủ dữ liệu", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Bạn phải nhập đầy đủ dữ liệu", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -136,10 +127,11 @@ class SearchFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }
+
             @SuppressLint("NotifyDataSetChanged")
             override fun onQueryTextChange(newText: String?): Boolean {
-                binding.tvHiss.visibility =View.GONE
-                    arrayList.clear()
+                binding.tvHiss.visibility = View.GONE
+                arrayList.clear()
                 if (newText!!.isNotEmpty()) {
                     val search = newText.toString().lowercase()
                     roomList.forEach {

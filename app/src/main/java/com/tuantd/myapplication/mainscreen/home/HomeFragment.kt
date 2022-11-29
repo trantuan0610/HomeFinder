@@ -16,6 +16,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.tuantd.myapplication.R
+import com.tuantd.myapplication.databinding.FragmentHomeBinding
+import com.tuantd.myapplication.databinding.FragmentMyListRoomHideBinding
 import com.tuantd.myapplication.dialog.LoadingDialog
 import com.tuantd.myapplication.mainscreen.MainActivity
 import com.tuantd.myapplication.mainscreen.home.AddRoom.AddRoomActivity
@@ -26,28 +28,30 @@ class HomeFragment : Fragment() {
     private var loadDone:(() -> Unit)?=null
     private var getRoomList = ArrayList<Room>()
     private var roomList = ArrayList<Room>()
-    lateinit var rcv_room: RecyclerView
+    private var  roomListKTX = ArrayList<Room>()
+    private var roomListPT = ArrayList<Room>()
     private val roomsAdapter= RoomsAdapter()
-    lateinit var btnAdd: FloatingActionButton
+    private val roomsAdapterKTX= RoomsAdapter2()
+    private val roomsAdapterPT= RoomsAdapter2()
     private var dialog: androidx.appcompat.app.AlertDialog? = null
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val myReference: DatabaseReference = database.reference.child("room")
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
+    lateinit var binding : FragmentHomeBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view: View = inflater.inflate(R.layout.fragment_home, container, false)
-        return view
+        binding = FragmentHomeBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rcv_room = view.findViewById(R.id.rcv_room)
-        btnAdd = view.findViewById(R.id.btn_Add)
         createDialog()
-        btnAdd.setOnClickListener {
+        binding.btnAdd.setOnClickListener {
             if (auth.currentUser != null) {
                 val intent = Intent(activity as MainActivity, AddRoomActivity::class.java)
                 startActivity(intent)
@@ -60,8 +64,13 @@ class HomeFragment : Fragment() {
 
         loadDone={
             roomsAdapter.addList(roomList)
+            roomsAdapterPT.addList(roomListPT)
+            roomsAdapterKTX.addList(roomListKTX)
         }
-        rcv_room.adapter = roomsAdapter
+
+        binding.rcvRoom.adapter = roomsAdapter
+        binding.rcvRoomKTX.adapter = roomsAdapterKTX
+        binding.rcvRoomPT.adapter = roomsAdapterPT
 
         roomsAdapter.onclickItem = {
             val intent =
@@ -70,6 +79,23 @@ class HomeFragment : Fragment() {
             (activity as MainActivity).startActivity(intent)
 
         }
+        roomsAdapterKTX.onclickItem = {
+            val intent =
+                Intent((activity as MainActivity), DetailRoomActivity::class.java)
+            intent.putExtra("roomId", it)
+            (activity as MainActivity).startActivity(intent)
+
+        }
+        roomsAdapterPT.onclickItem = {
+            val intent =
+                Intent((activity as MainActivity), DetailRoomActivity::class.java)
+            intent.putExtra("roomId", it)
+            (activity as MainActivity).startActivity(intent)
+
+        }
+
+
+
     }
 
     private fun retrieveDataFromDatabase() {
@@ -77,6 +103,8 @@ class HomeFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 getRoomList.clear()
                 roomList.clear()
+                roomListKTX.clear()
+                roomListPT.clear()
                 for (eachRoom in snapshot.children) {
                     val room = eachRoom.value as? HashMap<*, *>
                     val data = Room(
@@ -108,6 +136,12 @@ class HomeFragment : Fragment() {
                 getRoomList.forEach {
                     if(it.trang_thai_duyet == true && it.trang_thai_bai_dang == true ){
                         roomList.add(it)
+                    }
+                    if (it.trang_thai_duyet == true && it.trang_thai_bai_dang == true && it.id_loai_bai_dang == "Phòng trọ và nhà trọ"){
+                        roomListPT.add(it)
+                    }
+                    if (it.trang_thai_duyet == true && it.trang_thai_bai_dang == true && (it.id_loai_bai_dang == "Kí túc xá" || it.id_loai_bai_dang == "Tìm bạn ở ghép")){
+                        roomListKTX.add(it)
                     }
                 }
                 loadDone?.invoke()

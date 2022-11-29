@@ -398,7 +398,7 @@
                         android:src="@drawable/tulanh"
                         android:textAllCaps="false"
                         android:textColor="@color/blue"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <androidx.appcompat.widget.AppCompatImageButton
                         android:id="@+id/fridge_off"

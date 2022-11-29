@@ -345,13 +345,13 @@ class AddRoomActivity : AppCompatActivity() {
 
     private fun cancelAction(){
         val eBuilder = AlertDialog.Builder(this)
-        eBuilder.setTitle("Back")
-        eBuilder.setMessage("Are you sure you want Exit?")
-        eBuilder.setPositiveButton("Yes"){
+        eBuilder.setTitle("")
+        eBuilder.setMessage("Bạn có chắc chắn muốn thoát? Những thay đổi của bạn sẽ không được lưu!")
+        eBuilder.setPositiveButton("Đồng Ý"){
                 Dialog,which->
             finish()
         }
-        eBuilder.setNegativeButton("No"){
+        eBuilder.setNegativeButton("Huỷ"){
                 Dialog,which->
 
         }
@@ -634,13 +634,13 @@ class AddRoomActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val eBuilder = AlertDialog.Builder(this)
-        eBuilder.setTitle("Back")
-        eBuilder.setMessage("Are you sure you want Exit?")
-        eBuilder.setPositiveButton("Yes"){
+        eBuilder.setTitle("")
+        eBuilder.setMessage("Bạn có chắc chắn muốn thoát? Những thay đổi của bạn sẽ không được lưu!")
+        eBuilder.setPositiveButton("Đồng ý"){
                 Dialog,which->
             super.onBackPressed()
         }
-        eBuilder.setNegativeButton("No"){
+        eBuilder.setNegativeButton("Huỷ"){
                 Dialog,which->
 
         }

@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginTop="8dp"
         >
         <androidx.appcompat.widget.SearchView
@@ -91,8 +91,7 @@
             android:id="@+id/rcv_searchRooms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     </LinearLayout>
         <LinearLayout
@@ -100,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="gone"
+            android:visibility="visible"
             >
             <EditText
                 android:id="@+id/edtSearch"
@@ -155,7 +154,8 @@
 
                     <EditText
                         android:id="@+id/edtAreaMin"
-                        android:layout_width="100dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="40dp"
                         android:paddingStart="3dp"
                         android:background="@drawable/edt_border"
@@ -163,19 +163,25 @@
                         android:inputType="number"
                         android:hint="Từ:"
                         />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"/>
                     <EditText
                         android:id="@+id/edtAreaMax"
-                        android:layout_width="100dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="40dp"
                         android:paddingStart="3dp"
                         android:background="@drawable/edt_border"
                         android:textSize="14sp"
                         android:hint="Đến:"
                         android:inputType="number"
-                        android:layout_marginStart="90dp"
                         />
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:text="m2"
@@ -204,7 +210,8 @@
 
                     <EditText
                         android:id="@+id/edtPriceMin"
-                        android:layout_width="100dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="40dp"
                         android:paddingStart="3dp"
                         android:background="@drawable/edt_border"
@@ -212,22 +219,28 @@
                         android:hint="Từ:"
                         android:inputType="number"
                         />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"/>
                     <EditText
                         android:id="@+id/edtpriceMax"
-                        android:layout_width="100dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="40dp"
                         android:paddingStart="3dp"
                         android:background="@drawable/edt_border"
                         android:textSize="14sp"
                         android:hint="Đến:"
                         android:inputType="number"
-                        android:layout_marginStart="90dp"
                         />
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_weight="0.5"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:text="Đ"
+                        android:text="VNĐ"
+                        android:layout_marginStart="8dp"
                         />
 
                 </LinearLayout>
@@ -272,8 +285,7 @@
                 android:id="@+id/rcv_searchAds"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         </LinearLayout>
 
 

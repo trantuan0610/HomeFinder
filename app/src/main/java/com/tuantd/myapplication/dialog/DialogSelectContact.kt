@@ -43,11 +43,6 @@ class DialogSelectContact(private val onSubmitClickListener: (Int) -> Unit) : Di
             onSubmitClickListener.invoke(5)
             dismiss()
         }
-        binding.viewShare.setOnClickListener {
-            onSubmitClickListener.invoke(6)
-            dismiss()
-        }
-
 
         val dialog = builder.create()
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
