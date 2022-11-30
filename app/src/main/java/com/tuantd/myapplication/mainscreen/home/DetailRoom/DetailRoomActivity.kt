@@ -57,7 +57,7 @@ class DetailRoomActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailRoomBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        //test trên master branch
         binding.back.setOnClickListener {
             onBackPressed()
         }
