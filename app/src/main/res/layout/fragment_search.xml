@@ -65,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginTop="8dp"
         >
         <androidx.appcompat.widget.SearchView
@@ -100,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="gone"
+            android:visibility="visible"
             >
             <EditText
                 android:id="@+id/edtSearch"
@@ -139,112 +139,168 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_margin="5dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:text="Diện tích:"/>
-                <LinearLayout
+                <TextView
+                    android:id="@+id/edtAreaMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20"
+                    android:textColor="@color/blue"
+                    android:textSize="16sp"
+                    android:layout_marginStart="20dp"
+                    />
+                <TextView
+                    android:layout_marginStart="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="m2"
+                    android:textColor="@color/blue"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "
+                    android:textColor="@color/blue"
+                    android:textSize="16sp"
+                    />
+                <TextView
+                    android:id="@+id/edtAreaMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="60"
+                    android:textColor="@color/blue"
+                    android:textSize="16sp"
+                    />
+                <TextView
+                    android:id="@+id/tvPlus2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+"
+                    android:textColor="@color/blue"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:layout_marginStart="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="m2"
+                    android:textColor="@color/blue"
+                    />
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:gravity="center">
+
+                <com.google.android.material.slider.RangeSlider
+                    android:id="@+id/sliderRangeArea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center">
+                    android:valueFrom="0"
+                    android:valueTo="100"
+                    style="@style/tooltips"
+                    app:values="@array/rangeSlider"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
-                    <EditText
-                        android:id="@+id/edtAreaMin"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="40dp"
-                        android:paddingStart="3dp"
-                        android:background="@drawable/edt_border"
-                        android:textSize="14sp"
-                        android:inputType="number"
-                        android:hint="Từ:"
-                        />
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"/>
-                    <EditText
-                        android:id="@+id/edtAreaMax"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="40dp"
-                        android:paddingStart="3dp"
-                        android:background="@drawable/edt_border"
-                        android:textSize="14sp"
-                        android:hint="Đến:"
-                        android:inputType="number"
-                        />
-                    <TextView
-                        android:layout_marginStart="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.5"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="m2"
-                        />
-
-                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_margin="5dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:text="Mức giá:"/>
-                <LinearLayout
+                <TextView
+                    android:id="@+id/edtPriceMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5"
+                    android:textColor="@color/blue"
+                    android:textSize="16sp"
+                    android:layout_marginStart="20dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="triệu"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/blue"
+
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "
+                    android:textColor="@color/blue"
+                    android:textSize="16sp"
+                    />
+
+                <TextView
+                    android:id="@+id/edtpriceMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15"
+                    android:textColor="@color/blue"
+                    android:textSize="16sp"
+                    />
+                <TextView
+                    android:id="@+id/tvPlus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+"
+                    android:textColor="@color/blue"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="triệu"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/blue"
+
+                    />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:gravity="center">
+
+                <com.google.android.material.slider.RangeSlider
+                    android:id="@+id/sliderRangePrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center">
-
-                    <EditText
-                        android:id="@+id/edtPriceMin"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="40dp"
-                        android:paddingStart="3dp"
-                        android:background="@drawable/edt_border"
-                        android:textSize="14sp"
-                        android:hint="Từ:"
-                        android:inputType="number"
-                        />
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"/>
-                    <EditText
-                        android:id="@+id/edtpriceMax"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="40dp"
-                        android:paddingStart="3dp"
-                        android:background="@drawable/edt_border"
-                        android:textSize="14sp"
-                        android:hint="Đến:"
-                        android:inputType="number"
-                        />
-                    <TextView
-                        android:layout_weight="0.5"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="VNĐ"
-                        android:layout_marginStart="8dp"
-                        />
-
-                </LinearLayout>
+                    android:valueFrom="0"
+                    android:valueTo="20"
+                    style="@style/tooltips"
+                    app:values="@array/rangeSliderPrice"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
             </LinearLayout>
             <LinearLayout

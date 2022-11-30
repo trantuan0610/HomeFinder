@@ -2,14 +2,19 @@ package com.tuantd.myapplication.mainscreen.search
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.icu.text.NumberFormat
+import android.icu.util.Currency
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import com.google.android.material.slider.RangeSlider
 import com.google.firebase.database.*
 import com.tuantd.myapplication.R
 import com.tuantd.myapplication.databinding.FragmentSearchBinding
@@ -44,6 +49,7 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -65,6 +71,56 @@ class SearchFragment : Fragment() {
             binding.man2.visibility = View.GONE
             binding.man1.visibility = View.VISIBLE
         }
+        //Area
+
+
+        binding.sliderRangeArea.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener{
+            @SuppressLint("RestrictedApi")
+            override fun onStartTrackingTouch(slider: RangeSlider) {
+                val values = binding.sliderRangeArea.values
+
+            }
+
+            @SuppressLint("RestrictedApi")
+            override fun onStopTrackingTouch(slider: RangeSlider) {
+                val values = binding.sliderRangeArea.values
+                //Those are the new updated values of sldier when user has finshed dragging
+                binding.edtAreaMin.setText(values[0].toInt().toString())
+                binding.edtAreaMax.setText(values[1].toInt().toString())
+            }
+        })
+
+
+        binding.sliderRangeArea.addOnChangeListener { slider, value, fromUser ->
+            val values = binding.sliderRangeArea.values
+            binding.edtAreaMin.setText(values[0].toInt().toString())
+            binding.edtAreaMax.setText(values[1].toInt().toString())
+        }
+        //Price
+        binding.sliderRangePrice.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener{
+            @SuppressLint("RestrictedApi")
+            override fun onStartTrackingTouch(slider: RangeSlider) {
+                val values = binding.sliderRangePrice.values
+
+            }
+
+            @SuppressLint("RestrictedApi")
+            override fun onStopTrackingTouch(slider: RangeSlider) {
+                val values = binding.sliderRangePrice.values
+                //Those are the new updated values of sldier when user has finshed dragging
+                binding.edtPriceMin.setText(values[0].toInt().toString())
+                binding.edtpriceMax.setText(values[1].toInt().toString())
+            }
+        })
+
+
+        binding.sliderRangePrice.addOnChangeListener { slider, value, fromUser ->
+            val values = binding.sliderRangePrice.values
+            binding.edtPriceMin.setText(values[0].toInt().toString())
+            binding.edtpriceMax.setText(values[1].toInt().toString())
+        }
+        //
+
         binding.btnOk.setOnClickListener {
             if (binding.edtSearch.text.toString().isNotEmpty()
                 && binding.autoTxt.text.toString().isNotEmpty()
@@ -83,7 +139,7 @@ class SearchFragment : Fragment() {
                     val dientichMax = binding.edtAreaMax.text.toString().toDouble()
                     if (it.dia_chi!!.lowercase()
                             .contains(diachi) && it.id_loai_bai_dang == loaiphong && it.dien_tich.toDouble() > dientichMin &&
-                        it.dien_tich.toDouble() < dientichMax && it.gia.toDouble() > giaMin && it.gia.toDouble() < giaMax
+                        it.dien_tich.toDouble() < dientichMax && it.gia.toDouble()  > (giaMin * 1000000) && it.gia.toDouble() < (giaMax*1000000)
                     ) {
                         roomList2.add(it)
                     }
