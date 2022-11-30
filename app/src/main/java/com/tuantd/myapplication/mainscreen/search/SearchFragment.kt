@@ -47,6 +47,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //test souce tree
         adapterItemText = ArrayAdapter(requireContext(), R.layout.item_text, itemtext)
         binding.autoTxt.setAdapter(adapterItemText)
 
