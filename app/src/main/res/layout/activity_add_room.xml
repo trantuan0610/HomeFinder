@@ -100,6 +100,15 @@
                 android:text="Thêm hình ảnh cho bài đăng:"
                 android:textColor="@color/blue"
                 />
+            <TextView
+                android:id="@+id/errorEmptyImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="*Vui lòng chhọn ít nhất 1 ảnh"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                android:visibility="gone"/>
             <LinearLayout
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
@@ -232,6 +241,15 @@
                 android:padding="10dp"
                 android:textSize="16sp" />
             <TextView
+                android:id="@+id/errorEmptyTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="*Vui lòng nhập tiêu đề cho bài đăng"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
@@ -246,8 +264,16 @@
                 android:background="@drawable/edt_border"
                 android:hint="Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/TP"
                 android:padding="10dp"
-
                 android:textSize="16sp" />
+            <TextView
+                android:id="@+id/errorEmptyAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="*Vui lòng nhập địa chỉ cho bài đăng"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                android:visibility="gone"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -264,7 +290,17 @@
                 android:background="@drawable/edt_border"
                 android:hint="3000000"
                 android:padding="10dp"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:inputType="number"/>
+            <TextView
+                android:id="@+id/errorEmptyPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="*Vui lòng nhập giá cho thuê"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                android:visibility="gone"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -283,6 +319,16 @@
                 android:inputType="number"
                 android:padding="10dp"
                 android:textSize="16sp" />
+            <TextView
+                android:id="@+id/errorEmptyArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="*Vui lòng nhập diện tích"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
 
             <TextView
                 android:layout_width="match_parent"
@@ -301,6 +347,16 @@
                 android:padding="10dp"
                 android:textSize="16sp" />
             <TextView
+                android:id="@+id/errorEmptyContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="*Vui lòng nhập mô tả cho bài đăng"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
@@ -308,6 +364,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/grey_dam"
                 />
+
             <EditText
                 android:id="@+id/edtName"
                 android:layout_width="match_parent"
@@ -315,6 +372,15 @@
                 android:background="@drawable/edt_border"
                 android:padding="10dp"
                 android:textSize="16sp" />
+            <TextView
+                android:id="@+id/errorEmptyName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="*Vui lòng nhập tên chủ nhà"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                android:visibility="gone"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -332,6 +398,15 @@
                 android:inputType="phone"
                 android:padding="10dp"
                 android:textSize="16sp" />
+            <TextView
+                android:id="@+id/errorEmptySDT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="*Vui lòng nhập số điện thoại"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                android:visibility="gone"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -608,6 +683,15 @@
                 </RelativeLayout>
 
             </LinearLayout>
+            <TextView
+                android:id="@+id/errorEmptyTypeRoom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="*Vui lòng chọn loại phòng"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                android:visibility="gone"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -626,6 +710,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 />
+
 
 
         </LinearLayout>

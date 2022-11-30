@@ -46,9 +46,6 @@ class AddRoomActivity : AppCompatActivity() {
     lateinit var activityResultLauncher4: ActivityResultLauncher<Intent>
     lateinit var activityResultLauncher5: ActivityResultLauncher<Intent>
     lateinit var activityResultLauncher6: ActivityResultLauncher<Intent>
-    var imageUri: Uri? = null
-    val firebaseStorage: FirebaseStorage = FirebaseStorage.getInstance()
-    val storageReference: StorageReference = firebaseStorage.reference
     var wifi = false
     var vesinh = false
     var dieuhoa = false
@@ -84,12 +81,23 @@ class AddRoomActivity : AppCompatActivity() {
         binding.man2.visibility = View.GONE
         binding.man1.visibility =View.VISIBLE
         binding.tvTiep.setOnClickListener {
-            binding.man1.visibility =View.GONE
-            binding.man2.visibility = View.VISIBLE
-            binding.tvTiep.visibility = View.GONE
-            binding.tvPush.visibility = View.VISIBLE
-            binding.tvQuayLai.visibility = View.VISIBLE
-            binding.tvHuy.visibility = View.GONE
+            if(isValidateTitle()
+                && isValidateArea()
+                && isValidateAddress()
+                &&isValidatePrice()
+                &&isValidateContent()
+                &&isValidateSDT()
+                &&isValidateName()
+                &&isValidateTypeRoom())
+            {
+                binding.man1.visibility =View.GONE
+                binding.man2.visibility = View.VISIBLE
+                binding.tvTiep.visibility = View.GONE
+                binding.tvPush.visibility = View.VISIBLE
+                binding.tvQuayLai.visibility = View.VISIBLE
+                binding.tvHuy.visibility = View.GONE
+            }
+
         }
         binding.tvQuayLai.setOnClickListener {
             binding.man1.visibility =View.VISIBLE
@@ -121,8 +129,11 @@ class AddRoomActivity : AppCompatActivity() {
 
         setUtilities()
         binding.tvPush.setOnClickListener {
-            showLoading()
-            uploadPhoto(listImage)
+            if(isValidateImage()){
+                showLoading()
+                uploadPhoto(listImage)
+            }
+
         }
 
         binding.tvHuy.setOnClickListener {
@@ -130,6 +141,7 @@ class AddRoomActivity : AppCompatActivity() {
         }
 
     }
+
 
     private fun getDataUser() {
         myUserReference.addValueEventListener(object : ValueEventListener {
@@ -610,7 +622,7 @@ class AddRoomActivity : AppCompatActivity() {
     }
 
     //loading
-    private var dialog: androidx.appcompat.app.AlertDialog? = null
+    private var dialog: AlertDialog? = null
 
     private fun createDialog() {
         val dialogBuilder = AlertDialog.Builder(this)
@@ -631,7 +643,78 @@ class AddRoomActivity : AppCompatActivity() {
         dialog?.dismiss()
     }
     //
-
+    fun isValidateTitle() : Boolean{
+        if (binding.edtRoomTitle.text.isEmpty()){
+            binding.errorEmptyTitle.visibility = View.VISIBLE
+            return false
+        }
+        binding.errorEmptyTitle.visibility = View.GONE
+        return true
+    }
+    fun isValidateAddress() : Boolean{
+        if (binding.edtRoomAddress.text.isEmpty()){
+            binding.errorEmptyAddress.visibility = View.VISIBLE
+            return false
+        }
+        binding.errorEmptyAddress.visibility = View.GONE
+        return true
+    }
+    fun isValidatePrice() : Boolean{
+        if (binding.edtPrice.text.isEmpty()){
+            binding.errorEmptyPrice.visibility = View.VISIBLE
+            return false
+        }
+        binding.errorEmptyPrice.visibility = View.GONE
+        return true
+    }
+    fun isValidateArea() : Boolean{
+        if (binding.edtArea.text.isEmpty()){
+            binding.errorEmptyArea.visibility = View.VISIBLE
+            return false
+        }
+        binding.errorEmptyArea.visibility = View.GONE
+        return true
+    }
+    fun isValidateContent() : Boolean{
+        if (binding.edtDes.text.isEmpty()){
+            binding.errorEmptyContent.visibility = View.VISIBLE
+            return false
+        }
+        binding.errorEmptyContent.visibility = View.GONE
+        return true
+    }
+    fun isValidateName() : Boolean{
+        if (binding.edtName.text.isEmpty()){
+            binding.errorEmptyName.visibility = View.VISIBLE
+            return false
+        }
+        binding.errorEmptyName.visibility = View.GONE
+        return true
+    }
+    fun isValidateSDT() : Boolean{
+        if (binding.edtPhone.text.isEmpty()){
+            binding.errorEmptySDT.visibility = View.VISIBLE
+            return false
+        }
+        binding.errorEmptySDT.visibility = View.GONE
+        return true
+    }
+    fun isValidateTypeRoom() : Boolean{
+        if (binding.autoTxt.text.isEmpty()){
+            binding.errorEmptyTypeRoom.visibility = View.VISIBLE
+            return false
+        }
+        binding.errorEmptyTypeRoom.visibility = View.GONE
+        return true
+    }
+    private fun isValidateImage(): Boolean {
+       if(listImage.isEmpty()){
+           binding.errorEmptyImage.visibility = View.VISIBLE
+           return false
+       }
+        binding.errorEmptyImage.visibility = View.GONE
+        return true
+    }
     override fun onBackPressed() {
         val eBuilder = AlertDialog.Builder(this)
         eBuilder.setTitle("")

@@ -33,13 +33,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Họ và Tên:"
-    android:textSize="20sp"
+    android:textSize="16sp"
     android:textColor="@color/blue"
     android:layout_marginHorizontal="10dp"
     android:layout_marginTop="100dp"/>
 
     <EditText
-        android:id="@+id/ten"
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_margin="10dp"
@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Số Điện Thoại:"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textColor="@color/blue"
         android:layout_margin="10dp" />
     <EditText
@@ -63,8 +63,27 @@
         android:maxLines="1"
         android:paddingStart="20dp"
         android:paddingEnd="20dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email:"
+        android:textSize="16sp"
+        android:textColor="@color/blue"
+        android:layout_margin="10dp" />
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/edt_border"
+        android:maxLines="1"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:enabled="false"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/grey"/>
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnChangePass"
+        android:id="@+id/btnChange"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv3"

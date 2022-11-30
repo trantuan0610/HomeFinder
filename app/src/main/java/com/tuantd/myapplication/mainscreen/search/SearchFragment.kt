@@ -65,11 +65,15 @@ class SearchFragment : Fragment() {
         binding.btnSearchAdv.setOnClickListener {
             binding.man1.visibility = View.GONE
             binding.man2.visibility = View.VISIBLE
+            binding.btnSearchAdv.visibility = View.GONE
+            binding.tvTitle.setText("Tìm Kiếm Nâng Cao")
         }
 
         binding.btnHuy.setOnClickListener {
             binding.man2.visibility = View.GONE
             binding.man1.visibility = View.VISIBLE
+            binding.btnSearchAdv.visibility = View.VISIBLE
+            binding.tvTitle.setText("Tìm Kiếm")
         }
         //Area
 
@@ -197,9 +201,12 @@ class SearchFragment : Fragment() {
                         val giaMax = binding.edtpriceMax.text.toString().toDouble()
                         val dientichMin = binding.edtAreaMin.text.toString().toDouble()
                         val dientichMax = binding.edtAreaMax.text.toString().toDouble()
-                        if (it.dia_chi!!.lowercase()
-                                .contains(diachi) && it.id_loai_bai_dang == loaiphong && it.dien_tich.toDouble() > dientichMin &&
-                            it.dien_tich.toDouble() < dientichMax && it.gia.toDouble()  > (giaMin * 1000000) && it.gia.toDouble() < (giaMax*1000000)
+                        if (it.dia_chi!!.lowercase().contains(diachi)
+                            && it.id_loai_bai_dang == loaiphong
+                            && it.dien_tich.toDouble() > dientichMin
+                            && it.dien_tich.toDouble() < dientichMax
+                            && it.gia.toDouble()  > (giaMin * 1000000)
+                            && it.gia.toDouble() < (giaMax*1000000)
                         ) {
                             roomList2.add(it)
                         }
@@ -238,7 +245,7 @@ class SearchFragment : Fragment() {
             binding.man3.visibility = View.GONE
             binding.man2.visibility = View.VISIBLE
             binding.tvBack.visibility = View.GONE
-            binding.tvTitle.setText("Tìm Kiếm")
+            binding.tvTitle.setText("Tìm Kiếm Nâng Cao")
         }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -253,7 +260,7 @@ class SearchFragment : Fragment() {
                 if (newText!!.isNotEmpty()) {
                     val search = newText.toString().lowercase()
                     roomList.forEach {
-                        if (it.dia_chi?.lowercase()?.contains(search) == true) {
+                        if (it.dia_chi?.lowercase()?.trim()?.contains(search) == true) {
                             arrayList.add(it)
                         }
                     }
