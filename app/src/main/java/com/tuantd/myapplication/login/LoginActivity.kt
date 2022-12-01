@@ -25,6 +25,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     lateinit var btnLogin: Button
+    lateinit var btnTest: Button
     lateinit var btnRegister: TextView
     private lateinit var edtEmail: EditText
     private lateinit var edtPass: EditText
@@ -58,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
         btnRegister = findViewById(R.id.tv_register)
         edtEmail = findViewById(R.id.edtLoginEmail)
         edtPass = findViewById(R.id.edtLoginPass)
-//        btnTest = findViewById(R.id.btnTest)
+        btnTest = findViewById(R.id.btnTest)
 //        btnListTest =findViewById(R.id.btnListTest)
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
@@ -94,6 +95,11 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Không được bỏ trống email và mật khẩu", Toast.LENGTH_SHORT).show()
                 hiddenLoading()
             }
+        }
+
+        btnTest.setOnClickListener {
+            var intent = Intent(this,TestActivity::class.java)
+            startActivity(intent)
         }
     }
 

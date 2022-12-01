@@ -6,158 +6,304 @@
     android:layout_height="match_parent"
     tools:context=".TestActivity"
     android:orientation="vertical">
-    <RelativeLayout
-        android:id="@+id/toolbar"
+    <LinearLayout
+        android:id="@+id/ln1"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_TienIch"
+        android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/back1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/ic_baseline_arrow_back_24" />
-        <ImageButton
-            android:id="@+id/back2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/ic_baseline_arrow_back_24"
-            android:visibility="gone"
-            />
-
-        <TextView
-            android:id="@+id/tvPrice"
+        <RelativeLayout
+            android:id="@+id/rlt_wifi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textStyle="bold"
-            android:text="Phòng đã đăng"
-            android:textColor="@color/blue"
-            android:textSize="20sp" />
-        <TextView
-            android:id="@+id/tvContinue"
+            android:layout_below="@+id/tv_TienIch"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/wifi_on"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/border_btn_tienich"
+                android:src="@drawable/wifi"
+                android:text="Wifi"
+                android:textAllCaps="false"
+                android:textColor="@color/blue"
+                android:visibility="gone"/>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/wifi_off"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/border_btn_tienich_off"
+                android:gravity="center"
+                android:src="@drawable/wifi_off"
+                android:text="Wifi"
+                android:textColor="@color/black"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlt_fridge"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:padding="15dp"
-            android:text="Tiep"
-            android:textColor="@color/blue"
-            android:textSize="15dp"
-            android:layout_alignParentEnd="true"
-            />
-        <TextView
-            android:id="@+id/tvDone"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlt_wifi"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/fridge_on"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/border_btn_tienich"
+                android:src="@drawable/tulanh"
+                android:textAllCaps="false"
+                android:textColor="@color/blue"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/fridge_off"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/border_btn_tienich_off"
+                android:gravity="center"
+                android:src="@drawable/tulanh_off"
+                android:textColor="@color/black"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlt_kitchen"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:padding="15dp"
-            android:text="Dang"
-            android:textColor="@color/blue"
-            android:textSize="15dp"
-            android:layout_alignParentEnd="true"
-            android:visibility="gone"
-            />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/kitchen_on"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/border_btn_tienich"
+                android:src="@drawable/bep"
+                android:textAllCaps="false"
+                android:textColor="@color/blue"
+                android:visibility="gone"/>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/kitchen_off"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/border_btn_tienich_off"
+                android:gravity="center"
+                android:src="@drawable/bep_off"
+                android:textColor="@color/black"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlt_free"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_TienIch"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/rlt_wc"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/free_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/img_free_off"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/border_btn_tienich_off"
+                    android:gravity="center"
+                    android:src="@drawable/time_off"
+                    android:textColor="@color/black"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:text="Tự do"
+                    android:textColor="@color/grey" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/free_on"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/grey" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/img_free_on"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/border_btn_tienich"
+                android:src="@drawable/time"
+                android:textColor="@color/blue" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:text="Tự do"
+                    android:textColor="@color/blue" />
+            </LinearLayout>
 
-    </RelativeLayout>
-    <EditText
-        android:id="@+id/edtName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Nhap ten"
-        />
-    <EditText
-        android:id="@+id/edtAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Dia chi"
-        android:layout_marginTop="50dp"
-        />
+
+        </RelativeLayout>
+    </LinearLayout>
+
     <LinearLayout
-        android:id="@+id/llo_addAnh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="visible"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+        android:layout_below="@+id/ln1"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rlt_wc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
-            android:orientation="horizontal">
-            <ImageButton
-                android:id="@+id/imgAnh1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/addanh"
-                android:scaleType="fitXY"
-                />
-            <ImageButton
-                android:id="@+id/imgAnh2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/addanh"
-                android:scaleType="fitXY"
+            android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/wc_on"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/border_btn_tienich"
+                android:src="@drawable/wc_on"
+                android:textAllCaps="false"
+                android:textColor="@color/blue"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/wc_off"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/border_btn_tienich_off"
+                android:gravity="center"
+                android:src="@drawable/wc_off"
+                android:textColor="@color/black"
                 />
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlt_airConditional"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
-            android:orientation="horizontal">
-            <ImageButton
-                android:id="@+id/imgAnh3"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/addanh"
-                android:scaleType="fitXY"
-                />
-            <ImageButton
-                android:id="@+id/imgAnh4"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/addanh"
-                android:scaleType="fitXY"
+            android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/airConditional_on"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/border_btn_tienich"
+                android:textAllCaps="false"
+                android:textColor="@color/blue"
+                android:src="@drawable/dieuhoa"
+                android:visibility="gone"
                 />
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/airConditional_off"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/border_btn_tienich_off"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:src="@drawable/dieuhoa_off"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlt_washingMachine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
-            android:orientation="horizontal">
-            <ImageButton
-                android:id="@+id/imgAnh5"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/addanh"
-                android:scaleType="fitXY"
-                />
-            <ImageButton
-                android:id="@+id/imgAnh6"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/addanh"
-                android:scaleType="fitXY"
+            android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/washingMachine_on"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/border_btn_tienich"
+                android:src="@drawable/ic_may_giat"
+                android:textAllCaps="false"
+                android:textColor="@color/blue"
+                android:visibility="gone"/>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/washingMachine_off"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/border_btn_tienich_off"
+                android:gravity="center"
+                android:src="@drawable/ic_may_giat_off"
+                android:textColor="@color/black"
                 />
 
-        </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlt_parking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/parking_on"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/border_btn_tienich"
+                android:src="@drawable/giuxe"
+                android:textAllCaps="false"
+                android:textColor="@color/blue"
+                android:visibility="gone"/>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/parking_off"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/border_btn_tienich_off"
+                android:gravity="center"
+                android:src="@drawable/giuxe_off"
+                android:textColor="@color/black"
+                />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
