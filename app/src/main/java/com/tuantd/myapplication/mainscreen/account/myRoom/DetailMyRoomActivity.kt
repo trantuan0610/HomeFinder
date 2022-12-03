@@ -150,67 +150,68 @@ class DetailMyRoomActivity : AppCompatActivity() {
                         binding.rcvImage.adapter = imageAdapter
 
                         if (it.wifi == true) {
-                            binding.wifiOn.visibility = View.VISIBLE
-                            binding.wifiOff.visibility = View.GONE
+                            binding.ltWifiOn.visibility = View.VISIBLE
+                            binding.ltWifiOff.visibility = View.GONE
                         } else {
-                            binding.wifiOff.visibility = View.VISIBLE
-                            binding.wifiOn.visibility = View.GONE
+                            binding.ltWifiOff.visibility = View.VISIBLE
+                            binding.ltWifiOn.visibility = View.GONE
 
                         }
                         if (it.nha_ve_sinh == true) {
-                            binding.wcOn.visibility = View.VISIBLE
-                            binding.wcOff.visibility = View.GONE
+                            binding.ltWcOn.visibility = View.VISIBLE
+                            binding.ltWcOff.visibility = View.GONE
                         } else {
-                            binding.wcOn.visibility = View.GONE
-                            binding.wcOff.visibility = View.VISIBLE
+                            binding.ltWcOn.visibility = View.GONE
+                            binding.ltWcOff.visibility = View.VISIBLE
 
                         }
                         if (it.bep_nau == true) {
-                            binding.kitchenOn.visibility = View.VISIBLE
-                            binding.kitchenOff.visibility = View.GONE
+                            //
+                            binding.ltKitchenOn.visibility = View.VISIBLE
+                            binding.ltKichenOff.visibility = View.GONE
                         } else {
-                            binding.kitchenOff.visibility = View.VISIBLE
-                            binding.kitchenOn.visibility = View.GONE
+                            binding.ltKichenOff.visibility = View.VISIBLE
+                            binding.ltKitchenOn.visibility = View.GONE
 
                         }
                         if (it.giu_xe == true) {
-                            binding.parkingOn.visibility = View.VISIBLE
-                            binding.parkingOff.visibility = View.GONE
+                            binding.ltParkingOn.visibility = View.VISIBLE
+                            binding.ltParkingOff.visibility = View.GONE
                         } else {
-                            binding.parkingOff.visibility = View.VISIBLE
-                            binding.parkingOn.visibility = View.GONE
+                            binding.ltParkingOff.visibility = View.VISIBLE
+                            binding.ltParkingOn.visibility = View.GONE
 
                         }
                         if (it.dieu_hoa == true) {
-                            binding.airConditionalOn.visibility = View.VISIBLE
-                            binding.airConditionalOff.visibility = View.GONE
+                            binding.ltAirConditionalOn.visibility = View.VISIBLE
+                            binding.ltAirConditionalOff.visibility = View.GONE
                         } else {
-                            binding.airConditionalOff.visibility = View.VISIBLE
-                            binding.airConditionalOn.visibility = View.GONE
+                            binding.ltAirConditionalOff.visibility = View.VISIBLE
+                            binding.ltAirConditionalOn.visibility = View.GONE
 
                         }
                         if (it.tu_lanh == true) {
-                            binding.fridgeOn.visibility = View.VISIBLE
-                            binding.fridgeOff.visibility = View.GONE
+                            binding.ltFridgeOn.visibility = View.VISIBLE
+                            binding.ltFridgeOff.visibility = View.GONE
                         } else {
-                            binding.fridgeOff.visibility = View.VISIBLE
-                            binding.fridgeOn.visibility = View.GONE
+                            binding.ltFridgeOff.visibility = View.VISIBLE
+                            binding.ltFridgeOn.visibility = View.GONE
 
                         }
                         if (it.tu_do == true) {
-                            binding.freeOn.visibility = View.VISIBLE
-                            binding.freeOff.visibility = View.GONE
+                            binding.ltFreeOn.visibility = View.VISIBLE
+                            binding.ltFreeOff.visibility = View.GONE
                         } else {
-                            binding.freeOff.visibility = View.VISIBLE
-                            binding.freeOn.visibility = View.GONE
+                            binding.ltFreeOff.visibility = View.VISIBLE
+                            binding.ltFreeOn.visibility = View.GONE
 
                         }
                         if (it.may_giat == true) {
-                            binding.washingMachineOn.visibility = View.VISIBLE
-                            binding.washingMachineOff.visibility = View.GONE
+                            binding.ltWashingMachineOn.visibility = View.VISIBLE
+                            binding.ltWashingMachineOff.visibility = View.GONE
                         } else {
-                            binding.washingMachineOff.visibility = View.VISIBLE
-                            binding.washingMachineOn.visibility = View.GONE
+                            binding.ltWashingMachineOff.visibility = View.VISIBLE
+                            binding.ltWashingMachineOn.visibility = View.GONE
 
                         }
 

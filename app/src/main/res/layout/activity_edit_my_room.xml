@@ -30,8 +30,8 @@
             android:layout_centerVertical="true"
             android:textStyle="bold"
             android:layout_marginStart="8dp"
-            android:text="QuayLai"
-            android:textColor="@color/red"
+            android:text="Quay Lại"
+            android:textColor="@color/grey"
             android:textSize="15sp"
             android:visibility="gone"/>
 
@@ -66,7 +66,7 @@
             android:layout_marginEnd="15dp"
             android:textStyle="bold"
             android:text="Sửa"
-            android:textColor="@color/blue"
+            android:textColor="@color/white"
             android:textSize="15sp" />
         <View
             android:layout_width="match_parent"

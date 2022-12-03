@@ -218,8 +218,6 @@ class SearchFragment : Fragment() {
                     binding.man3.visibility = View.VISIBLE
                     binding.tvBack.visibility = View.VISIBLE
                     binding.tvTitle.setText("Danh Sách Tìm Kiếm")
-                    Toast.makeText(requireContext(), roomList2.size.toString(), Toast.LENGTH_SHORT)
-                        .show()
                     roomsAdsAdapter?.addList(roomList2)
                     roomsAdsAdapter!!.onclickItem = {
                         val intent =

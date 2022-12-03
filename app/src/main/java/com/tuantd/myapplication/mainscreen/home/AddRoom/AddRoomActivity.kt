@@ -46,14 +46,14 @@ class AddRoomActivity : AppCompatActivity() {
     lateinit var activityResultLauncher4: ActivityResultLauncher<Intent>
     lateinit var activityResultLauncher5: ActivityResultLauncher<Intent>
     lateinit var activityResultLauncher6: ActivityResultLauncher<Intent>
-    var wifi = false
-    var vesinh = false
-    var dieuhoa = false
-    var maygiat = false
-    var tudo = false
-    var giuxe = false
-    var bep = false
-    var tulanh = false
+    var wifi = true
+    var vesinh = true
+    var dieuhoa = true
+    var maygiat = true
+    var tudo = true
+    var giuxe = true
+    var bep = true
+    var tulanh = true
 
     var userDetail : com.tuantd.myapplication.register.User ?= null
    var userList = ArrayList<com.tuantd.myapplication.register.User>()
@@ -176,106 +176,106 @@ class AddRoomActivity : AppCompatActivity() {
         //wifi
         binding.wifiOn.setOnClickListener {
             wifi = false
-            binding.wifiOn.visibility = View.GONE
-            binding.wifiOff.visibility = View.VISIBLE
+            binding.ltWifiOff.visibility = View.VISIBLE
+            binding.ltWifiOn.visibility = View.GONE
         }
 
         binding.wifiOff.setOnClickListener {
             wifi = true
-            binding.wifiOn.visibility = View.VISIBLE
-            binding.wifiOff.visibility = View.GONE
+            binding.ltWifiOn.visibility = View.VISIBLE
+            binding.ltWifiOff.visibility = View.GONE
         }
 
         //wc
         binding.wcOn.setOnClickListener {
             vesinh = false
-            binding.wcOn.visibility = View.GONE
-            binding.wcOff.visibility = View.VISIBLE
+            binding.ltWcOn.visibility = View.GONE
+            binding.ltWcOff.visibility = View.VISIBLE
         }
 
         binding.wcOff.setOnClickListener {
             vesinh = true
-            binding.wcOff.visibility = View.GONE
-            binding.wcOn.visibility = View.VISIBLE
+            binding.ltWcOn.visibility = View.VISIBLE
+            binding.ltWcOff.visibility = View.GONE
         }
 
         //tulanh
         binding.fridgeOn.setOnClickListener {
             tulanh = false
-            binding.fridgeOn.visibility = View.GONE
-            binding.fridgeOff.visibility = View.VISIBLE
+            binding.ltFridgeOff.visibility = View.VISIBLE
+            binding.ltFridgeOn.visibility = View.GONE
         }
 
         binding.fridgeOff.setOnClickListener {
             tulanh = true
-            binding.fridgeOn.visibility = View.VISIBLE
-            binding.fridgeOff.visibility = View.GONE
+            binding.ltFridgeOn.visibility = View.VISIBLE
+            binding.ltFridgeOff.visibility = View.GONE
         }
 
         //bep
         binding.kitchenOn.setOnClickListener {
             bep = false
-            binding.kitchenOff.visibility = View.VISIBLE
-            binding.kitchenOn.visibility = View.GONE
+            binding.ltKichenOff.visibility = View.VISIBLE
+            binding.ltKitchenOn.visibility = View.GONE
 
         }
 
         binding.kitchenOff.setOnClickListener {
             bep = true
-            binding.kitchenOff.visibility = View.GONE
-            binding.kitchenOn.visibility = View.VISIBLE
+            binding.ltKitchenOn.visibility = View.VISIBLE
+            binding.ltKichenOff.visibility = View.GONE
         }
 
         //giuxe
         binding.parkingOff.setOnClickListener {
             giuxe = true
-            binding.parkingOff.visibility = View.GONE
-            binding.parkingOn.visibility = View.VISIBLE
+            binding.ltParkingOn.visibility = View.VISIBLE
+            binding.ltParkingOff.visibility = View.GONE
         }
 
         binding.parkingOn.setOnClickListener {
             giuxe = false
-            binding.parkingOff.visibility = View.VISIBLE
-            binding.parkingOn.visibility = View.GONE
+            binding.ltParkingOff.visibility = View.VISIBLE
+            binding.ltParkingOn.visibility = View.GONE
         }
 
         //tudo
         binding.freeOn.setOnClickListener {
             tudo = false
-            binding.freeOff.visibility = View.VISIBLE
-            binding.freeOn.visibility = View.GONE
+            binding.ltFreeOff.visibility = View.VISIBLE
+            binding.ltFreeOn.visibility = View.GONE
         }
 
         binding.freeOff.setOnClickListener {
             tudo = true
-            binding.freeOn.visibility = View.VISIBLE
-            binding.freeOff.visibility = View.GONE
+            binding.ltFreeOn.visibility = View.VISIBLE
+            binding.ltFreeOff.visibility = View.GONE
         }
 
         //maygiat
         binding.washingMachineOff.setOnClickListener {
             maygiat = true
-            binding.washingMachineOff.visibility = View.GONE
-            binding.washingMachineOn.visibility = View.VISIBLE
+            binding.ltWashingMachineOn.visibility = View.VISIBLE
+            binding.ltWashingMachineOff.visibility = View.GONE
         }
 
         binding.washingMachineOn.setOnClickListener {
             maygiat = false
-            binding.washingMachineOn.visibility = View.GONE
-            binding.washingMachineOff.visibility = View.VISIBLE
+            binding.ltWashingMachineOff.visibility = View.VISIBLE
+            binding.ltWashingMachineOn.visibility = View.GONE
         }
 
         //dieuhoa
         binding.airConditionalOff.setOnClickListener {
             dieuhoa = true
-            binding.airConditionalOff.visibility = View.GONE
-            binding.airConditionalOn.visibility = View.VISIBLE
+            binding.ltAirConditionalOn.visibility = View.VISIBLE
+            binding.ltAirConditionalOff.visibility = View.GONE
         }
 
         binding.airConditionalOn.setOnClickListener {
             dieuhoa = false
-            binding.airConditionalOn.visibility = View.GONE
-            binding.airConditionalOff.visibility = View.VISIBLE
+            binding.ltAirConditionalOff.visibility = View.VISIBLE
+            binding.ltAirConditionalOn.visibility = View.GONE
         }
 
     }
