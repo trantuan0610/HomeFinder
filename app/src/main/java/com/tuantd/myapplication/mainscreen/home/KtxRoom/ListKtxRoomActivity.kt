@@ -46,7 +46,7 @@ class ListKtxRoomActivity : AppCompatActivity() {
 
         binding.rcvRoomKTX.adapter = roomsAdapterKTX
 
-        roomsAdapterPT.onclickItem = {
+        roomsAdapterKTX.onclickItem = {
             val intent =
                 Intent(this, DetailRoomActivity::class.java)
             intent.putExtra("roomId", it)

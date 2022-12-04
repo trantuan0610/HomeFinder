@@ -71,8 +71,8 @@ class HomeFragment : Fragment() {
         }
 
         binding.rcvRoom.adapter = roomsAdapter
-//        binding.rcvRoomKTX.adapter = roomsAdapterKTX
-//        binding.rcvRoomPT.adapter = roomsAdapterPT
+        binding.rcvRoomKTX.adapter = roomsAdapterKTX
+        binding.rcvRoomPT.adapter = roomsAdapterPT
 
         roomsAdapter.onclickItem = {
             val intent =
