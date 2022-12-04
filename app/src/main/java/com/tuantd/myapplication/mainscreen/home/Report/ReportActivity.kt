@@ -74,17 +74,22 @@ class ReportActivity : AppCompatActivity() {
             id,
             roomId!!,
             userDetail!!.id_nguoi_dung,
-            binding.edtTitle.text.toString()+ " " ,
-            binding.edtContent.text.toString() + " ",
+            binding.edtTitle.text.toString(),
+            binding.edtContent.text.toString(),
             current.toString()
         )
-        myReference.child(id).setValue(report).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Toast.makeText(this, "Báo cáo thành công.", Toast.LENGTH_SHORT).show()
-                finish()
-            } else {
-                finish()
+        if(binding.edtTitle.text.trim().toString().isEmpty() || binding.edtContent.text.trim().toString().isEmpty()){
+            Toast.makeText(this, "Bạn phải điền đầy đủ thông tin", Toast.LENGTH_SHORT).show()
+        }else{
+            myReference.child(id).setValue(report).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Báo cáo thành công.", Toast.LENGTH_SHORT).show()
+                    finish()
+                } else {
+                    finish()
+                }
             }
         }
+
     }
 }

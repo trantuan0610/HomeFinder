@@ -32,15 +32,20 @@ class DialogRate(private val idRoom: String?,private val onSubmitClickListener: 
         val builder = AlertDialog.Builder(requireActivity())
         builder.setView(binding.root)
         getUser()
-        var sodiem = 1
+        var sodiem = 0
         binding.btnCancel.setOnClickListener {
             dismiss()
         }
         binding.btnOk.setOnClickListener {
-            rate(sodiem)
-            Log.e("SODIEM",sodiem.toString())
-            onSubmitClickListener.invoke(1)
-            dismiss()
+            if (sodiem != 0){
+                rate(sodiem)
+                Log.e("SODIEM",sodiem.toString())
+                onSubmitClickListener.invoke(1)
+                dismiss()
+            }else{
+                Toast.makeText(requireActivity(), "Bạn hãy chọn sao cho bài đăng này!", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         binding.unvote1.setOnClickListener {

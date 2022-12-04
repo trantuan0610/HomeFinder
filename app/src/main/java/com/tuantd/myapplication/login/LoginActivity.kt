@@ -81,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
                             finish()
 
                         }else{
-                            Toast.makeText(this, "Bạn chưa xác thực trong email.Hãy xác tực để tiếp tục", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Bạn chưa xác thực trong email.Hãy xác thực để tiếp tục", Toast.LENGTH_SHORT).show()
                             hiddenLoading()
                         }
 
