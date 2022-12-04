@@ -46,6 +46,19 @@ class RegisterActivity : AppCompatActivity() {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
+
+                            auth.currentUser?.sendEmailVerification()
+                                ?.addOnCompleteListener(this) {
+                                    if (it.isSuccessful){
+                                        Toast.makeText(this,"Đăng ký thành công.Hãy xác thực trong email của bạn",Toast.LENGTH_SHORT).show()
+                                        //
+                                        val intent = Intent(this, LoginActivity::class.java)
+                                        startActivity(intent)
+                                        hiddenLoading()
+                                        finish()
+                                    }
+                                }
+
                             //
                             val id = myUserReferene.push().key.toString()
                             val user1 = User(
@@ -63,11 +76,7 @@ class RegisterActivity : AppCompatActivity() {
 
                                 }
                             }
-                            //
-                            val intent = Intent(this, MainActivity::class.java)
-                            startActivity(intent)
-                            hiddenLoading()
-                            finish()
+
                         } else {
                             Toast.makeText(
                                 this,

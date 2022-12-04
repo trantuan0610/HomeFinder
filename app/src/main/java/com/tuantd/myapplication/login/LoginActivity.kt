@@ -25,7 +25,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     lateinit var btnLogin: Button
-    lateinit var btnTest: Button
     lateinit var btnRegister: TextView
     private lateinit var edtEmail: EditText
     private lateinit var edtPass: EditText
@@ -47,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkLogin() {
-        if (auth.currentUser != null) {
+        if (auth.currentUser != null&& auth.currentUser!!.isEmailVerified) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
@@ -59,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
         btnRegister = findViewById(R.id.tv_register)
         edtEmail = findViewById(R.id.edtLoginEmail)
         edtPass = findViewById(R.id.edtLoginPass)
-        btnTest = findViewById(R.id.btnTest)
+//        btnTest = findViewById(R.id.btnTest)
 //        btnListTest =findViewById(R.id.btnListTest)
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
@@ -75,11 +74,17 @@ class LoginActivity : AppCompatActivity() {
                 showLoading()
                 auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if (it.isSuccessful) {
+                        if (auth.currentUser?.isEmailVerified == true){
+                            var intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            hiddenLoading()
+                            finish()
 
-                        var intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        hiddenLoading()
-                        finish()
+                        }else{
+                            Toast.makeText(this, "Bạn chưa xác thực trong email.Hãy xác tực để tiếp tục", Toast.LENGTH_SHORT).show()
+                            hiddenLoading()
+                        }
+
 
                     } else if (!getUserSuccessful()) {
                         Toast.makeText(this, "Bạn nhập sai mật khẩu", Toast.LENGTH_SHORT).show()
@@ -97,10 +102,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        btnTest.setOnClickListener {
-            var intent = Intent(this,TestActivity::class.java)
-            startActivity(intent)
-        }
+
     }
 
 
