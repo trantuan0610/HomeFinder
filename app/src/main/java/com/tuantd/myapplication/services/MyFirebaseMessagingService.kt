@@ -15,6 +15,7 @@ import com.google.firebase.messaging.RemoteMessage
 import com.tuantd.myapplication.R
 import com.tuantd.myapplication.mainscreen.MainActivity
 import com.tuantd.myapplication.mainscreen.home.DetailRoom.DetailRoomActivity
+import com.tuantd.myapplication.mainscreen.posts.DetailPost.DetailPostActivity
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -26,11 +27,22 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 //        }
 
         var roomId: String = ""
+        var postId: String = ""
         if (remoteMessage.data.isNotEmpty()) {
             remoteMessage.data["roomId"]?.let {
                 try {
                     roomId = it
-                    Log.e("roomId","roomId0: "+ roomId)
+                    Log.e("roomId", "roomId0: " + roomId)
+                    Log.e("roomId", "postId0: " + postId)
+                } catch (e: NumberFormatException) {
+
+                }
+            }
+            remoteMessage.data["postId"]?.let {
+                try {
+                    postId = it
+                    Log.e("roomId", "postId0: " + postId)
+                    Log.e("roomId", "roomId0: " + roomId)
                 } catch (e: NumberFormatException) {
 
                 }
@@ -40,55 +52,69 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         // Check if message contains a notification payload.
         remoteMessage.notification?.let {
-            sendNotification(remoteMessage, roomId)
+            sendNotification(remoteMessage, roomId, postId)
+            Log.e("roomId", "postId: " + postId +"roomId "+ roomId)
+
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun sendNotification(remoteMessage: RemoteMessage, taskId: String) {
+    private fun sendNotification(remoteMessage: RemoteMessage, taskId: String, postId: String) {
 
         val intent: Intent?
-        if (taskId.isEmpty()) {
+        if (taskId.isEmpty() && postId.isEmpty()) {
             intent = Intent(this, MainActivity::class.java)
-        } else {
-            intent = Intent(this,
-                DetailRoomActivity::class.java).apply {
+        } else if (postId.isEmpty()) {
+            intent = Intent(this, DetailRoomActivity::class.java).apply {
                 putExtra("roomId", taskId)
-                Log.e("roomId","roomId1: "+ taskId)
+                Log.e("roomId", "roomId1: " + taskId)
+                Log.e("roomId", "postId1: " + postId)
             }
+        } else {
+            intent = Intent(this, DetailPostActivity::class.java).apply {
+                putExtra("postId", postId)
+                Log.e("roomId", "postId1: " + postId)
+                Log.e("roomId", "roomId1: " + postId)
+            }
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            val pendingIntent = PendingIntent.getActivity(
+                this, 0 /* Request code */, intent,
+                PendingIntent.FLAG_IMMUTABLE
+            )
+
+            remoteMessage.notification?.let {
+                val body = it.body
+                val title = it.title
+
+                val channelId = "notificaton_channel"
+                val defaultSoundUri =
+                    RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+                val notificationBuilder = NotificationCompat.Builder(this, channelId)
+                    .setSmallIcon(R.drawable.logo_home)
+                    .setContentTitle(title)
+                    .setContentText(body)
+                    .setAutoCancel(true)
+                    .setSound(defaultSoundUri)
+                    .setContentIntent(pendingIntent)
+
+                val notificationManager =
+                    getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+                // Since android Oreo notification channel is needed.
+                val channel = NotificationChannel(
+                    channelId,
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_DEFAULT
+                )
+
+                notificationManager.cancel(0)
+                notificationManager.createNotificationChannel(channel)
+
+                notificationManager.notify(0 /* ID of notification */, notificationBuilder.build())
+            }
+
         }
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-            PendingIntent.FLAG_IMMUTABLE)
-
-        remoteMessage.notification?.let {
-            val body = it.body
-            val title = it.title
-
-            val channelId = "notificaton_channel"
-            val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-            val notificationBuilder = NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.drawable.logo_home)
-                .setContentTitle(title)
-                .setContentText(body)
-                .setAutoCancel(true)
-                .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent)
-
-            val notificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-            // Since android Oreo notification channel is needed.
-            val channel = NotificationChannel(channelId, "Channel human readable title", NotificationManager.IMPORTANCE_DEFAULT)
-
-            notificationManager.cancel(0)
-            notificationManager.createNotificationChannel(channel)
-
-            notificationManager.notify(0 /* ID of notification */, notificationBuilder.build())
-        }
-
     }
-
 //    fun generateNotification(title : String, message : String){
 //        val intent = Intent(this,MainActivity::class.java)
 //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -121,6 +147,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 //
 //        return remoteView
 //    }
+
     companion object {
         private const val TAG = "HomeFinderFirebaseMessagingService"
     }
