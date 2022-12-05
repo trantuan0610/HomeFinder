@@ -46,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkLogin() {
-        if (auth.currentUser != null) {
+        if (auth.currentUser != null&& auth.currentUser!!.isEmailVerified) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
@@ -74,11 +74,17 @@ class LoginActivity : AppCompatActivity() {
                 showLoading()
                 auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if (it.isSuccessful) {
+                        if (auth.currentUser?.isEmailVerified == true){
+                            var intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            hiddenLoading()
+                            finish()
 
-                        var intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        hiddenLoading()
-                        finish()
+                        }else{
+                            Toast.makeText(this, "Bạn chưa xác thực trong email.Hãy xác thực để tiếp tục", Toast.LENGTH_SHORT).show()
+                            hiddenLoading()
+                        }
+
 
                     } else if (!getUserSuccessful()) {
                         Toast.makeText(this, "Bạn nhập sai mật khẩu", Toast.LENGTH_SHORT).show()
@@ -95,6 +101,8 @@ class LoginActivity : AppCompatActivity() {
                 hiddenLoading()
             }
         }
+
+
     }
 
 

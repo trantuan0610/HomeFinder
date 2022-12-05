@@ -2,14 +2,19 @@ package com.tuantd.myapplication.mainscreen.search
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.icu.text.NumberFormat
+import android.icu.util.Currency
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import com.google.android.material.slider.RangeSlider
 import com.google.firebase.database.*
 import com.tuantd.myapplication.R
 import com.tuantd.myapplication.databinding.FragmentSearchBinding
@@ -44,6 +49,7 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -60,12 +66,78 @@ class SearchFragment : Fragment() {
         binding.btnSearchAdv.setOnClickListener {
             binding.man1.visibility = View.GONE
             binding.man2.visibility = View.VISIBLE
+            binding.btnSearchAdv.visibility = View.GONE
+            binding.tvTitle.setText("Tìm Kiếm Nâng Cao")
         }
 
         binding.btnHuy.setOnClickListener {
             binding.man2.visibility = View.GONE
             binding.man1.visibility = View.VISIBLE
+            binding.btnSearchAdv.visibility = View.VISIBLE
+            binding.tvTitle.setText("Tìm Kiếm")
         }
+        //Area
+
+
+        binding.sliderRangeArea.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener{
+            @SuppressLint("RestrictedApi")
+            override fun onStartTrackingTouch(slider: RangeSlider) {
+                val values = binding.sliderRangeArea.values
+
+            }
+
+            @SuppressLint("RestrictedApi")
+            override fun onStopTrackingTouch(slider: RangeSlider) {
+                val values = binding.sliderRangeArea.values
+                //Those are the new updated values of sldier when user has finshed dragging
+                binding.edtAreaMin.setText(values[0].toInt().toString())
+                binding.edtAreaMax.setText(values[1].toInt().toString())
+            }
+        })
+
+
+        binding.sliderRangeArea.addOnChangeListener { slider, value, fromUser ->
+            val values = binding.sliderRangeArea.values
+            binding.edtAreaMin.setText(values[0].toInt().toString())
+            binding.edtAreaMax.setText(values[1].toInt().toString())
+            if(binding.edtAreaMax.text.toString() == "100"){
+                binding.tvPlus2.visibility = View.VISIBLE
+            }else{
+                binding.tvPlus2.visibility = View.GONE
+            }
+        }
+        //Price
+        binding.sliderRangePrice.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener{
+            @SuppressLint("RestrictedApi")
+            override fun onStartTrackingTouch(slider: RangeSlider) {
+                val values = binding.sliderRangePrice.values
+
+            }
+
+            @SuppressLint("RestrictedApi")
+            override fun onStopTrackingTouch(slider: RangeSlider) {
+                val values = binding.sliderRangePrice.values
+                //Those are the new updated values of sldier when user has finshed dragging
+                binding.edtPriceMin.setText(values[0].toInt().toString())
+                binding.edtpriceMax.setText(values[1].toInt().toString())
+            }
+        })
+
+
+        binding.sliderRangePrice.addOnChangeListener { slider, value, fromUser ->
+            val values = binding.sliderRangePrice.values
+            binding.edtPriceMin.setText(values[0].toInt().toString())
+            binding.edtpriceMax.setText(values[1].toInt().toString())
+            if(binding.edtpriceMax.text.toString() == "20"){
+                binding.tvPlus.visibility = View.VISIBLE
+            }else{
+                binding.tvPlus.visibility = View.GONE
+            }
+        }
+        //
+
+
+
         binding.btnOk.setOnClickListener {
             if (binding.edtSearch.text.toString().isNotEmpty()
                 && binding.autoTxt.text.toString().isNotEmpty()
@@ -74,28 +146,79 @@ class SearchFragment : Fragment() {
                 && binding.edtAreaMin.text.toString().isNotEmpty()
                 && binding.edtAreaMax.text.toString().isNotEmpty()
             ) {
-                roomList2.clear()
-                roomList.forEach {
-                    val diachi = binding.edtSearch.text.toString()
-                    val loaiphong = binding.autoTxt.text.toString()
-                    val giaMin = binding.edtPriceMin.text.toString().toDouble()
-                    val giaMax = binding.edtpriceMax.text.toString().toDouble()
-                    val dientichMin = binding.edtAreaMin.text.toString().toDouble()
-                    val dientichMax = binding.edtAreaMax.text.toString().toDouble()
-                    if (it.dia_chi!!.lowercase()
-                            .contains(diachi) && it.id_loai_bai_dang == loaiphong && it.dien_tich.toDouble() > dientichMin &&
-                        it.dien_tich.toDouble() < dientichMax && it.gia.toDouble() > giaMin && it.gia.toDouble() < giaMax
-                    ) {
-                        roomList2.add(it)
+                if (binding.edtpriceMax.text.toString() == "20" || binding.edtAreaMax.text.toString() == "100"){
+                    if(binding.edtAreaMax.text.toString() == "100" && binding.edtpriceMax.text.toString() == "20" ){
+                        roomList2.clear()
+                        roomList.forEach {
+                            val diachi = binding.edtSearch.text.toString()
+                            val loaiphong = binding.autoTxt.text.toString()
+                            val giaMin = binding.edtPriceMin.text.toString().toDouble()
+                            val giaMax = binding.edtpriceMax.text.toString().toDouble()
+                            val dientichMin = binding.edtAreaMin.text.toString().toDouble()
+                            val dientichMax = binding.edtAreaMax.text.toString().toDouble()
+                            if (it.dia_chi!!.lowercase()
+                                    .contains(diachi) && it.id_loai_bai_dang == loaiphong && it.dien_tich.toDouble() > dientichMin && it.gia.toDouble()  > (giaMin * 1000000)
+                            ) {
+                                roomList2.add(it)
+                            }
+                        }
+                    }else if(binding.edtAreaMax.text.toString() == "100"){
+                        roomList2.clear()
+                        roomList.forEach {
+                            val diachi = binding.edtSearch.text.toString()
+                            val loaiphong = binding.autoTxt.text.toString()
+                            val giaMin = binding.edtPriceMin.text.toString().toDouble()
+                            val giaMax = binding.edtpriceMax.text.toString().toDouble()
+                            val dientichMin = binding.edtAreaMin.text.toString().toDouble()
+                            val dientichMax = binding.edtAreaMax.text.toString().toDouble()
+                            if (it.dia_chi!!.lowercase()
+                                    .contains(diachi) && it.id_loai_bai_dang == loaiphong && it.dien_tich.toDouble() > dientichMin && it.gia.toDouble()  > (giaMin * 1000000) && it.gia.toDouble() < (giaMax*1000000)
+                            ) {
+                                roomList2.add(it)
+                            }
+                        }
+                    } else if( binding.edtpriceMax.text.toString() == "20"){
+                        roomList2.clear()
+                        roomList.forEach {
+                            val diachi = binding.edtSearch.text.toString()
+                            val loaiphong = binding.autoTxt.text.toString()
+                            val giaMin = binding.edtPriceMin.text.toString().toDouble()
+                            val giaMax = binding.edtpriceMax.text.toString().toDouble()
+                            val dientichMin = binding.edtAreaMin.text.toString().toDouble()
+                            val dientichMax = binding.edtAreaMax.text.toString().toDouble()
+                            if (it.dia_chi!!.lowercase()
+                                    .contains(diachi) && it.id_loai_bai_dang == loaiphong && it.dien_tich.toDouble() > dientichMin &&
+                                it.dien_tich.toDouble() < dientichMax && it.gia.toDouble()  > (giaMin * 1000000)) {
+                                roomList2.add(it)
+                            }
+                        }
+                    }
+                }else{
+                    roomList2.clear()
+                    roomList.forEach {
+                        val diachi = binding.edtSearch.text.toString()
+                        val loaiphong = binding.autoTxt.text.toString()
+                        val giaMin = binding.edtPriceMin.text.toString().toDouble()
+                        val giaMax = binding.edtpriceMax.text.toString().toDouble()
+                        val dientichMin = binding.edtAreaMin.text.toString().toDouble()
+                        val dientichMax = binding.edtAreaMax.text.toString().toDouble()
+                        if (it.dia_chi!!.lowercase().contains(diachi)
+                            && it.id_loai_bai_dang == loaiphong
+                            && it.dien_tich.toDouble() > dientichMin
+                            && it.dien_tich.toDouble() < dientichMax
+                            && it.gia.toDouble()  > (giaMin * 1000000)
+                            && it.gia.toDouble() < (giaMax*1000000)
+                        ) {
+                            roomList2.add(it)
+                        }
                     }
                 }
+
                 if (roomList2.isNotEmpty()) {
                     binding.man2.visibility = View.GONE
                     binding.man3.visibility = View.VISIBLE
                     binding.tvBack.visibility = View.VISIBLE
                     binding.tvTitle.setText("Danh Sách Tìm Kiếm")
-                    Toast.makeText(requireContext(), roomList2.size.toString(), Toast.LENGTH_SHORT)
-                        .show()
                     roomsAdsAdapter?.addList(roomList2)
                     roomsAdsAdapter!!.onclickItem = {
                         val intent =
@@ -121,7 +244,7 @@ class SearchFragment : Fragment() {
             binding.man3.visibility = View.GONE
             binding.man2.visibility = View.VISIBLE
             binding.tvBack.visibility = View.GONE
-            binding.tvTitle.setText("Tìm Kiếm")
+            binding.tvTitle.setText("Tìm Kiếm Nâng Cao")
         }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -136,7 +259,7 @@ class SearchFragment : Fragment() {
                 if (newText!!.isNotEmpty()) {
                     val search = newText.toString().lowercase()
                     roomList.forEach {
-                        if (it.dia_chi?.lowercase()?.contains(search) == true) {
+                        if (it.dia_chi?.lowercase()?.trim()?.contains(search) == true) {
                             arrayList.add(it)
                         }
                     }

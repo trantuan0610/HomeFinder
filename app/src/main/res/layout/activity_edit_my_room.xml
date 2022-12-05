@@ -7,8 +7,9 @@
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true">
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@color/blue">
 
         <TextView
             android:id="@+id/tvHuy"
@@ -16,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
             android:textStyle="bold"
             android:text="Huỷ"
             android:textColor="@color/red"
@@ -27,8 +29,9 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:textStyle="bold"
-            android:text="QuayLai"
-            android:textColor="@color/red"
+            android:layout_marginStart="8dp"
+            android:text="Quay Lại"
+            android:textColor="@color/grey"
             android:textSize="15sp"
             android:visibility="gone"/>
 
@@ -38,7 +41,7 @@
             android:layout_centerInParent="true"
             android:textStyle="bold"
             android:text="Sửa Tin"
-            android:textColor="@color/blue"
+            android:textColor="@color/white"
             android:textSize="20sp"
 
             />
@@ -51,7 +54,7 @@
             android:layout_marginEnd="15dp"
             android:textStyle="bold"
             android:text="Tiếp tục"
-            android:textColor="@color/blue"
+            android:textColor="@color/white"
             android:textSize="15sp"
             />
         <TextView
@@ -63,7 +66,7 @@
             android:layout_marginEnd="15dp"
             android:textStyle="bold"
             android:text="Sửa"
-            android:textColor="@color/blue"
+            android:textColor="@color/white"
             android:textSize="15sp" />
         <View
             android:layout_width="match_parent"

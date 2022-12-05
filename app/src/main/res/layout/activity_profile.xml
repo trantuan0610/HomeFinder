@@ -6,6 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".mainscreen.account.profile.ProfileActivity"
     android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/blue">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:text="HomeFinder.com"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/grey" />
+
+    </RelativeLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,7 +37,7 @@
         android:text="Thông Tin Cá Nhân: "
         android:textAllCaps="false"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:layout_gravity="center_horizontal"
         />
 
@@ -56,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv1"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="5dp"
         android:text="Email: "
@@ -69,7 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv1"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="5dp"
         android:layout_toRightOf="@id/tv2"
         android:text=""
@@ -89,7 +112,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv2"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="5dp"
         android:text="Số Điện Thoại: "
@@ -103,7 +126,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv2"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:layout_toRightOf="@+id/tv3"
         android:text=""
         android:textColor="@color/black"
@@ -120,14 +143,29 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnChangePass"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/border_btn"
+        android:text="Thay đổi mật khẩu"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="20dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnChangeProfile"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@drawable/border_btn"
-        android:text="Thay đổi mật khẩu"
+        android:text="Thay đổi thông tin cá nhân"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="20dp"/>
 </androidx.appcompat.widget.LinearLayoutCompat>

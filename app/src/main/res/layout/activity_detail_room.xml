@@ -1,595 +1,834 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/back"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:backgroundTint="@color/white"
-                android:src="@drawable/ic_baseline_arrow_back_24" />
+            <LinearLayout
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@color/blue"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvTitle2"
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="15dp"
-                android:layout_toRightOf="@+id/back"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="Chi tiết phòng trọ"
-                android:textColor="@color/blue"
-                android:textSize="18sp" />
-            <ImageButton
-                android:id="@+id/share"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_share"
-                android:backgroundTint="@color/white"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="3dp"
-                />
+                <ImageButton
+                    android:id="@+id/back"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/blue"
+                    android:src="@drawable/ic_baseline_arrow_back_24" />
+
+                <TextView
+                    android:id="@+id/tvTitle2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="4"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Chi tiết phòng trọ"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <ImageButton
+                    android:id="@+id/like"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="3dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/blue"
+                    android:src="@drawable/ic_dontlike"
+                    android:visibility="visible" />
+
+                <ImageButton
+                    android:id="@+id/dontlike"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/blue"
+                    android:src="@drawable/ic_like2"
+                    android:visibility="gone" />
+
+                <ImageButton
+                    android:id="@+id/share"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="3dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/blue"
+                    android:src="@drawable/ic_share" />
 
 
-            <ImageButton
-                android:id="@+id/like"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="3dp"
-                android:backgroundTint="@color/white"
-                android:src="@drawable/ic_dontlike"
-                android:visibility="visible"
-                android:layout_toLeftOf="@+id/share"/>
-
-            <ImageButton
-                android:id="@+id/dontlike"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="6dp"
-                android:backgroundTint="@color/white"
-                android:src="@drawable/ic_like2"
-                android:visibility="gone" />
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
                 android:background="@color/grey" />
 
-        </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingHorizontal="8dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_image"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="horizontal"
-        android:layout_below="@id/toolbar"
-        tools:listitem="@layout/image_item"
-        />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcv_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_below="@id/toolbar"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/image_item" />
 
-        <TextView
-            android:id="@+id/tvtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rcv_image"
-            android:textStyle="bold"
-            android:text="Phòng trọ full nội thất giá đep"
-            android:textColor="@color/blue"
-            android:textSize="18sp" />
-    <LinearLayout
-        android:id="@+id/rltAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/tvRoomAddress"
-        android:gravity="center_vertical"
-        android:layout_marginTop="10dp">
-        <View
-            android:id="@+id/viewAddress"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_below="@+id/tvtitle"
-            android:background="@drawable/ic_location" />
-
-        <TextView
-            android:id="@+id/tvRoomAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="122 Định Công Hoàng Mai Hà Nội"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/rltArea"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/tvRoomAddress"
-        android:gravity="center_vertical"
-        android:layout_marginTop="10dp">
-
-        <View
-            android:id="@+id/view2"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_below="@+id/tvRoomAddress"
-            android:background="@drawable/photo_sizel"
-
-            />
-        <TextView
-            android:id="@+id/tvRoomArea"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/view2"
-            android:text="30 m2"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_marginEnd="30dp"
-            />
-
-        <TextView
-            android:id="@+id/tvDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ngày Đăng:"
-            android:textColor="@color/black"
-            android:layout_marginEnd="30dp"
-            android:textSize="16sp"/>
-
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="10dp">
-        <View
-            android:id="@+id/view3"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_below="@+id/rltArea"
-            android:background="@drawable/ic_baseline_local_phone_24"
-
-            />
-
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rltArea"
-            android:text="Tuấn 0852482628"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="10dp">
-        <View
-            android:id="@+id/view5"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/ic_star_xanh"
-            />
-
-        <TextView
-            android:id="@+id/tvRate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Đánh giá:"
-            android:textColor="@color/black"
-            android:layout_marginEnd="30dp"
-            android:textSize="16sp"/>
-        <TextView
-            android:id="@+id/tvLoaiPhong"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Loại Phòng: "
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="10dp">
-        <View
-            android:id="@+id/view4"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/ic_money_xanh"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Giá Phòng:"
-            android:textColor="@color/black"
-            android:textSize="16sp"/>
-        <TextView
-            android:id="@+id/tvPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Loại Phòng:"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            />
-    </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/tvdes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/view3"
-            android:layout_marginTop="15dp"
-            android:text="Mô tả chi tiết"
-            android:textColor="@color/blue"
-            android:textSize="16sp"
-            />
-
-        <TextView
-            android:id="@+id/tvDetailDes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvdes"
-            android:text="AAAAAAAAAAA"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_marginTop="15dp"
-            android:lineSpacingMultiplier="1.2"/>
-
-        <TextView
-            android:id="@+id/tv_TienIch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvDetailDes"
-            android:text="Tiện ích phòng"
-            android:textColor="@color/blue"
-            android:layout_marginTop="16dp"
-            android:textSize="16sp"/>
-
-        <LinearLayout
-            android:id="@+id/ln1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_TienIch"
-            android:orientation="horizontal">
-
-            <RelativeLayout
-                android:id="@+id/rlt_wifi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_TienIch"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/wifi_on"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/border_btn_tienich"
-                    android:src="@drawable/wifi"
-                    android:text="Wifi"
-                    android:textAllCaps="false"
+                <TextView
+                    android:id="@+id/tvtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rcv_image"
+                    android:text="Phòng trọ full nội thất giá đep"
                     android:textColor="@color/blue"
-                   />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/wifi_off"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/border_btn_tienich_off"
-                    android:gravity="center"
-                    android:src="@drawable/wifi_off"
-                    android:text="Wifi"
+                <LinearLayout
+                    android:id="@+id/rltAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvRoomAddress"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/viewAddress"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/tvtitle"
+                        android:background="@drawable/ic_location" />
+
+                    <TextView
+                        android:id="@+id/tvRoomAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="122 Định Công Hoàng Mai Hà Nội"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/rltArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvRoomAddress"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/tvRoomAddress"
+                        android:background="@drawable/photo_sizel"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/tvRoomArea"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="30dp"
+                        android:layout_toRightOf="@+id/view2"
+                        android:text="30 m2"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="30dp"
+                        android:text="Ngày Đăng:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/view3"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/rltArea"
+                        android:background="@drawable/ic_baseline_local_phone_24"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/rltArea"
+                        android:text="Tuấn 0852482628"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/view5"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/ic_star_xanh" />
+
+                    <TextView
+                        android:id="@+id/tvRate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="30dp"
+                        android:text="Đánh giá:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tvLoaiPhong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Loại Phòng: "
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/view4"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/ic_money_xanh" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Giá Phòng:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tvPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Loại Phòng:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tvdes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view3"
+                    android:layout_marginTop="15dp"
+                    android:text="Mô tả chi tiết"
+                    android:textColor="@color/blue"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvDetailDes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvdes"
+                    android:layout_marginTop="15dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="AAAAAAAAAAA"
                     android:textColor="@color/black"
-                    android:visibility="gone" />
+                    android:textSize="16sp" />
 
-            </RelativeLayout>
+                <TextView
+                    android:id="@+id/tv_TienIch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvDetailDes"
+                    android:layout_marginTop="16dp"
+                    android:text="Tiện ích phòng"
+                    android:textColor="@color/blue"
+                    android:textSize="16sp" />
 
-            <RelativeLayout
-                android:id="@+id/rlt_fridge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rlt_wifi"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:gravity="center">
+                <LinearLayout
+                    android:id="@+id/ln1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/fridge_on"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/border_btn_tienich"
-                    android:src="@drawable/tulanh"
-                    android:textAllCaps="false"
-                    android:textColor="@color/blue" />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center">
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/fridge_off"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/border_btn_tienich_off"
-                    android:gravity="center"
-                    android:src="@drawable/tulanh_off"
-                    android:textColor="@color/black"
-                    android:visibility="gone" />
+                        <LinearLayout
+                            android:id="@+id/lt_wifi_on"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-            </RelativeLayout>
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/wifi_on"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/border_btn_tienich"
+                                android:src="@drawable/wifi"
+                                android:textAllCaps="false"
+                                android:textColor="@color/blue" />
 
-            <RelativeLayout
-                android:id="@+id/rlt_kitchen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:gravity="center">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:text="Wifi"
+                                android:textColor="@color/blue" />
+                        </LinearLayout>
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/kitchen_on"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/border_btn_tienich"
-                    android:src="@drawable/bep"
-                    android:textAllCaps="false"
-                    android:textColor="@color/blue" />
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/kitchen_off"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/border_btn_tienich_off"
-                    android:gravity="center"
-                    android:src="@drawable/bep_off"
-                    android:textColor="@color/black"
-                    android:visibility="gone" />
+                        <LinearLayout
+                            android:id="@+id/lt_wifi_off"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
-            </RelativeLayout>
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/wifi_off"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/border_btn_tienich_off"
+                                android:gravity="center"
+                                android:src="@drawable/wifi_off"
+                                android:textColor="@color/black" />
 
-            <RelativeLayout
-                android:id="@+id/rlt_free"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_TienIch"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/rlt_wc"
-                android:layout_weight="1"
-                android:gravity="center">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:text="Wifi"
+                                android:textColor="@color/grey" />
+                        </LinearLayout>
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/free_on"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/border_btn_tienich"
-                    android:src="@drawable/time"
-                    android:textColor="@color/blue" />
+                    </RelativeLayout>
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/free_off"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/border_btn_tienich_off"
-                    android:gravity="center"
-                    android:src="@drawable/time_off"
-                    android:textColor="@color/black"
-                    android:visibility="gone"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:id="@+id/lt_fridge_on"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/fridge_on"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/border_btn_tienich"
+                                android:src="@drawable/tulanh"
+                                android:textAllCaps="false"
+                                android:textColor="@color/blue" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:text="Tủ lạnh"
+                                android:textColor="@color/blue" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lt_fridge_off"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/fridge_off"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/border_btn_tienich_off"
+                                android:gravity="center"
+                                android:src="@drawable/tulanh_off"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:text="Tủ lạnh"
+                                android:textColor="@color/grey" />
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:id="@+id/lt_kitchen_on"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/kitchen_on"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/border_btn_tienich"
+                                android:src="@drawable/bep"
+                                android:textAllCaps="false"
+                                android:textColor="@color/blue" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:text="Bếp"
+                                android:textColor="@color/blue" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/lt_kichen_off"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/kitchen_off"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/border_btn_tienich_off"
+                                android:gravity="center"
+                                android:src="@drawable/bep_off"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:text="Bếp"
+                                android:textColor="@color/grey" />
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:id="@+id/lt_free_on"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/free_on"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/border_btn_tienich"
+                                android:src="@drawable/time"
+                                android:textColor="@color/blue" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:text="Tự do"
+                                android:textColor="@color/blue" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lt_free_off"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/free_off"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/border_btn_tienich_off"
+                                android:gravity="center"
+                                android:src="@drawable/time_off"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:text="Tự do"
+                                android:textColor="@color/grey" />
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ln2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:id="@+id/lt_wc_on"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/wc_on"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/border_btn_tienich"
+                                android:src="@drawable/wc_on"
+                                android:textAllCaps="false"
+                                android:textColor="@color/blue" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:text="WC riêng"
+                                android:textColor="@color/blue" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/lt_wc_off"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/wc_off"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/border_btn_tienich_off"
+                                android:gravity="center"
+                                android:src="@drawable/wc_off"
+                                android:textColor="@color/black" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:text="WC riêng"
+                                android:textColor="@color/grey" />
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:id="@+id/lt_airConditional_on"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/airConditional_on"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/border_btn_tienich"
+                                android:src="@drawable/dieuhoa"
+                                android:textAllCaps="false"
+                                android:textColor="@color/blue" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:text="Điều hoà"
+                                android:textColor="@color/blue" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/lt_airConditional_off"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/airConditional_off"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/border_btn_tienich_off"
+                                android:gravity="center"
+                                android:src="@drawable/dieuhoa_off"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:text="Điều hoà"
+                                android:textColor="@color/grey" />
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:id="@+id/lt_washingMachine_on"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/washingMachine_on"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/border_btn_tienich"
+                                android:src="@drawable/ic_may_giat"
+                                android:textAllCaps="false"
+                                android:textColor="@color/blue" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:text="Máy Giặt"
+                                android:textColor="@color/blue" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/lt_washingMachine_off"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/washingMachine_off"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/border_btn_tienich_off"
+                                android:gravity="center"
+                                android:src="@drawable/ic_may_giat_off"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:text="Máy Giặt"
+                                android:textColor="@color/grey" />
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:id="@+id/lt_parking_on"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/parking_on"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/border_btn_tienich"
+                                android:src="@drawable/giuxe"
+                                android:textAllCaps="false"
+                                android:textColor="@color/blue" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:text="Giữ xe"
+                                android:textColor="@color/blue" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/lt_parking_off"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/parking_off"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/border_btn_tienich_off"
+                                android:gravity="center"
+                                android:src="@drawable/giuxe_off"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:text="Giữ xe"
+                                android:textColor="@color/grey" />
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Tin đăng liên quan"
+                        android:textColor="@color/blue"
+                        android:textSize="16sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rcv_tinlienquan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="2" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/ln2"
 
                     />
 
-            </RelativeLayout>
+
+            </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ln1"
-            android:orientation="horizontal"
-            android:id="@+id/ln2">
-
-            <RelativeLayout
-                android:id="@+id/rlt_wc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/wc_on"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/border_btn_tienich"
-                    android:src="@drawable/wc_on"
-                    android:textAllCaps="false"
-                    android:textColor="@color/blue" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/wc_off"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/border_btn_tienich_off"
-                    android:gravity="center"
-                    android:src="@drawable/wc_off"
-                    android:textColor="@color/black"
-                    android:visibility="gone" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rlt_airConditional"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/airConditional_on"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/border_btn_tienich"
-                    android:src="@drawable/dieuhoa"
-                    android:text="Điều \nhoà"
-                    android:textAllCaps="false"
-                    android:textColor="@color/blue" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/airConditional_off"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/border_btn_tienich_off"
-                    android:gravity="center"
-                    android:src="@drawable/dieuhoa_off"
-                    android:text="Wifi"
-                    android:textColor="@color/black"
-                    android:visibility="gone" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rlt_washingMachine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/washingMachine_on"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/border_btn_tienich"
-                    android:src="@drawable/ic_may_giat"
-                    android:textAllCaps="false"
-                    android:textColor="@color/blue" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/washingMachine_off"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/border_btn_tienich_off"
-                    android:gravity="center"
-                    android:src="@drawable/ic_may_giat_off"
-                    android:textColor="@color/black"
-                    android:visibility="gone" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rlt_parking"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/parking_on"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/border_btn_tienich"
-                    android:src="@drawable/giuxe"
-                    android:textAllCaps="false"
-                    android:textColor="@color/blue" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/parking_off"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/border_btn_tienich_off"
-                    android:gravity="center"
-                    android:src="@drawable/giuxe_off"
-                    android:textColor="@color/black"
-                    android:visibility="gone" />
-
-            </RelativeLayout>
-
-        </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tin đăng liên quan"
-            android:textColor="@color/blue"
-            android:layout_marginTop="16dp"
-            android:textSize="16sp"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/rcv_tinlienquan"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"/>
-
-    </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_below="@+id/ln2"
-
-            />
-
-
-    </LinearLayout>
-</LinearLayout>
-</ScrollView>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_more"
         android:layout_width="wrap_content"
@@ -598,7 +837,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="26dp"
         android:backgroundTint="@color/blue"
         android:src="@drawable/ic_more" />
 </RelativeLayout>
