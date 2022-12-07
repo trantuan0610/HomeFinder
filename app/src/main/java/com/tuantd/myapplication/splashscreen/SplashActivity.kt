@@ -11,14 +11,39 @@ import com.tuantd.myapplication.mainscreen.MainActivity
 
 class SplashActivity : AppCompatActivity() {
 
+    private var roomId = ""
+    private var postId = ""
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        intent.extras?.let {
+            for (key in it.keySet()) {
+                val value = intent.extras?.getString(key).toString()
+                if (key == "roomId"){
+                    roomId = value
+                }else if (key == "postId"){
+                    postId = value
+                }
+            }
+        }
+
         Handler(Looper.getMainLooper()).postDelayed({
-            var intent = Intent(this,MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            if (roomId == "" && postId == ""){
+                var intent = Intent(this,MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }else{
+                startActivity(Intent(this,MainActivity::class.java).apply {
+                    putExtra("roomId",roomId)
+                    putExtra("postId",postId)
+                })
+                finish()
+            }
         }, 1500)
+
+
     }
 }
