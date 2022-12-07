@@ -171,8 +171,8 @@ class SearchFragment : Fragment() {
                             val giaMax = binding.edtpriceMax.text.toString().toDouble()
                             val dientichMin = binding.edtAreaMin.text.toString().toDouble()
                             val dientichMax = binding.edtAreaMax.text.toString().toDouble()
-                            if (it.dia_chi!!.lowercase()
-                                    .contains(diachi) && it.id_loai_bai_dang == loaiphong && it.dien_tich.toDouble() > dientichMin && it.gia.toDouble()  > (giaMin * 1000000) && it.gia.toDouble() < (giaMax*1000000)
+                            if (it.dia_chi!!.lowercase().trim()
+                                    .contains(diachi.lowercase().trim()) && it.id_loai_bai_dang == loaiphong && it.dien_tich.toDouble() > dientichMin && it.gia.toDouble()  > (giaMin * 1000000) && it.gia.toDouble() < (giaMax*1000000)
                             ) {
                                 roomList2.add(it)
                             }
@@ -186,8 +186,7 @@ class SearchFragment : Fragment() {
                             val giaMax = binding.edtpriceMax.text.toString().toDouble()
                             val dientichMin = binding.edtAreaMin.text.toString().toDouble()
                             val dientichMax = binding.edtAreaMax.text.toString().toDouble()
-                            if (it.dia_chi!!.lowercase()
-                                    .contains(diachi) && it.id_loai_bai_dang == loaiphong && it.dien_tich.toDouble() > dientichMin &&
+                            if (it.dia_chi!!.lowercase().trim().contains(diachi.lowercase().trim()) && it.id_loai_bai_dang == loaiphong && it.dien_tich.toDouble() > dientichMin &&
                                 it.dien_tich.toDouble() < dientichMax && it.gia.toDouble()  > (giaMin * 1000000)) {
                                 roomList2.add(it)
                             }
@@ -202,7 +201,7 @@ class SearchFragment : Fragment() {
                         val giaMax = binding.edtpriceMax.text.toString().toDouble()
                         val dientichMin = binding.edtAreaMin.text.toString().toDouble()
                         val dientichMax = binding.edtAreaMax.text.toString().toDouble()
-                        if (it.dia_chi!!.lowercase().contains(diachi)
+                        if (it.dia_chi!!.lowercase().trim().contains(diachi.lowercase().trim())
                             && it.id_loai_bai_dang == loaiphong
                             && it.dien_tich.toDouble() > dientichMin
                             && it.dien_tich.toDouble() < dientichMax
@@ -257,7 +256,7 @@ class SearchFragment : Fragment() {
                 binding.tvHiss.visibility = View.GONE
                 arrayList.clear()
                 if (newText!!.isNotEmpty()) {
-                    val search = newText.toString().lowercase()
+                    val search = newText.toString().lowercase().trim()
                     roomList.forEach {
                         if (it.dia_chi?.lowercase()?.trim()?.contains(search) == true) {
                             arrayList.add(it)
