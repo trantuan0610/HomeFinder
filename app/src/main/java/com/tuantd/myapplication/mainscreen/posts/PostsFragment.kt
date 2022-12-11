@@ -46,6 +46,7 @@ class PostsFragment : Fragment() {
        // fetchData()
 
         loadDone={
+           // roomListKTX.sortByDescending { room -> room.thoi_gian }
             postsAdapter.addList(postList)
         }
         rcv_post.adapter = postsAdapter

@@ -218,6 +218,7 @@ class SearchFragment : Fragment() {
                     binding.man3.visibility = View.VISIBLE
                     binding.tvBack.visibility = View.VISIBLE
                     binding.tvTitle.setText("Danh Sách Tìm Kiếm")
+                    roomList2.sortByDescending { room -> room.thoi_gian }
                     roomsAdsAdapter?.addList(roomList2)
                     roomsAdsAdapter!!.onclickItem = {
                         val intent =
@@ -262,6 +263,7 @@ class SearchFragment : Fragment() {
                             arrayList.add(it)
                         }
                     }
+                    arrayList.sortByDescending { room -> room.thoi_gian }
                     roomsAdapter?.addList(arrayList)
                     roomsAdapter!!.notifyDataSetChanged()
                     roomsAdapter!!.onclickItem = {

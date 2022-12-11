@@ -39,7 +39,7 @@ class ListKtxRoomActivity : AppCompatActivity() {
 
 
         loadDone={
-            roomsAdapter.addList(roomList)
+             roomsAdapter.addList(roomList)
             roomsAdapterPT.addList(roomListPT)
             roomsAdapterKTX.addList(roomListKTX)
         }

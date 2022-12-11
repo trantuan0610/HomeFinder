@@ -39,6 +39,7 @@ class ListMotelActivity : AppCompatActivity() {
 
 
         loadDone={
+            roomListPT.sortByDescending { room -> room.thoi_gian }
             roomsAdapter.addList(roomList)
             roomsAdapterPT.addList(roomListPT)
             roomsAdapterKTX.addList(roomListKTX)

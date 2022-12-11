@@ -24,12 +24,18 @@ import com.tuantd.myapplication.mainscreen.home.AddRoom.AddRoomActivity
 import com.tuantd.myapplication.mainscreen.home.DetailRoom.DetailRoomActivity
 import com.tuantd.myapplication.mainscreen.home.KtxRoom.ListKtxRoomActivity
 import com.tuantd.myapplication.mainscreen.home.MotelRoom.ListMotelActivity
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class HomeFragment : Fragment() {
     //test
     private var loadDone:(() -> Unit)?=null
     private var getRoomList = ArrayList<Room>()
     private var roomList = ArrayList<Room>()
+    private var roomListTest = ArrayList<Room>()
     private var  roomListKTX = ArrayList<Room>()
     private var roomListPT = ArrayList<Room>()
     private val roomsAdapter= RoomsAdapter()
@@ -65,6 +71,11 @@ class HomeFragment : Fragment() {
         retrieveDataFromDatabase()
 
         loadDone={
+             roomList.sortByDescending { room -> room.thoi_gian }
+            roomListPT.sortByDescending { room -> room.thoi_gian }
+            roomListKTX.sortByDescending { room -> room.thoi_gian }
+
+
             roomsAdapter.addList(roomList)
             roomsAdapterPT.addList(roomListPT)
             roomsAdapterKTX.addList(roomListKTX)
@@ -183,6 +194,17 @@ class HomeFragment : Fragment() {
 
     fun hiddenLoading() {
         dialog?.dismiss()
+    }
+
+    fun convertStringToDate(dateString: String?, formatDate: String?): Date? {
+        if (dateString != null) {
+            val sdf = SimpleDateFormat(formatDate)
+            try {
+                return sdf.parse(dateString)
+            } catch (ex: Exception) {
+            }
+        }
+        return null
     }
 
 
