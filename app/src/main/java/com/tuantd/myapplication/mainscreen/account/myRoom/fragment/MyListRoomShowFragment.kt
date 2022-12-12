@@ -68,10 +68,8 @@ class MyListRoomShowFragment : Fragment() {
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
-                Handler(Looper.getMainLooper()).postDelayed({
-                    roomList.clear()
-                    getUser()
-                }, 3000)
+                roomsAdapter.clearData()
+                getUser()
             }
         }
 
@@ -153,7 +151,7 @@ class MyListRoomShowFragment : Fragment() {
                 arrayList.add(it)
             }
         }
-        roomsAdapter?.addList(arrayList)
+        roomsAdapter.addList(arrayList)
 
     }
 

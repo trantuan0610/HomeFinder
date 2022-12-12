@@ -2,6 +2,8 @@ package com.tuantd.myapplication.mainscreen.account.RoomFavourite
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -53,10 +55,18 @@ class FavouriteRoomActivity : AppCompatActivity() {
             val intent =
                 Intent(this, DetailRoomActivity::class.java)
             intent.putExtra("roomId", it)
-            startActivity(intent)
-            finish()
+            notifyUpdateProfileResult.launch(intent)
         }
     }
+
+    private val notifyUpdateProfileResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                roomsFavAdapter.clearData()
+                getUser()
+            }
+        }
 
     private fun getUser() {
         myUserReference.addValueEventListener(object : ValueEventListener {

@@ -437,9 +437,11 @@ class DetailRoomActivity : AppCompatActivity() {
         }else{
             Toast.makeText(this,"Bạn phải đăng nhập để lưu phòng",Toast.LENGTH_SHORT).show()
         }
+    }
 
-
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+        setResult(RESULT_OK,Intent())
     }
 }
 

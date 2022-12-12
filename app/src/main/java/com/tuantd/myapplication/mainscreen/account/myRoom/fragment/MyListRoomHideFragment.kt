@@ -66,6 +66,7 @@ class MyListRoomHideFragment : Fragment() {
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == RESULT_OK) {
+                roomsAdapter.clearData()
                 getUser()
             }
         }

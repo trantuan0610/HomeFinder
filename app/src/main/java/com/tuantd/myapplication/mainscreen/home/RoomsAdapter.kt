@@ -52,9 +52,12 @@ open class RoomsAdapter() : RecyclerView.Adapter<RoomsAdapter.MyViewHolder>() {
         val roomAddress: TextView = itemView.findViewById(R.id.tvRoomAddress)
         val roomArea: TextView = itemView.findViewById(R.id.tvRoomArea)
     }
-    @SuppressLint("NotifyDataSetChanged")
     fun addList(mRoomsList: ArrayList<Room>){
         roomsList=mRoomsList
+        notifyDataSetChanged()
+    }
+    fun clearData(){
+        roomsList?.clear()
         notifyDataSetChanged()
     }
 }

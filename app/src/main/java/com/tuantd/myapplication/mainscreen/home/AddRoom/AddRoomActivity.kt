@@ -96,6 +96,15 @@ class AddRoomActivity : AppCompatActivity() {
                 binding.tvPush.visibility = View.VISIBLE
                 binding.tvQuayLai.visibility = View.VISIBLE
                 binding.tvHuy.visibility = View.GONE
+            }else{
+                isValidateTitle()
+                isValidateArea()
+                isValidateAddress()
+                isValidatePrice()
+                isValidateContent()
+                isValidateSDT()
+                isValidateName()
+                isValidateTypeRoom()
             }
 
         }
@@ -718,7 +727,7 @@ class AddRoomActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val eBuilder = AlertDialog.Builder(this)
         eBuilder.setTitle("")
-        eBuilder.setMessage("Bạn có chắc chắn muốn thoát? Những thay đổi của bạn sẽ không được lưu!")
+        eBuilder.setMessage("Bạn có chắc chắn muốn thoát? \nNhững thay đổi của bạn sẽ không được lưu!")
         eBuilder.setPositiveButton("Đồng ý"){
                 Dialog,which->
             super.onBackPressed()
