@@ -34,6 +34,9 @@ class RegisterActivity : AppCompatActivity() {
 
         createDialog()
         Register()
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
 
         binding.btnRegister.setOnClickListener {
             showLoading()

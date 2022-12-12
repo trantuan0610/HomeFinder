@@ -25,6 +25,9 @@ class DetailPostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
 
         binding.share.setOnClickListener {
             val intent = Intent()
@@ -56,7 +59,8 @@ class DetailPostActivity : AppCompatActivity() {
                         id_bai_viet = room?.get("id_bai_viet") as String,
                         tieu_de = room["tieu_de"] as String,
                         noi_dung = room["noi_dung"] as String,
-                        hinh_anh = room["hinh_anh"] as String
+                        hinh_anh = room["hinh_anh"] as String,
+                        thoi_gian = room["thoi_gian"] as String
                     )
                     listPost.add(data)
                 }
@@ -65,6 +69,7 @@ class DetailPostActivity : AppCompatActivity() {
                         postDetail = it
                         binding.tvTieude.text = it.tieu_de
                         binding.tvNoiDung.text = it.noi_dung
+                        binding.tvTime.text = it.thoi_gian
                         Glide.with(this@DetailPostActivity).load(it.hinh_anh).into(binding.imgAnh)
                     }
                 }

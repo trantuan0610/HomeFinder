@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -25,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     lateinit var btnLogin: Button
+    lateinit var btnClose: ImageButton
     lateinit var btnRegister: TextView
     private lateinit var edtEmail: EditText
     private lateinit var edtPass: EditText
@@ -43,6 +45,10 @@ class LoginActivity : AppCompatActivity() {
         Login()
         Register()
 
+        btnClose.setOnClickListener {
+            finish()
+        }
+
     }
 
     private fun checkLogin() {
@@ -55,6 +61,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun init() {
         btnLogin = findViewById(R.id.btnLogin)
+        btnClose = findViewById(R.id.close)
         btnRegister = findViewById(R.id.tv_register)
         edtEmail = findViewById(R.id.edtLoginEmail)
         edtPass = findViewById(R.id.edtLoginPass)

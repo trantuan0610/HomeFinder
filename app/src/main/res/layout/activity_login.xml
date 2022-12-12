@@ -7,6 +7,20 @@
     tools:context=".login.LoginActivity"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="?actionBarSize">
+
+        <ImageButton
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="3dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_close" />
+    </RelativeLayout>
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="90dp"

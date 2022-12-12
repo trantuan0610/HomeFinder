@@ -37,6 +37,11 @@ class ListKtxRoomActivity : AppCompatActivity() {
         setContentView(binding.root)
         retrieveDataFromDatabase()
 
+        binding.back.setOnClickListener {
+            finish()
+        }
+
+
 
         loadDone={
              roomsAdapter.addList(roomList)

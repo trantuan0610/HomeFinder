@@ -43,7 +43,7 @@ open class RoomsAdapter2() : RecyclerView.Adapter<RoomsAdapter2.MyViewHolder>() 
         }
     }
 
-    override fun getItemCount(): Int = 4
+    override fun getItemCount(): Int = 6
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val roomImage: ImageView = itemView.findViewById(R.id.imgRoom)

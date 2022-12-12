@@ -37,6 +37,9 @@ class ListMotelActivity : AppCompatActivity() {
         setContentView(binding.root)
         retrieveDataFromDatabase()
 
+        binding.back.setOnClickListener {
+            finish()
+        }
 
         loadDone={
             roomListPT.sortByDescending { room -> room.thoi_gian }

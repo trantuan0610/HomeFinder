@@ -46,7 +46,7 @@ class PostsFragment : Fragment() {
        // fetchData()
 
         loadDone={
-           // roomListKTX.sortByDescending { room -> room.thoi_gian }
+            postList.sortByDescending { post -> post.thoi_gian }
             postsAdapter.addList(postList)
         }
         rcv_post.adapter = postsAdapter
@@ -93,7 +93,8 @@ private fun retrieveDataFromDatabase() {
                     id_bai_viet = room?.get("id_bai_viet") as String,
                     tieu_de = room["tieu_de"] as String,
                     noi_dung = room["noi_dung"] as String,
-                    hinh_anh = room["hinh_anh"] as String
+                    hinh_anh = room["hinh_anh"] as String,
+                    thoi_gian = room["thoi_gian"] as String
                 )
                 postList.add(data)
             }
