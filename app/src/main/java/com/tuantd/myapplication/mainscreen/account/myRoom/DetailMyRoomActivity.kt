@@ -225,4 +225,9 @@ class DetailMyRoomActivity : AppCompatActivity() {
             }
         })
     }
+
+    override fun onBackPressed() {
+        setResult(RESULT_OK,Intent())
+        super.onBackPressed()
+    }
 }

@@ -1,5 +1,6 @@
 package com.tuantd.myapplication.mainscreen.home
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,6 +52,7 @@ open class RoomsAdapter() : RecyclerView.Adapter<RoomsAdapter.MyViewHolder>() {
         val roomAddress: TextView = itemView.findViewById(R.id.tvRoomAddress)
         val roomArea: TextView = itemView.findViewById(R.id.tvRoomArea)
     }
+    @SuppressLint("NotifyDataSetChanged")
     fun addList(mRoomsList: ArrayList<Room>){
         roomsList=mRoomsList
         notifyDataSetChanged()

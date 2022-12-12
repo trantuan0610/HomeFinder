@@ -28,6 +28,7 @@ import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import com.tuantd.myapplication.R
 import com.tuantd.myapplication.databinding.ActivityEditMyRoomBinding
+import com.tuantd.myapplication.mainscreen.account.myRoom.DetailMyRoomActivity
 import com.tuantd.myapplication.mainscreen.account.myRoom.MyRoomActivity
 import com.tuantd.myapplication.mainscreen.home.Room
 import java.text.SimpleDateFormat
@@ -369,7 +370,8 @@ class EditMyRoomActivity : AppCompatActivity() {
 
         myReference.child(roomDetai.id_bai_dang).updateChildren(roomMap).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val intent = Intent(this, MyRoomActivity::class.java)
+                val intent = Intent(this, DetailMyRoomActivity::class.java)
+                intent.putExtra("roomId", roomDetai.id_bai_dang)
                 startActivity(intent)
                 hiddenLoading()
                 finish()

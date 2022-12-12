@@ -1,5 +1,6 @@
 package com.tuantd.myapplication.mainscreen.account.myRoom.fragment
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.tuantd.myapplication.R
@@ -53,11 +56,19 @@ class MyListRoomHideFragment : Fragment() {
             val intent =
                 Intent(requireContext(), DetailMyRoomActivity::class.java)
             intent.putExtra("roomId", it)
-            startActivity(intent)
-            requireActivity().finish()
+            notifyUpdateProfileResult.launch(intent)
+//            startActivity(intent)
         }
 
     }
+
+    private val notifyUpdateProfileResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                getUser()
+            }
+        }
 
     private fun getUser() {
         myUserReference.addValueEventListener(object : ValueEventListener {

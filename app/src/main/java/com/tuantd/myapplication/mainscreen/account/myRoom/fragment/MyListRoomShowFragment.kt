@@ -1,11 +1,16 @@
 package com.tuantd.myapplication.mainscreen.account.myRoom.fragment
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.tuantd.myapplication.R
@@ -53,11 +58,22 @@ class MyListRoomShowFragment : Fragment() {
             val intent =
                 Intent(requireContext(), DetailMyRoomActivity::class.java)
             intent.putExtra("roomId", it)
-            startActivity(intent)
-            requireActivity().finish()
+            notifyUpdateProfileResult.launch(intent)
+            //startActivity(intent)
         }
 
     }
+
+    private val notifyUpdateProfileResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    roomList.clear()
+                    getUser()
+                }, 3000)
+            }
+        }
 
     private fun getUser() {
         myUserReference.addValueEventListener(object : ValueEventListener {
