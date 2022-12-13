@@ -58,8 +58,9 @@ class MyListRoomShowFragment : Fragment() {
             val intent =
                 Intent(requireContext(), DetailMyRoomActivity::class.java)
             intent.putExtra("roomId", it)
-            notifyUpdateProfileResult.launch(intent)
-            //startActivity(intent)
+//            notifyUpdateProfileResult.launch(intent)
+            startActivity(intent)
+            requireActivity().finish()
         }
 
     }

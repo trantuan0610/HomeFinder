@@ -40,12 +40,14 @@ class DetailMyRoomActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.back.setOnClickListener {
-            onBackPressed()
+//            onBackPressed()
+            startActivity(Intent(this,MyRoomActivity::class.java))
+            finish()
         }
         binding.share.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
-            intent.putExtra(Intent.EXTRA_TEXT, "Bài Đăng từ HomeFinder"+"\n"+"Địa chỉ: " + roomDetail?.dia_chi +"\n"+"Anh/chị: "+roomDetail?.name+"\n"+"SDT: "+roomDetail?.sdt)
+            intent.putExtra(Intent.EXTRA_TEXT, "Bài Đăng từ HOMEFINDER"+"\n"+"Địa chỉ: " + roomDetail?.dia_chi +"\n"+"Anh/chị: "+roomDetail?.name+"\n"+"SDT: "+roomDetail?.sdt)
             intent.type = "text/plain"
             startActivity(Intent.createChooser(intent, "Please select app: "))
         }
@@ -227,7 +229,9 @@ class DetailMyRoomActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        setResult(RESULT_OK,Intent())
-        super.onBackPressed()
+//        setResult(RESULT_OK,Intent())
+//        super.onBackPressed()
+        startActivity(Intent(this,MyRoomActivity::class.java))
+        finish()
     }
 }

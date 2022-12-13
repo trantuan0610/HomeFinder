@@ -32,8 +32,9 @@ class ReportActivity : AppCompatActivity() {
                 report(roomId)
             }
         }
-
-
+        binding.back.setOnClickListener {
+            onBackPressed()
+        }
 
     }
     private fun getUser() {

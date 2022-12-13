@@ -149,7 +149,10 @@
         <View style="@style/DividerLine" />
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_cancel"
-            style="@style/OrangeBorderButton"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@drawable/border_btn"
+            android:textColor="@color/white"
             android:layout_marginHorizontal="0dp"
             android:layout_marginTop="12dp"
             android:text="Huỷ"

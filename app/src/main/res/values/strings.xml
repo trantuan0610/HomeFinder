@@ -5,12 +5,12 @@
     <string name="introduct">Hello! I\'m Tran Tuan. I have one years\' experience about mobile development. I can work with kotlin and almost php framework like laravel, zend or phpfox. I can work with native android app and react native. I\'m very friendly and active. I love sport special is football. I\'m a fan of CR7. He never gives up in any situation. The criticism is motivation for him to continue to try more and be successful.</string>
     <string name="text_contact">If you\'re interested with us why don\'t send me a request now. We will be there to answer your question and build your idea together.</string>
     <string-array name="rangeSlider">
-        <item>20</item>
-        <item>60</item>
+        <item>10</item>
+        <item>85</item>
     </string-array>
     <string-array name="rangeSliderPrice">
-        <item>5</item>
-        <item>15</item>
+        <item>1</item>
+        <item>16</item>
     </string-array>
 
 
