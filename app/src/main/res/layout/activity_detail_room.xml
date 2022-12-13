@@ -822,9 +822,10 @@
 
                     />
 
-
             </LinearLayout>
+
         </LinearLayout>
+
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -837,5 +838,6 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="26dp"
         android:backgroundTint="@color/blue"
-        android:src="@drawable/ic_more" />
+        android:src="@drawable/ic_more"
+        app:tint ="@color/white"/>
 </RelativeLayout>
