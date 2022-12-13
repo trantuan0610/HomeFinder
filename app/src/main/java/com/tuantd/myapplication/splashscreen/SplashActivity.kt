@@ -19,16 +19,19 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        intent.extras?.let {
-            for (key in it.keySet()) {
-                val value = intent.extras?.getString(key).toString()
-                if (key == "roomId"){
-                    roomId = value
-                }else if (key == "postId"){
-                    postId = value
+
+            intent.extras?.let {
+                for (key in it.keySet()) {
+                    val value = intent.extras?.getString(key).toString()
+                    if (key == "roomId"){
+                        roomId = value
+                    }else if (key == "postId"){
+                        postId = value
+                    }
                 }
             }
-        }
+
+
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (roomId == "" && postId == ""){
