@@ -216,7 +216,7 @@ class DetailRoomActivity : AppCompatActivity() {
                 if(sodiem>0){
                     binding.tvRate.text = "Đánh giá: "+(sodiem/dem).toString().substring(0,3)+"/5"
                 }else{
-                    binding.tvRate.text = "Chưa có Đánh giá!"
+                    binding.tvRate.text = "Chưa có đánh giá!"
                 }
 
             }
@@ -269,7 +269,7 @@ class DetailRoomActivity : AppCompatActivity() {
                         binding.tvDetailDes.text = it.mo_ta
                         binding.tvtitle.text = it.tieu_de
                         binding.tvTitle2.text = it.tieu_de
-                        binding.tvName.text = it.name + "-" + it.sdt
+                        binding.tvName.text = it.name + " - " + it.sdt
                         binding.tvDate.text = "Ngày đăng: " + it.thoi_gian
                         binding.tvLoaiPhong.text = "Loại Phòng: " + it.id_loai_bai_dang
 

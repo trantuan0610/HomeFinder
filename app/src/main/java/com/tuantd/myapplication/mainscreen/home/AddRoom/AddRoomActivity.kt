@@ -29,6 +29,7 @@ import com.squareup.picasso.Picasso
 import com.tuantd.myapplication.R
 import com.tuantd.myapplication.databinding.ActivityAddRoomBinding
 import com.tuantd.myapplication.dialog.LoadingDialog
+import com.tuantd.myapplication.mainscreen.account.myRoom.MyRoomActivity
 import com.tuantd.myapplication.mainscreen.home.DetailRoom.FavouriteRoom
 import com.tuantd.myapplication.mainscreen.home.Room
 import java.text.SimpleDateFormat
@@ -588,6 +589,8 @@ class AddRoomActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
                 hiddenLoading()
+                val intent = Intent(this, MyRoomActivity::class.java)
+                startActivity(intent)
                 finish()
             } else {
 //                Toast.makeText(

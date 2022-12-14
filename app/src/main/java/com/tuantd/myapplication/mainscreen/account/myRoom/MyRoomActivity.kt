@@ -8,7 +8,9 @@ import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.tuantd.myapplication.databinding.ActivityMyRoomBinding
+import com.tuantd.myapplication.mainscreen.MainActivity
 import com.tuantd.myapplication.mainscreen.account.myRoom.ViewPagerAdapter.ViewPagerAdapter
+import com.tuantd.myapplication.mainscreen.home.AddRoom.AddRoomActivity
 import com.tuantd.myapplication.mainscreen.home.Room
 import com.tuantd.myapplication.mainscreen.home.RoomsAdapter
 
@@ -40,7 +42,11 @@ class MyRoomActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
-
+        binding.btnAdd.setOnClickListener {
+            val intent = Intent(this, AddRoomActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
 

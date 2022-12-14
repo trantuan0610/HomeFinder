@@ -41,13 +41,13 @@
                     android:maxLines="1"
                     android:text="Chi tiết phòng trọ"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <ImageButton
                     android:id="@+id/like"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="0.75"
                     android:backgroundTint="@color/blue"
                     android:src="@drawable/ic_dontlike"
                     android:visibility="visible" />
@@ -56,7 +56,7 @@
                     android:id="@+id/dontlike"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="0.75"
                     android:backgroundTint="@color/blue"
                     android:src="@drawable/ic_like2"
                     android:visibility="gone" />
@@ -66,7 +66,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="3dp"
-                    android:layout_weight="1"
+                    android:layout_weight="0.75"
                     android:backgroundTint="@color/blue"
                     android:src="@drawable/ic_share" />
 
@@ -136,7 +136,6 @@
                     android:id="@+id/rltArea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvRoomAddress"
                     android:layout_marginTop="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -145,7 +144,6 @@
                         android:id="@+id/view2"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_below="@+id/tvRoomAddress"
                         android:background="@drawable/photo_sizel"
 
                         />
@@ -155,10 +153,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="30dp"
-                        android:layout_toRightOf="@+id/view2"
                         android:text="30 m2"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
+                    <View
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/ic_calendar"
+                        />
 
                     <TextView
                         android:id="@+id/tvDate"
@@ -220,13 +222,6 @@
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/tvLoaiPhong"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Loại Phòng: "
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -253,9 +248,30 @@
                         android:id="@+id/tvPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Loại Phòng:"
+                        android:text="2000000"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/ic_house" />
+
+                    <TextView
+                        android:id="@+id/tvLoaiPhong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Loại Phòng: "
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
                 </LinearLayout>
 
 

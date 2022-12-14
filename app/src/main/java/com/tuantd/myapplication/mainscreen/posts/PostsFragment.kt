@@ -91,10 +91,10 @@ private fun retrieveDataFromDatabase() {
                 val room = eachRoom.value as? HashMap<*, *>
                 val data = Posts(
                     id_bai_viet = room?.get("id_bai_viet") as String,
-                    tieu_de = room["tieu_de"] as String,
-                    noi_dung = room["noi_dung"] as String,
-                    hinh_anh = room["hinh_anh"] as String,
-                    thoi_gian = room["thoi_gian"] as String
+                    tieu_de = room["tieu_de"] as String?,
+                    noi_dung = room["noi_dung"] as String?,
+                    hinh_anh = room["hinh_anh"] as String?,
+                    thoi_gian = room["thoi_gian"] as String?
                 )
                 postList.add(data)
             }

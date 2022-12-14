@@ -14,6 +14,6 @@
         android:title="Bài Viết" />
     <item
         android:id="@+id/account"
-        android:icon="@drawable/ic_more"
+        android:icon="@drawable/ic_account"
         android:title="Tài Khoản" />
 </menu>
