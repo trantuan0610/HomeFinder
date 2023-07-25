@@ -19,7 +19,10 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-
+            var uri = intent.data
+        if (uri != null) {
+          var path = uri.toString()
+        }
             intent.extras?.let {
                 for (key in it.keySet()) {
                     val value = intent.extras?.getString(key).toString()
